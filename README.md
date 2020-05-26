@@ -14,3 +14,16 @@ npm run start:dev
 ```js
 npm start
 ```
+
+## Git / Github
+
+Working branch for development merges: dev
+Deployment branch for Heroku: master
+
+Workflow: 
+- feature branches for development
+- merge working feature into dev
+- merge dev into master
+
+AVOID AT ALL COSTS
+- working directly with master -> always merge from dev so we will keep dev up to date and avoid major conflicts between master and dev
