@@ -2,11 +2,11 @@
   "name": "backend",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start:dev": "NODE_ENV=development nodemon ./app.js localhost:5000",
-    "start": "NODE_ENV=production node ./app.js"
+    "start:dev": "nodemon -e 'process.env.NODE_ENV = process.env.NODE_ENV || \"development\"; require(\"./app.js\");'",
+    "start": "node -r 'NODE_ENV=production ./app.js'"
   },
   "keywords": [],
   "author": "",
@@ -17,5 +17,11 @@
   },
   "devDependencies": {
     "nodemon": "^2.0.4"
+  },
+  "prettier": {
+    "trailingComma": "all",
+    "tabWidth": 2,
+    "semi": true,
+    "singleQuote": true
   }
 }

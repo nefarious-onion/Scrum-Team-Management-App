@@ -1,8 +1,9 @@
+require('dotenv').config()
 const express = require('express');
 const path = require('path');
 
-const PORT = process.env.PORT || 5000;
-const isDev = process.env.NODE_ENV === 'development';
+const PORT = process.env.PORT;
+const isDev = process.env.NODE_ENV || 'development';
 const FRONTEND_ORIGIN = "http://localhost:3000";
 
 const app = express();
@@ -29,5 +30,5 @@ app.get('/ping', (req, res) => {
 
 app.listen(PORT, () => {
     console.log('Server started', PORT);
-    console.log('NODE_ENV=', process.env.NODE_ENV)
+    console.log('NODE_ENV =', process.env.NODE_ENV)
 })
