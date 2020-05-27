@@ -9,4 +9,7 @@ router.get("/test", userstoriesService.userstoriesTest);
 // get all the userstories from the DB
 router.get("/", userstoriesService.getAllStories);
 
+// create a new userstory
+router.post("/", userstoriesService.createNewStory);
+
 module.exports = router;
