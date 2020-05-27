@@ -6,6 +6,7 @@ const isDev = true; /* process.env.NODE_ENV === 'development' */
 const FRONTEND_ORIGIN = "http://localhost:3000";
 
 const dbService = require("./api/db/db.service");
+const userstoriesRouter = require("./api/userstories/userstories.router.js");
 
 const app = express();
 app.use(express.json());
@@ -32,6 +33,9 @@ if (isDev) {
 
 // establish connection with the DB
 dbService.DBconnection();
+
+// router for handling userstories
+app.use("/userstory", userstoriesRouter);
 
 // test endpoint
 app.get("/ping", (req, res) => {

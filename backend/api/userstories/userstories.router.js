@@ -1,12 +1,12 @@
-// endpoints
+// endpoints referencing functions from userstories.service
+const userstoriesService = require("./userstories.service");
+const express = require("express");
+const router = express.Router(); // do I need ({mergeParams: true}) ??
+
+// TEST
+router.get("/test", userstoriesService.userstoriesTest);
 
 // get all the userstories from the DB
-app.get('/userstory', function (req, res) {
-    Userstory.find({}, function (err, resp) {
-        if (resp.length === 0) {
-            res.send('The userstory database is empty.')
-        } else {
-            res.send(resp);
-        }
-    });
-});
+router.get("/", userstoriesService.getAllStories);
+
+module.exports = router;
