@@ -15,6 +15,9 @@ router.post('/', userstoriesService.createNewStory);
 // get one story by ID
 router.get('/:story_id', userstoriesService.getStoryByID);
 
+// patch one story by ID
+router.patch('/:story_id', userstoriesService.patchStoryByID);
+
 // delete one story by ID
 router.delete('/:story_id', userstoriesService.deleteStoryByID);
 

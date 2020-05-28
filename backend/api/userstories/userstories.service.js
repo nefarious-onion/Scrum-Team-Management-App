@@ -64,7 +64,7 @@ const getStoryByID = (req, res) => {
       if (!result || result === null) {
         return res
           .status(404)
-          .json({ message: 'no result found for this ID' })
+          .json({ message: 'No result found for this ID' })
           .end();
       }
 
@@ -76,6 +76,45 @@ const getStoryByID = (req, res) => {
       res.status(400).json({
         message:
           'Error when fetching single story by ID - invalid format of ID',
+      });
+    });
+};
+
+// patch story by ID
+// it takes the title and description form request - anything else is ignored
+// it takes the title and description as they are - string, empty string, null if not provided !!!
+const patchStoryByID = (req, res) => {
+  // find the entry with ID
+  const filter = { _id: req.params.story_id };
+  // what info will be updated
+  const update = {
+    $set: {
+      title: req.body.title,
+      descr: req.body.descr,
+    },
+  };
+  // return the updated entry instead of the original one
+  const options = { new: true };
+
+  return Userstory.findOneAndUpdate(filter, update, options)
+    .then((updatedDocument) => {
+      if (!updatedDocument || updatedDocument === null) {
+        console.log('No document matches the filter: ' + filter);
+        return res
+          .status(404)
+          .json({ message: 'No entry found for this ID' })
+          .end();
+      }
+
+      console.log('Updated: ' + updatedDocument);
+      return res
+        .status(200)
+        .json('Successfully updated document: ' + updatedDocument);
+    })
+    .catch((err) => {
+      console.log('Error when updating story: ' + err);
+      res.status(400).json({
+        message: 'Error when updating story by ID - invalid format of ID',
       });
     });
 };
@@ -112,5 +151,6 @@ module.exports = {
   getAllStories,
   createNewStory,
   getStoryByID,
+  patchStoryByID,
   deleteStoryByID,
 };
