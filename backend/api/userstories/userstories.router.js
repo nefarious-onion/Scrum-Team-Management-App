@@ -12,4 +12,7 @@ router.get("/", userstoriesService.getAllStories);
 // create a new userstory
 router.post("/", userstoriesService.createNewStory);
 
+// get one story by ID
+router.get("/:story_id", userstoriesService.getStoryByID);
+
 module.exports = router;

@@ -21,7 +21,6 @@ const getAllStories = (req, res) => {
 };
 
 // create a new userstory, save to database
-
 const createNewStory = (req, res) => {
   // check if the req.body has a title - if not, reject saving
   if (
@@ -55,8 +54,21 @@ const createNewStory = (req, res) => {
   }
 };
 
+// get one story by ID - !!!! works for existing IDs, can't handle the error though
+// UnhandledPromiseRejectionWarning: CastError: Cast to ObjectId failed for value "5ece4f77d2914c203bbfa9" at path "_id" for model "Userstory"
+const getStoryByID = (req, res) => {
+  Userstory.findById(req.params.story_id).then((result) => {
+    /* if (!result) {
+      return res.status(404).end();
+    } */
+    console.log(result);
+    return res.status(200).send(result);
+  });
+};
+
 module.exports = {
   userstoriesTest,
   getAllStories,
   createNewStory,
+  getStoryByID,
 };
