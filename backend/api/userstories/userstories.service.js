@@ -57,7 +57,7 @@ const createNewStory = (req, res) => {
 // get one story by ID
 // works for existing IDs
 // works for nonexisting IDs in the format of existing IDs (no result found')
-// for IDs in any different form than mongoose ID goes to .catch !!! (Error: Argument passed in must be a single String of 12 bytes or a string of 24 hex characters)
+// for IDs in any different form than mongoose ID goes to .catch (Error: Argument passed in must be a single String of 12 bytes or a string of 24 hex characters)
 const getStoryByID = (req, res) => {
   Userstory.findById(req.params.story_id)
     .then((result) => {
@@ -67,15 +67,44 @@ const getStoryByID = (req, res) => {
           .json({ message: 'no result found for this ID' })
           .end();
       }
+
       console.log(result);
       return res.status(200).json(result);
     })
     .catch((err) => {
       console.log(err);
       res.status(400).json({
-        message: 'error when fetching single story by ID - wrong format of ID',
+        message:
+          'Error when fetching single story by ID - invalid format of ID',
       });
     });
+};
+
+// delete one story by ID
+const deleteStoryByID = (req, res) => {
+  Userstory.findByIdAndRemove(req.params.story_id, (err, deletedStory) => {
+    // ex. if ID wrong format
+    if (err) {
+      console.log('Error when deleting story: ' + err);
+      return res.status(500).json({
+        message: 'Error when deleting a story by ID - invalid format of ID',
+      });
+    }
+
+    // if ID valid format, but not in DB
+    if (!deletedStory || deletedStory === null) {
+      return res
+        .status(404)
+        .json({ message: 'no result found for this ID' })
+        .end();
+    }
+
+    console.log('Deleted story: ' + deletedStory);
+    return res.status(200).json({
+      message: 'Story successfully deleted',
+      deletedStory,
+    });
+  });
 };
 
 module.exports = {
@@ -83,4 +112,5 @@ module.exports = {
   getAllStories,
   createNewStory,
   getStoryByID,
+  deleteStoryByID,
 };
