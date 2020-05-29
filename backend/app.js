@@ -36,7 +36,7 @@ if (isDev) {
 dbService.DBconnection();
 
 // router for handling userstories
-app.use('api/userstory', userstoriesRouter);
+app.use('/api/userstory', userstoriesRouter);
 
 // test endpoint
 app.get('/ping', (req, res) => {
