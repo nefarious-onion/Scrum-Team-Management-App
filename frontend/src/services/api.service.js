@@ -14,8 +14,6 @@ const STORY_URL = baseUrl + 'userstory';
 // updateStory --- storyId, storyObject
 // deleteStory --- storyID
 
-
-
 //get all userstories
 /**
  * @returns {Promise} List of userstories
@@ -47,22 +45,5 @@ export const createStory = async (story) => {
         console.log('Story saved', response.data);
     } catch (error) {
         console.log('Story not saved', error);
-    }
-}
-
-//update userstory
-
-//delete
-/**
- * @param {string} storyId userstory id from database
- * @returns {Promise} deleted userstory
- */
-export const deleteStory = async (storyId) => {
-    const DELETE_URL = STORY_URL + `/${storyId}`;
-    try {
-        const response = await axios.delete(DELETE_URL);
-        console.log('Story deleted', response.data);
-    } catch (error) {
-        console.log('Story not deleted', error);
     }
 }
