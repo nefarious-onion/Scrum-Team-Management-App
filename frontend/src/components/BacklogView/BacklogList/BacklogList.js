@@ -3,7 +3,7 @@ import Userstory from '../../Userstory/Userstory'
 
 const BacklogList = ({ backloglist }) => {
     const storyList = backloglist.map(story =>
-        <Userstory key={story.id} title={story.title} id={story.id} />
+        <Userstory key={story._id} title={story.title} _id={story._id} desc={story.descr} />
     );
     return (
         <div>

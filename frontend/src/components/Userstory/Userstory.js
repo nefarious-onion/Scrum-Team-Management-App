@@ -1,11 +1,12 @@
 import React from 'react';
 
-const Userstory = ({ title, id }) => {
-
+const Userstory = ({ title, _id, desc }) => {
+    //build userstory here
     return (
         <div>
             <p>{title}</p>
-            <p>{id}</p>
+            <p>{_id}</p>
+            <p>{desc}</p>
         </div>
     );
 }

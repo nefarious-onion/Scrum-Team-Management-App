@@ -1,9 +1,9 @@
 import React from 'react';
 import Userstory from '../../Userstory/Userstory'
-const SprintList = ({ backloglist }) => {
-
-    const storyList = backloglist.map(story =>
-        <Userstory key={story.id} id={story.id} title={story.title} />
+const SprintList = ({ sprintloglist }) => {
+    //mapping sprintloglist from back-end
+    const storyList = sprintloglist.map(story =>
+        <Userstory key={story._id} _id={story._id} title={story.title} desc={story.descr} />
     )
     return (
         <div>
