@@ -1,12 +1,15 @@
 import React from 'react';
 
-const Userstory = () => {
-
+const Userstory = ({ title, _id, desc }) => {
+    //build userstory here
     return (
         <div>
-            <div>Hello, i'm userstory</div>
+            <p>{title}</p>
+            <p>{_id}</p>
+            <p>{desc}</p>
         </div>
     );
 }
+
 
 export default Userstory;
