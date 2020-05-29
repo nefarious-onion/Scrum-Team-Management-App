@@ -12,7 +12,7 @@ const BacklogView = () => {
 
         <div>
             <BacklogList backloglist={backlogList} />
-            <SprintList backlogList={} />
+            <SprintList backloglist={backlogList} />
         </div>
     );
 }
