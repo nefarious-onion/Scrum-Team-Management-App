@@ -7,7 +7,7 @@
     "install:backend": "cd backend && npm install && cd ..",
     "install:frontend": "cd frontend && npm install && npm run build && cd ..",
     "install": "npm run install:backend && npm run install:frontend",
-    "start": "cd back-end && node app.js"
+    "start": "cd backend && node app.js"
   },
   "keywords": [],
   "author": "Anne Kokkonen",
