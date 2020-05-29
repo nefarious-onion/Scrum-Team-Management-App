@@ -56,7 +56,7 @@ const createNewStory = (req, res) => {
 
 // get one story by ID
 // works for existing IDs
-// works for nonexisting IDs in the format of existing IDs (no result found')
+// works for nonexisting IDs in the format of existing IDs ('no result found')
 // for IDs in any different form than mongoose ID goes to .catch (Error: Argument passed in must be a single String of 12 bytes or a string of 24 hex characters)
 const getStoryByID = (req, res) => {
   Userstory.findById(req.params.story_id)
@@ -73,9 +73,8 @@ const getStoryByID = (req, res) => {
     })
     .catch((err) => {
       console.log(err);
-      res.status(400).json({
-        message:
-          'Error when fetching single story by ID - invalid format of ID',
+      res.status(500).json({
+        message: 'Server error - story fetching failed',
       });
     });
 };
@@ -85,18 +84,16 @@ const getStoryByID = (req, res) => {
 // it takes the title and description as they are - string, empty string, null if not provided !!!
 const patchStoryByID = (req, res) => {
   // find the entry with ID
-  const filter = { _id: req.params.story_id };
+  const storyID = { _id: req.params.story_id };
   // what info will be updated
-  const update = {
-    $set: {
-      title: req.body.title,
-      descr: req.body.descr,
-    },
+  const updatedStory = {
+    title: req.body.title,
+    descr: req.body.descr,
   };
   // return the updated entry instead of the original one
-  const options = { new: true };
+  const returnUpdatedEntry = { new: true };
 
-  return Userstory.findOneAndUpdate(filter, update, options)
+  return Userstory.findOneAndUpdate(storyID, updatedStory, returnUpdatedEntry)
     .then((updatedDocument) => {
       if (!updatedDocument || updatedDocument === null) {
         console.log('No document matches the filter: ' + filter);
@@ -113,8 +110,8 @@ const patchStoryByID = (req, res) => {
     })
     .catch((err) => {
       console.log('Error when updating story: ' + err);
-      res.status(400).json({
-        message: 'Error when updating story by ID - invalid format of ID',
+      res.status(500).json({
+        message: 'Server error - story updating failed',
       });
     });
 };
@@ -126,7 +123,7 @@ const deleteStoryByID = (req, res) => {
     if (err) {
       console.log('Error when deleting story: ' + err);
       return res.status(500).json({
-        message: 'Error when deleting a story by ID - invalid format of ID',
+        message: 'Server error - story deleting failed',
       });
     }
 
