@@ -5,8 +5,8 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start:dev": "nodemon -e 'process.env.NODE_ENV = process.env.NODE_ENV || \"development\"; require(\"./app.js\");'",
-    "start": "node -r 'NODE_ENV=production ./app.js'"
+    "start:dev": "NODE_ENV=development nodemon ./app.js localhost:5000",
+    "start": "NODE_ENV=production node ./app.js"
   },
   "keywords": [],
   "author": "",

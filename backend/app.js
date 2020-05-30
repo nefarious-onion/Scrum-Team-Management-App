@@ -3,7 +3,7 @@ const express = require('express');
 const path = require('path');
 
 const PORT = process.env.PORT;
-const isDev = process.env.NODE_ENV || 'development';
+const isDev = process.env.NODE_ENV === 'development';
 const FRONTEND_ORIGIN = 'http://localhost:3000';
 
 const dbService = require('./api/db/db.service');
