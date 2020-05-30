@@ -18,7 +18,7 @@ const BacklogView = () => {
             .catch((err) => {
                 console.log(new Error(err))
             })
-    }, [])
+    }, []);
 
     return (
         <div>

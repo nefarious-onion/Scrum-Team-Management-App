@@ -5,8 +5,10 @@
   "main": "app.js",
   "scripts": {
     "install:backend": "cd backend && npm install && cd ..",
-    "install:frontend": "cd frontend && npm install && npm run build && cd ..",
+    "install:frontend": "cd frontend && npm install && cd ..",
     "install": "npm run install:backend && npm run install:frontend",
+    "build": "npm run build:frontend",
+    "build:frontend": "cd frontend && npm run build && cd ..",
     "start": "cd backend && node app.js"
   },
   "keywords": [],
