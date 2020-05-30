@@ -12,6 +12,13 @@ const userstoriesRouter = require('./api/userstories/userstories.router.js');
 const app = express();
 app.use(express.json());
 
+// establish connection with the DB
+dbService.DBconnection();
+
+// router for handling userstories
+// api routes need to be defined bedfore static paths
+app.use('/api/userstory', userstoriesRouter);
+
 if (isDev) {
   app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', FRONTEND_ORIGIN);
@@ -31,12 +38,6 @@ if (isDev) {
     );
   });
 }
-
-// establish connection with the DB
-dbService.DBconnection();
-
-// router for handling userstories
-app.use('/api/userstory', userstoriesRouter);
 
 // test endpoint
 app.get('/ping', (req, res) => {
