@@ -3,7 +3,7 @@ const express = require('express');
 const path = require('path');
 
 const PORT = process.env.PORT;
-const isDev = process.env.NODE_ENV || 'development';
+const isDev = process.env.NODE_ENV === 'development';
 const FRONTEND_ORIGIN = 'http://localhost:3000';
 
 const dbService = require('./api/db/db.service');
@@ -11,6 +11,14 @@ const userstoriesRouter = require('./api/userstories/userstories.router.js');
 
 const app = express();
 app.use(express.json());
+
+// establish connection with the DB
+dbService.DBconnection();
+
+// router for handling userstories
+// order of defining routes is important:
+// api routes need to be defined before static paths
+app.use('/api/userstory', userstoriesRouter);
 
 if (isDev) {
   app.use((req, res, next) => {
@@ -31,12 +39,6 @@ if (isDev) {
     );
   });
 }
-
-// establish connection with the DB
-dbService.DBconnection();
-
-// router for handling userstories
-app.use('/api/userstory', userstoriesRouter);
 
 // test endpoint
 app.get('/ping', (req, res) => {
