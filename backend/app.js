@@ -16,7 +16,8 @@ app.use(express.json());
 dbService.DBconnection();
 
 // router for handling userstories
-// api routes need to be defined bedfore static paths
+// order of defining routes is important:
+// api routes need to be defined before static paths
 app.use('/api/userstory', userstoriesRouter);
 
 if (isDev) {
