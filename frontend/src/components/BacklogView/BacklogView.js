@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import BacklogList from './BacklogList/BacklogList';
 import SprintList from './SprintList/SprintList';
+import AddUserstoryForm from '../AddUserstoryForm/AddUserstoryForm';
 import { getStories, getStory } from '../../services/api.service';
 
 const BacklogView = () => {
@@ -22,6 +23,7 @@ const BacklogView = () => {
 
     return (
         <div>
+            <AddUserstoryForm/>
             <BacklogList backloglist={backlogList} />
             <SprintList sprintloglist={sprintlogList} />
         </div>
