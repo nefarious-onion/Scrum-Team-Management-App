@@ -18,7 +18,7 @@ const App = () => {
                     <Route path='/scrumboard' />
                     <Route path='/meetings' />
                     <Route path='/calendar' />
-                    <Router path='/overview' />
+                    <Route path='/overview' />
                 </Switch>
             </div>
         </Router>
