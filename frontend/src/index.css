@@ -8,13 +8,13 @@ body {
 nav {
   font-family: 'Roboto Mono', monospace;
   font-size: 1rem;
-  padding: 1rem;
+
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
   background-color: rgb(221, 221, 221);
-  height: 4.5rem;
+  height: 5rem;
   width: 100%;
   letter-spacing: 2px;
   text-transform: uppercase;
@@ -22,7 +22,7 @@ nav {
 
 a {
   display: block;
-  padding: 1.5rem;
+  padding: 2rem;
   color: black;
 }
 
