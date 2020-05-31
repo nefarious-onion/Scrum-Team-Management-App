@@ -5,15 +5,16 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start:dev": "nodemon -e 'process.env.NODE_ENV = process.env.NODE_ENV || \"development\"; require(\"./app.js\");'",
-    "start": "node -r 'NODE_ENV=production ./app.js'"
+    "start:dev": "cross-env NODE_ENV=development nodemon ./app.js localhost:5000",
+    "start": "cross-env NODE_ENV=production node ./app.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.1",
-    "mongoose": "^5.9.15"
+    "mongoose": "^5.9.15",
+    "cross-env": "^7.0.2"
   },
   "devDependencies": {
     "nodemon": "^2.0.4"
