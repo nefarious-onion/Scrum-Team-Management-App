@@ -4,6 +4,7 @@ const path = require('path');
 
 const PORT = process.env.PORT;
 const isDev = process.env.NODE_ENV === 'development';
+const isProduction = process.env.NODE_ENV === 'production';
 const FRONTEND_ORIGIN = 'http://localhost:3000';
 
 const dbService = require('./api/db/db.service');
@@ -15,11 +16,8 @@ app.use(express.json());
 // establish connection with the DB
 dbService.DBconnection();
 
-// router for handling userstories
-// order of defining routes is important:
-// api routes need to be defined before static paths
-app.use('/api/userstory', userstoriesRouter);
-
+//check if env is development => use cors
+//these have to be defined before the routes!!
 if (isDev) {
   app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', FRONTEND_ORIGIN);
@@ -30,7 +28,15 @@ if (isDev) {
     res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE');
     next();
   });
-} else {
+ 
+}
+// router for handling userstories
+// order of defining routes is important:
+// api routes need to be defined before static paths
+app.use('/api/userstory', userstoriesRouter);
+
+//check if env is production => use static path
+if (isProduction) {
   app.use(express.static(path.join(__dirname, '../', 'frontend', 'build')));
 
   app.get('/*', (req, res) => {
@@ -48,4 +54,5 @@ app.get('/ping', (req, res) => {
 app.listen(PORT, () => {
   console.log('Server started', PORT);
   console.log('NODE_ENV =', process.env.NODE_ENV);
+  
 });
