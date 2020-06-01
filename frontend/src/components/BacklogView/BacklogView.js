@@ -22,8 +22,7 @@ const BacklogView = () => {
     }, []);
 
     return (
-        <div>
-            <AddUserstoryForm/>
+        <div className="backlogview">
             <BacklogList backloglist={backlogList} />
             <SprintList sprintloglist={sprintlogList} />
         </div>
