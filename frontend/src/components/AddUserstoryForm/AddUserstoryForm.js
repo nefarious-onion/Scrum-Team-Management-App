@@ -1,13 +1,34 @@
 import React, { useState } from 'react';
 
-const AddUserstoryForm = () => {
-    const [storyInput, setStoryInput] = useState(undefined); 
+const AddUserstoryForm = ({onStoryCreate}) => {
+    const [storyInput, setStoryInput] = useState({});
+
+    const onSubmit = event => {
+        event.preventDefault();
+
+        //input validation
+        const isInputValid = storyInput.title.length > 5;
+
+        if(isInputValid) {
+            setStoryInput({});
+            onStoryCreate(storyInput);
+            console.log('this is the new userstory', storyInput);
+        } else {
+            console.log('userstory needs to be minimum of 5 characters')
+        }
+    }
+
+    const onInputChange = event => {
+        event.persist();
+        setStoryInput(storyInput => ({...storyInput, [event.target.name]: event.target.value}));
+        console.log(storyInput);
+    }
+
     return (
         <div>
-            <form>
-                 <p>{storyInput}</p>
-                <textarea name='storyInput' value={storyInput} onChange={event => setStoryInput(event.target.value)} required>
-                </textarea>
+            <form onSubmit={onSubmit}>
+                 {/* <p>{storyInput.title}</p> */}
+                <input  type='text' name='title' value={storyInput.title} onChange={onInputChange} required/>
                 <input type='submit' value='Add new userstory'/>
             </form>
         </div>
