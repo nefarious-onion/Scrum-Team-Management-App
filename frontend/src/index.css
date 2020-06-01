@@ -34,9 +34,3 @@ nav {
 .logo {
   letter-spacing: 6px;
 }
-
-.backlogview {
-  width: 100%;
-  display: inline-flex;
-  justify-content: space-evenly;
-}
