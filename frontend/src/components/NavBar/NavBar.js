@@ -5,20 +5,20 @@ const NavBar = () => {
         <nav>
             <Link to='/'><h1 className="logo">LIRA</h1></Link>
             <ul>
-                <li className='nav'>
-                    <Link to='/backlog'>Product Backlog</Link>
+                <li className='nav-item'>
+                    <Link className="nav-link" to='/backlog'>Product Backlog</Link>
                 </li>
-                <li className='nav'>
-                    <Link to='/scrumboard'>Scrum Board</Link>
+                <li className='nav-item'>
+                    <Link className="nav-link" to='/scrumboard'>Scrum Board</Link>
                 </li>
-                <li className='nav'>
-                    <Link to='/meetings'>Meetings</Link>
+                <li className='nav-item'>
+                    <Link className="nav-link" to='/meetings'>Meetings</Link>
                 </li>
-                <li className='nav'>
-                    <Link to='/calendar'>Calendar</Link>
+                <li className='nav-item'>
+                    <Link className="nav-link" to='/calendar'>Calendar</Link>
                 </li>
-                <li className='nav'>
-                    <Link to='/overview'>Project Overview</Link>
+                <li className='nav-item'>
+                    <Link className="nav-link" to='/overview'>Project Overview</Link>
                 </li>
             </ul>
         </nav>
