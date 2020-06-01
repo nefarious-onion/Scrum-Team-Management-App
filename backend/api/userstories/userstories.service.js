@@ -1,4 +1,5 @@
 const Userstory = require('./userstories.schema');
+const scrumlistsService = require('../scrumlists/scrumlists.service');
 
 // ADD ERROR HANDLING!!
 
@@ -32,6 +33,10 @@ const createNewStory = (req, res) => {
       .status(400)
       .json({ message: 'Story missing the title, saving rejected' });
   } else {
+    // id of the list where we want to ref this story - from endpoint param
+    const list_id = req.params.list_id;
+    // find the list NEED GET ONE LIST HERE
+    ///////////////const foundList = scrumlistsService.
     // create a new instance of a story with data from req body
     let newStory = new Userstory({
       title: req.body.title,

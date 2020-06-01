@@ -30,12 +30,13 @@ if (isDev) {
     next();
   });
 }
-// router for handling userstories
+
 // order of defining routes is important:
 // api routes need to be defined before static paths
-app.use('/api/userstory', userstoriesRouter);
 // router for handling scrum lists
 app.use('/api/scrumlist', scrumlistsRouter);
+// router for handling userstories
+app.use('/api/scrumlist/:list_id/userstory', userstoriesRouter);
 
 //check if env is production => use static path
 if (isProduction) {

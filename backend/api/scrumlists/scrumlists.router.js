@@ -9,16 +9,16 @@ router.get('/testscrumlist', scrumlistsService.scrumlistsTest);
 // get all the lists from the DB
 router.get('/', scrumlistsService.getAllLists);
 
-// create a new userstory
-//router.post('/', userstoriesService.createNewStory);
+// create a new list
+router.post('/', scrumlistsService.createNewList);
 
-// get one story by ID
-//router.get('/:story_id', userstoriesService.getStoryByID);
+// get one list by ID
+//router.get('/:list_id', scrumlistsService.);
 
-// patch one story by ID
-//router.patch('/:story_id', userstoriesService.patchStoryByID);
+// patch one list by ID
+//router.patch('/:list_id', scrumlistsService.);
 
-// delete one story by ID
-//router.delete('/:story_id', userstoriesService.deleteStoryByID);
+// delete one list by ID
+//router.delete('/:list_id', scrumlistsService.);
 
 module.exports = router;
