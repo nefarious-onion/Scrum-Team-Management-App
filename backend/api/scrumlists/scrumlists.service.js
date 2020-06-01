@@ -53,7 +53,7 @@ const createNewList = (req, res) => {
 };
 
 // get one list by ID
-/* const getListByID = (req, res) => {
+const getListByID = (req, res) => {
   Scrumlist.findById(req.params.list_id)
     .then((result) => {
       if (!result || result === null) {
@@ -72,7 +72,7 @@ const createNewList = (req, res) => {
         message: 'Server error - list fetching failed',
       });
     });
-}; */
+};
 
 // delete one list by ID
 const deleteListByID = (req, res) => {
@@ -105,6 +105,6 @@ module.exports = {
   scrumlistsTest,
   getAllLists,
   createNewList,
-  /* getListByID, */
+  getListByID,
   deleteListByID,
 };

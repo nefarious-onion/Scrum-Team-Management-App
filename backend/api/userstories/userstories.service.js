@@ -1,5 +1,5 @@
 const Userstory = require('./userstories.schema');
-const scrumlistsService = require('../scrumlists/scrumlists.service');
+const Scrumlist = require('../scrumlists/scrumlists.schema');
 
 // ADD ERROR HANDLING!!
 
@@ -23,9 +23,6 @@ const getAllStories = (req, res) => {
 
 // create a new userstory, save to database
 const createNewStory = (req, res) => {
-  // id of the list where we want to ref this story - from endpoint param
-  const list_id = req.params.list_id;
-  console.log(list_id);
   // check if the req.body has a title - if not, reject saving
   if (
     req.body.title === '' ||
@@ -36,27 +33,43 @@ const createNewStory = (req, res) => {
       .status(400)
       .json({ message: 'Story missing the title, saving rejected' });
   } else {
-    // find the list
-    //const foundList = scrumlistsService.getListByID(req, res);
-    //console.log(foundList);
-    // create a new instance of a story with data from req body
-    let newStory = new Userstory({
-      title: req.body.title,
-      descr: req.body.descr,
-    });
+    // find the list where we want to ref this story by list id from endpoint param
+    Scrumlist.findById(req.params.list_id)
+      .then((returnedList) => {
+        console.log('List found: ' + returnedList);
+        // create a new instance of a story with data from req body
+        let newStory = new Userstory({
+          title: req.body.title,
+          descr: req.body.descr,
+        });
 
-    // save the new instance to the DB
-    newStory
-      .save()
-      .then((result) => {
-        console.log('New story saved to DB: ' + result);
-        res.status(201).json(newStory);
+        // save the new instance to the DB
+        newStory
+          .save()
+          .then((result) => {
+            console.log('New story saved to DB: ' + result);
+            // push the new story into the ref array of the list (from endpoint params)
+            returnedList.stories.push(newStory);
+            // save the new array to the entry in list collection
+            returnedList.save();
+            res.status(201).json(newStory);
+          })
+          .catch((err) => {
+            res
+              .status(500)
+              .json({ message: 'error when trying to save new story to DB' });
+            console.log('Error when trying to save new story: ' + err);
+          });
+        return returnedList;
       })
       .catch((err) => {
-        res
-          .status(500)
-          .json({ message: 'error when trying to save new story to DB' });
-        console.log('Error when trying to save new story: ' + err);
+        console.log(
+          'Error when fetching the list while cerating new story: ' + err,
+        );
+        res.status(500).json({
+          message: 'error when fetching the list while creating new story',
+        });
+        return;
       });
   }
 };
