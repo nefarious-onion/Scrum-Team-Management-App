@@ -5,8 +5,6 @@ const Userstory = ({ title, _id, desc }) => {
     return (
         <div>
             <p>{title}</p>
-            <p>{_id}</p>
-            <p>{desc}</p>
         </div>
     );
 }

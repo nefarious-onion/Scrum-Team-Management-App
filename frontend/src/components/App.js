@@ -1,5 +1,6 @@
 import React from 'react';
 import BacklogView from './BacklogView/BacklogView';
+import ScrumboardView from './ScrumboardView/ScrumboardView'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import NavBar from './NavBar/NavBar'
 
@@ -15,7 +16,7 @@ const App = () => {
 
                 <Switch>
                     <Route exact path='/backlog' component={BacklogView} />
-                    <Route path='/scrumboard' />
+                    <Route path='/scrumboard' component={ScrumboardView} />
                     <Route path='/meetings' />
                     <Route path='/calendar' />
                     <Route path='/overview' />

@@ -6,35 +6,6 @@ body {
   box-sizing: border-box;
 }
 
-nav {
-  font-size: 1rem;
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
-  background-color: rgb(221, 221, 221);
-  height: 5rem;
-  width: 100%;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-}
-
-.nav-link {
-  display: block;
-  padding: 2rem;
-  color: black;
-}
-
-.nav-item,
-.nav-link {
-  text-decoration: none;
-  list-style: none;
-  display: inline-flex;
-}
-.logo {
-  letter-spacing: 6px;
-}
-
 .backlogview {
   width: 100%;
   display: inline-flex;
