@@ -23,6 +23,9 @@ const getAllStories = (req, res) => {
 
 // create a new userstory, save to database
 const createNewStory = (req, res) => {
+  // id of the list where we want to ref this story - from endpoint param
+  const list_id = req.params.list_id;
+  console.log(list_id);
   // check if the req.body has a title - if not, reject saving
   if (
     req.body.title === '' ||
@@ -33,10 +36,9 @@ const createNewStory = (req, res) => {
       .status(400)
       .json({ message: 'Story missing the title, saving rejected' });
   } else {
-    // id of the list where we want to ref this story - from endpoint param
-    const list_id = req.params.list_id;
-    // find the list NEED GET ONE LIST HERE
-    ///////////////const foundList = scrumlistsService.
+    // find the list
+    //const foundList = scrumlistsService.getListByID(req, res);
+    //console.log(foundList);
     // create a new instance of a story with data from req body
     let newStory = new Userstory({
       title: req.body.title,

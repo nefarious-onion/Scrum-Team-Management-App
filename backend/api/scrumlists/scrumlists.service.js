@@ -52,8 +52,59 @@ const createNewList = (req, res) => {
   }
 };
 
+// get one list by ID
+/* const getListByID = (req, res) => {
+  Scrumlist.findById(req.params.list_id)
+    .then((result) => {
+      if (!result || result === null) {
+        return res
+          .status(404)
+          .json({ message: 'No list found for this ID' })
+          .end();
+      }
+
+      console.log(result);
+      return res.status(200).json(result);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json({
+        message: 'Server error - list fetching failed',
+      });
+    });
+}; */
+
+// delete one list by ID
+const deleteListByID = (req, res) => {
+  Scrumlist.findByIdAndRemove(req.params.list_id, (err, deletedList) => {
+    // ex. if ID wrong format
+    if (err) {
+      console.log('Error when deleting list: ' + err);
+      return res.status(500).json({
+        message: 'Server error - list deleting failed',
+      });
+    }
+
+    // if ID valid format, but not in DB
+    if (!deletedList || deletedList === null) {
+      return res
+        .status(404)
+        .json({ message: 'no result found for this ID' })
+        .end();
+    }
+
+    console.log('Deleted list: ' + deletedList);
+    return res.status(200).json({
+      message: 'List successfully deleted',
+      deletedList,
+    });
+  });
+};
+
 module.exports = {
   scrumlistsTest,
   getAllLists,
   createNewList,
+  /* getListByID, */
+  deleteListByID,
 };

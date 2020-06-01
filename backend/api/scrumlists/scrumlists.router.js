@@ -13,12 +13,12 @@ router.get('/', scrumlistsService.getAllLists);
 router.post('/', scrumlistsService.createNewList);
 
 // get one list by ID
-//router.get('/:list_id', scrumlistsService.);
+//router.get('/:list_id', scrumlistsService.getListByID);
 
 // patch one list by ID
 //router.patch('/:list_id', scrumlistsService.);
 
 // delete one list by ID
-//router.delete('/:list_id', scrumlistsService.);
+router.delete('/:list_id', scrumlistsService.deleteListByID);
 
 module.exports = router;
