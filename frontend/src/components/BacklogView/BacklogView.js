@@ -21,7 +21,7 @@ const BacklogView = () => {
     }, []);
 
     return (
-        <div>
+        <div className="backlogview">
             <BacklogList backloglist={backlogList} />
             <SprintList sprintloglist={sprintlogList} />
         </div>
