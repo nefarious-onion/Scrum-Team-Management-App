@@ -1,12 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap');
 body {
+  font-family: 'Roboto Mono', monospace;
   padding: 0;
   margin: 0;
   box-sizing: border-box;
 }
 
 nav {
-  font-family: 'Roboto Mono', monospace;
   font-size: 1rem;
 
   display: flex;
@@ -35,4 +35,10 @@ a {
 }
 .logo {
   letter-spacing: 6px;
+}
+
+.backlogview {
+  width: 100%;
+  display: inline-flex;
+  justify-content: space-evenly;
 }
