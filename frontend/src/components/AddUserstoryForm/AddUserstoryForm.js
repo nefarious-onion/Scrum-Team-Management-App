@@ -1,35 +1,58 @@
 import React, { useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import './AddUserstoryForm.css';
 
-const AddUserstoryForm = ({onStoryCreate}) => {
-    const [storyInput, setStoryInput] = useState({});
+const AddUserstoryForm = ({ onStoryCreate, isVisible }) => {
+    const [storyInput, setStoryInput] = useState('');
+
+    if(!isVisible) {
+        return null;
+    }
 
     const onSubmit = event => {
         event.preventDefault();
 
         //input validation
-        const isInputValid = storyInput.title.length > 4;
+        const isInputValid = storyInput.length > 4;
 
-        if(isInputValid) {
-            setStoryInput({});
-            onStoryCreate(storyInput);
-            console.log('this is the new userstory', storyInput);
+        const newStory = {
+            title: String(storyInput)
+        }
+
+        if (isInputValid) {
+            onStoryCreate(newStory);
+            console.log('this is the new userstory', newStory);
+            setStoryInput('');
+
         } else {
             console.log('userstory needs to be minimum of 5 characters')
         }
     }
 
+    //controlled form: state gets the value from event.target.value / value is set to be the state
     const onInputChange = event => {
-        event.persist();
-        setStoryInput(storyInput => ({...storyInput, [event.target.name]: event.target.value}));
-        console.log(storyInput);
+        const _storyInput = event.target.value;
+        setStoryInput(_storyInput);
     }
 
+    console.log('render', storyInput.title);
+
     return (
-        <div>
+        <div className='form-container'>
             <form onSubmit={onSubmit}>
-                 {/* <p>{storyInput.title}</p> */}
-                <input  type='text' name='title' value={storyInput.title} onChange={onInputChange} required/>
-                <input type='submit' value='Add new userstory'/>
+                <div className='form__input-field'>
+                    <input
+                        className='form__text-input'
+                        type='text' 
+                        name='title'
+                        value={storyInput}
+                        placeholder='Write a new userstory...'
+                        onChange={onInputChange} required
+                    />
+                    <FontAwesomeIcon icon={faPlus} size='lg' onClick={onSubmit} />
+                </div>
+
             </form>
         </div>
     );
