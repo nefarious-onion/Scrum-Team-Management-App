@@ -9,13 +9,16 @@ scrumlistsTest = (req, res) => {
 
 // get all scrum lists from DB
 const getAllLists = (req, res) => {
-  Scrumlist.find({}, function (err, resp) {
-    if (resp.length === 0) {
-      res.send('There are no lists in the DB.');
-    } else {
-      res.send(resp);
-    }
-  });
+  Scrumlist.find({})
+    .populate('stories')
+    .exec((err, list) => {
+      if (err)
+        return res
+          .status(500)
+          .json({ message: 'Server error - lists fetching failed' });
+      console.log(list);
+      res.status(200).json(list);
+    });
 };
 
 // create a new scrum list, save to database
@@ -55,22 +58,19 @@ const createNewList = (req, res) => {
 // get one list by ID
 const getListByID = (req, res) => {
   Scrumlist.findById(req.params.list_id)
-    .then((result) => {
-      if (!result || result === null) {
+    .populate('stories')
+    .exec((err, list) => {
+      // general error
+      if (err)
         return res
-          .status(404)
-          .json({ message: 'No list found for this ID' })
-          .end();
-      }
-
-      console.log(result);
-      return res.status(200).json(result);
-    })
-    .catch((err) => {
-      console.log(err);
-      res.status(500).json({
-        message: 'Server error - list fetching failed',
-      });
+          .status(500)
+          .json({ message: 'Server error - list fetching failed' });
+      // if no list found for ID
+      if (!list || list === null)
+        return res.status(404).json({ message: 'No list found for this ID' });
+      // if ID valid, list found
+      console.log(list);
+      res.status(200).json(list);
     });
 };
 
