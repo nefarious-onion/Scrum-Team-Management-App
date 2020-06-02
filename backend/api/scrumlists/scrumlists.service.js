@@ -76,7 +76,7 @@ const getListByID = (req, res) => {
 
 // delete one list by ID
 const deleteListByID = (req, res) => {
-  Scrumlist.findByIdAndRemove(req.params.list_id, (err, deletedList) => {
+  Scrumlist.findByIdAndDelete(req.params.list_id, (err, deletedList) => {
     // ex. if ID wrong format
     if (err) {
       console.log('Error when deleting list: ' + err);

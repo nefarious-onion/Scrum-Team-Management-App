@@ -138,7 +138,8 @@ const patchStoryByID = (req, res) => {
 
 // delete one story by ID
 const deleteStoryByID = (req, res) => {
-  Userstory.findByIdAndRemove(req.params.story_id, (err, deletedStory) => {
+  const deletedStoryID = req.params.story_id;
+  Userstory.findByIdAndDelete(deletedStoryID, (err, deletedStory) => {
     // ex. if ID wrong format
     if (err) {
       console.log('Error when deleting story: ' + err);
@@ -159,6 +160,22 @@ const deleteStoryByID = (req, res) => {
     return res.status(200).json({
       message: 'Story successfully deleted',
       deletedStory,
+    });
+  });
+  // delete the ref to this ID from lists
+  Scrumlist.find({}).then((allLists) => {
+    allLists.forEach((list) => {
+      const indexOfDeletedStory = list.stories.findIndex(
+        (element) => element == deletedStoryID,
+      );
+      // if nothing found, it gives -1, so move on
+      if (indexOfDeletedStory === -1) return;
+      // if an element of the ID found, take it out of the list.stories array
+      console.log(
+        `found ${deletedStoryID} at index ${indexOfDeletedStory} in list ${list.title}`,
+      );
+      list.stories.splice(indexOfDeletedStory, 1);
+      list.save();
     });
   });
 };
