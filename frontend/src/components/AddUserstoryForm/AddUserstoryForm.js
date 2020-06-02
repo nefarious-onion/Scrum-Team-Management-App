@@ -7,7 +7,7 @@ const AddUserstoryForm = ({onStoryCreate}) => {
         event.preventDefault();
 
         //input validation
-        const isInputValid = storyInput.title.length > 5;
+        const isInputValid = storyInput.title.length > 4;
 
         if(isInputValid) {
             setStoryInput({});
