@@ -1,18 +1,18 @@
 import React from 'react';
-import Userstory from '../../Userstory/Userstory'
+import Userstory from '../../Userstory/Userstory';
+import './BacklogList.css';
 
-const BacklogList = ({ backloglist }) => {
+const BacklogList = ({ userstoryList, title }) => {
     //checks that the list is not empty or undefined
-    const isValid = backloglist !== undefined && backloglist.length > 0;
+    const isValid = userstoryList !== undefined && userstoryList.length > 0;
 
     const storyList = isValid
-        ? backloglist.map(story =>
+        ? userstoryList.map(story =>
             <Userstory key={story._id} title={story.title} _id={story._id} desc={story.descr} />)
-        : <p>Product Backlog is empty</p>;
+        : <p>{title} is empty</p>;
 
     return (
-        <div>
-            <h1>BacklogList</h1>
+        <div className='backloglist-container'>
             {storyList}
         </div>
     );

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import BacklogList from './BacklogList/BacklogList';
-import SprintList from './SprintList/SprintList';
 import AddUserstoryForm from '../AddUserstoryForm/AddUserstoryForm';
 import { getStories, getStory, createStory } from '../../services/api.service';
 import './BacklogView.css';
@@ -41,10 +40,17 @@ const BacklogView = () => {
     }, []);
 
     return (
-        <div className="backlogview">
-            <AddUserstoryForm onStoryCreate={onStoryCreate}/>
-            <BacklogList backloglist={backlogList} />
-            <SprintList sprintloglist={sprintlogList} />
+        <div className="backlogview-container">
+            <div className='backloglist-wrapper'>
+                <h1>Product Backlog</h1>
+                <AddUserstoryForm onStoryCreate={onStoryCreate} />
+                <BacklogList userstoryList={backlogList} title='Product Backlog' />
+            </div>
+            <div className='backloglist-wrapper'>
+                <h1>Sprint Backlog</h1>
+                <BacklogList userstoryList={sprintlogList} title='Sprint Backlog' />
+            </div>
+
         </div>
     );
 }
