@@ -1,0 +1,12 @@
+.form__text-input {
+    width: 100%;
+    border: none;
+    border-radius: 5px;
+    padding: .5rem;
+    margin: .5rem .5rem .5rem 0;
+    font-family: inherit;
+}
+.form__input-field {
+    display: flex;
+    align-items: center;
+}
