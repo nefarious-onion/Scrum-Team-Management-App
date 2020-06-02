@@ -74,6 +74,43 @@ const getListByID = (req, res) => {
     });
 };
 
+// patch list by ID
+// it takes the title and description form request - anything else is ignored
+// it takes the title and description as they are - string, empty string, null if not provided !!!
+const patchListByID = (req, res) => {
+  // find the entry with ID
+  const listID = { _id: req.params.list_id };
+  // what info will be updated
+  const updatedList = {
+    title: req.body.title,
+    descr: req.body.descr,
+  };
+  // return the updated entry instead of the original one
+  const returnUpdatedList = { new: true };
+
+  return Scrumlist.findOneAndUpdate(listID, updatedList, returnUpdatedList)
+    .then((updatedDocument) => {
+      if (!updatedDocument || updatedDocument === null) {
+        console.log('No document matches the filter: ' + listID);
+        return res
+          .status(404)
+          .json({ message: 'No entry found for this ID' })
+          .end();
+      }
+
+      console.log('Updated: ' + updatedDocument);
+      return res
+        .status(200)
+        .json('Successfully updated document: ' + updatedDocument);
+    })
+    .catch((err) => {
+      console.log('Error when updating story: ' + err);
+      res.status(500).json({
+        message: 'Server error - story updating failed',
+      });
+    });
+};
+
 // delete one list by ID
 const deleteListByID = (req, res) => {
   Scrumlist.findByIdAndDelete(req.params.list_id, (err, deletedList) => {
@@ -106,5 +143,6 @@ module.exports = {
   getAllLists,
   createNewList,
   getListByID,
+  patchListByID,
   deleteListByID,
 };

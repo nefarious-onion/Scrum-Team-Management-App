@@ -1,8 +1,6 @@
 const Userstory = require('./userstories.schema');
 const Scrumlist = require('../scrumlists/scrumlists.schema');
 
-// ADD ERROR HANDLING!!
-
 // TEST
 userstoriesTest = (req, res) => {
   res.json({
@@ -116,7 +114,7 @@ const patchStoryByID = (req, res) => {
   return Userstory.findOneAndUpdate(storyID, updatedStory, returnUpdatedEntry)
     .then((updatedDocument) => {
       if (!updatedDocument || updatedDocument === null) {
-        console.log('No document matches the filter: ' + filter);
+        console.log('No document matches the filter: ' + storyID);
         return res
           .status(404)
           .json({ message: 'No entry found for this ID' })

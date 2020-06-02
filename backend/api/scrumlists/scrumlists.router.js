@@ -16,7 +16,7 @@ router.post('/', scrumlistsService.createNewList);
 router.get('/:list_id', scrumlistsService.getListByID);
 
 // patch one list by ID
-//router.patch('/:list_id', scrumlistsService.);
+router.patch('/:list_id', scrumlistsService.patchListByID);
 
 // delete one list by ID
 router.delete('/:list_id', scrumlistsService.deleteListByID);
