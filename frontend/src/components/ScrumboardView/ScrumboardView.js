@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import Done from '../ScrumboardView/Done/Done';
-import InProgress from '../ScrumboardView/InProgress/InProgress'
-import InReview from '../ScrumboardView/InReview/InReview'
-import SprintBacklog from '../ScrumboardView/SprintBacklog/SprintBacklog'
+import ScrumboardList from '../../components/ScrumboardView/ScrumboardList/ScrumboardList'
+import '../ScrumboardView/ScrumboardView.css'
 import { getStories, getStory } from '../../services/api.service';
 
 const ScrumboardView = () => {
@@ -23,11 +21,28 @@ const ScrumboardView = () => {
     }, []);
 
     return (
-        <div className="backlogview">
-            <SprintBacklog sprintlog={sprintlogList} />
-            <InProgress />
-            <InReview inreview={sprintlogList} />
-            <Done doneList={sprintlogList} />
+        <div className="scrumboard">
+            <div>
+
+                <h1>Sprint</h1>
+                <ScrumboardList scrumBoard={sprintlogList} title='Sprint backlog' />
+            </div>
+            <div>
+
+                <h1>in progress</h1>
+                <ScrumboardList scrumBoard={sprintlogList} />
+            </div>
+            <div>
+
+                <h1>in progress</h1>
+                <ScrumboardList scrumBoard={sprintlogList} />
+            </div>
+            <div>
+
+                <h1>in progress</h1>
+                <ScrumboardList scrumBoard={sprintlogList} />
+            </div>
+
         </div>
     );
 }

@@ -1,0 +1,9 @@
+.scrumboard {
+  width: 100%;
+  display: inline-flex;
+  justify-content: space-evenly;
+}
+
+.scrumboard-list {
+  color: black;
+}
