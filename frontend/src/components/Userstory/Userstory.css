@@ -1,0 +1,8 @@
+.card {
+  display: grid;
+  align-self: baseline;
+  height: 4rem;
+  border-radius: 3px;
+  width: 100;
+  background-color: burlywood;
+}

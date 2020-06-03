@@ -6,9 +6,10 @@ const ScrumboardList = ({ scrumBoard, title }) => {
         ? scrumBoard.map(story =>
             <Userstory key={story._id} id={story._id} title={story.title} desc={story.descr} />
         )
-        : <p>Nothing to display in {title}</p>;
+        : <p>Nothing to display in {title}</p>
+    { console.log(title) };
     return (
-        <div>
+        <div className="card">
             {inScrumBoard}
         </div>
     );

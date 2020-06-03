@@ -1,10 +1,13 @@
 import React from 'react';
+import './Landing.css'
 
 const Landing = () => {
     return (
-        <div>
-
-        </div>
+        <main className='landing-container'>
+            <div className='landing-item'>
+                hello
+            </div>
+        </main>
     );
 }
 

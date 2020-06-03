@@ -5,5 +5,10 @@
 }
 
 .scrumboard-list {
-  color: black;
+  background-color: brown;
+  width: 20rem;
+  display: grid;
+  grid-template-columns: 2;
+}
+.card {
 }

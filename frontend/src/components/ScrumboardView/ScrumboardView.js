@@ -22,27 +22,22 @@ const ScrumboardView = () => {
 
     return (
         <div className="scrumboard">
-            <div>
-
-                <h1>Sprint</h1>
+            <div className="scrumboard-list">
+                <h2>sprint</h2>
                 <ScrumboardList scrumBoard={sprintlogList} title='Sprint backlog' />
             </div>
-            <div>
-
-                <h1>in progress</h1>
-                <ScrumboardList scrumBoard={sprintlogList} />
+            <div className="scrumboard-list">
+                <h2>in progress</h2>
+                <ScrumboardList scrumBoard={sprintlogList} title='Progress' />
             </div>
-            <div>
-
-                <h1>in progress</h1>
-                <ScrumboardList scrumBoard={sprintlogList} />
+            <div className="scrumboard-list">
+                <h2>in review</h2>
+                <ScrumboardList scrumBoard={sprintlogList} title='Review' />
             </div>
-            <div>
-
-                <h1>in progress</h1>
-                <ScrumboardList scrumBoard={sprintlogList} />
+            <div className="scrumboard-list">
+                <h2>done</h2>
+                <ScrumboardList scrumBoard={sprintlogList} title='Done' />
             </div>
-
         </div>
     );
 }
