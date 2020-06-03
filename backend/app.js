@@ -9,6 +9,7 @@ const FRONTEND_ORIGIN = 'http://localhost:3000';
 
 const dbService = require('./api/db/db.service');
 const userstoriesRouter = require('./api/userstories/userstories.router.js');
+const scrumlistsRouter = require('./api/scrumlists/scrumlists.router');
 
 const app = express();
 app.use(express.json());
@@ -28,12 +29,14 @@ if (isDev) {
     res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE');
     next();
   });
- 
 }
-// router for handling userstories
+
 // order of defining routes is important:
 // api routes need to be defined before static paths
-app.use('/api/userstory', userstoriesRouter);
+// router for handling scrum lists
+app.use('/api/scrumlist', scrumlistsRouter);
+// router for handling userstories
+app.use('/api/scrumlist/:list_id/userstory', userstoriesRouter);
 
 //check if env is production => use static path
 if (isProduction) {
@@ -54,5 +57,4 @@ app.get('/ping', (req, res) => {
 app.listen(PORT, () => {
   console.log('Server started', PORT);
   console.log('NODE_ENV =', process.env.NODE_ENV);
-  
 });
