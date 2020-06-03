@@ -1,7 +1,7 @@
 // endpoints referencing functions from userstories.service
 const userstoriesService = require('./userstories.service');
 const express = require('express');
-const router = express.Router(); // do I need ({mergeParams: true}) ??
+const router = express.Router({ mergeParams: true });
 
 // TEST
 router.get('/test', userstoriesService.userstoriesTest);

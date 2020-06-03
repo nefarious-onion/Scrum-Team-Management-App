@@ -1,6 +1,5 @@
 const Userstory = require('./userstories.schema');
-
-// ADD ERROR HANDLING!!
+const Scrumlist = require('../scrumlists/scrumlists.schema');
 
 // TEST
 userstoriesTest = (req, res) => {
@@ -32,24 +31,43 @@ const createNewStory = (req, res) => {
       .status(400)
       .json({ message: 'Story missing the title, saving rejected' });
   } else {
-    // create a new instance of a story with data from req body
-    let newStory = new Userstory({
-      title: req.body.title,
-      descr: req.body.descr,
-    });
+    // find the list where we want to ref this story by list id from endpoint param
+    Scrumlist.findById(req.params.list_id)
+      .then((returnedList) => {
+        console.log('List found: ' + returnedList);
+        // create a new instance of a story with data from req body
+        let newStory = new Userstory({
+          title: req.body.title,
+          descr: req.body.descr,
+        });
 
-    // save the new instance to the DB
-    newStory
-      .save()
-      .then((result) => {
-        console.log('New story saved to DB: ' + result);
-        res.status(201).json(newStory);
+        // save the new instance to the DB
+        newStory
+          .save()
+          .then((result) => {
+            console.log('New story saved to DB: ' + result);
+            // push the new story into the ref array of the list (from endpoint params)
+            returnedList.stories.push(newStory);
+            // save the new array to the entry in list collection
+            returnedList.save();
+            res.status(201).json(newStory);
+          })
+          .catch((err) => {
+            res
+              .status(500)
+              .json({ message: 'error when trying to save new story to DB' });
+            console.log('Error when trying to save new story: ' + err);
+          });
+        return returnedList;
       })
       .catch((err) => {
-        res
-          .status(500)
-          .json({ message: 'error when trying to save new story to DB' });
-        console.log('Error when trying to save new story: ' + err);
+        console.log(
+          'Error when fetching the list while cerating new story: ' + err,
+        );
+        res.status(500).json({
+          message: 'error when fetching the list while creating new story',
+        });
+        return;
       });
   }
 };
@@ -96,7 +114,7 @@ const patchStoryByID = (req, res) => {
   return Userstory.findOneAndUpdate(storyID, updatedStory, returnUpdatedEntry)
     .then((updatedDocument) => {
       if (!updatedDocument || updatedDocument === null) {
-        console.log('No document matches the filter: ' + filter);
+        console.log('No document matches the filter: ' + storyID);
         return res
           .status(404)
           .json({ message: 'No entry found for this ID' })
@@ -118,7 +136,8 @@ const patchStoryByID = (req, res) => {
 
 // delete one story by ID
 const deleteStoryByID = (req, res) => {
-  Userstory.findByIdAndRemove(req.params.story_id, (err, deletedStory) => {
+  const deletedStoryID = req.params.story_id;
+  Userstory.findByIdAndDelete(deletedStoryID, (err, deletedStory) => {
     // ex. if ID wrong format
     if (err) {
       console.log('Error when deleting story: ' + err);
@@ -139,6 +158,22 @@ const deleteStoryByID = (req, res) => {
     return res.status(200).json({
       message: 'Story successfully deleted',
       deletedStory,
+    });
+  });
+  // delete the ref to this ID from lists
+  Scrumlist.find({}).then((allLists) => {
+    allLists.forEach((list) => {
+      const indexOfDeletedStory = list.stories.findIndex(
+        (element) => element == deletedStoryID,
+      );
+      // if nothing found, it gives -1, so move on
+      if (indexOfDeletedStory === -1) return;
+      // if an element of the ID found, take it out of the list.stories array
+      console.log(
+        `found ${deletedStoryID} at index ${indexOfDeletedStory} in list ${list.title}`,
+      );
+      list.stories.splice(indexOfDeletedStory, 1);
+      list.save();
     });
   });
 };
