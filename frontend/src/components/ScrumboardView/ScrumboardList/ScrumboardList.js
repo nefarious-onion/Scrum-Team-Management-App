@@ -9,7 +9,8 @@ const ScrumboardList = ({ scrumBoard, title }) => {
         : <p>Nothing to display in {title}</p>
     { console.log(title) };
     return (
-        <div className="card">
+        <div className="card-list">
+
             {inScrumBoard}
         </div>
     );
