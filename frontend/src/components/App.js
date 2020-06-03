@@ -1,9 +1,11 @@
 import React from 'react';
+import NavBar from './NavBar/NavBar'
+import AboutScrum from './AboutScrum/AboutScrum'
 import BacklogView from './BacklogView/BacklogView';
 import ScrumboardView from './ScrumboardView/ScrumboardView'
 import Landing from './Landing/Landing'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
-import NavBar from './NavBar/NavBar'
+
 
 const App = () => {
 
@@ -19,6 +21,7 @@ const App = () => {
                     <Route path='/meetings' />
                     <Route path='/calendar' />
                     <Route path='/overview' />
+                    <Route path='/about' component={AboutScrum} />
                 </Switch>
             </div>
         </Router>
