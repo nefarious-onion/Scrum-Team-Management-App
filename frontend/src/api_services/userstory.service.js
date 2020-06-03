@@ -2,42 +2,38 @@ import axios from 'axios';
 import { baseUrl } from './config';
 
 const SCRUMLIST_URL = `${baseUrl}scrumlist`;
+let scrumListId = '123';
+const STORY_URL = `${SCRUMLIST_URL}/${scrumListId}/userstory`;
+
 
 //EXPORTED FUNCTIONS + required parameters:
-// getStories
 // getStory --- storyId
 // createStory --- storyObject
 // updateStory --- storyId, storyObject
 // deleteStory --- storyID
-
-//get all userstories
-/**
- * @returns {Promise} List of userstories
- */
-export const getStories = () => axios.get(STORY_URL)
-    .then(response => response.data)
-    .catch(error => console.log(error));
 
 //get one userstory
 /**
  * @param {string} storyId userstory id from database
  * @returns {Promise} single userstory
  */
-export const getStory = storyId => axios.get(`${STORY_URL}/${storyId}`)
+export const getStory = (storyId) => axios.get(`${STORY_URL}/${storyId}`)
     .then(response => response.data)
     .catch(error => console.log(error));
 
 //create userstory
 //takes an object as a parameter
 /**
+ * @param {string} listId list id from database
  * @param {Object} userstory userstory as an object
  * @param {string} userstory.title 
  * @param {string} userstory.descr
  * @returns {Promise} saved userstory
  */
-export const createStory = async (userstory) => {
+export const createStory = async (listId, userstory) => {
+    const POST_URL = `${SCRUMLIST_URL}/${listId}/userstory`;
     try {
-        const response = await axios.post(STORY_URL, userstory);
+        const response = await axios.post(POST_URL, userstory);
         console.log('Story saved', response.data);
     } catch (error) {
         console.log('Story not saved', error);
