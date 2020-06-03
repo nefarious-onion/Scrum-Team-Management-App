@@ -12,9 +12,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "cross-env": "^7.0.2",
     "express": "^4.17.1",
-    "mongoose": "^5.9.15",
-    "cross-env": "^7.0.2"
+    "mongoose": "^5.9.15"
   },
   "devDependencies": {
     "nodemon": "^2.0.4"
