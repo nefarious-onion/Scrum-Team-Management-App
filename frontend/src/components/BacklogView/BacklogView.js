@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import BacklogList from './BacklogList/BacklogList';
 import AddUserstoryForm from '../AddUserstoryForm/AddUserstoryForm';
 import { getStory, createStory, deleteStory, updateStory } from '../../api_services/userstory.service';
-import { getList, getLists} from '../../api_services/scrumlist.service';
+import { getList, getLists } from '../../api_services/scrumlist.service';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsisH } from '@fortawesome/free-solid-svg-icons';
 import './BacklogView.css';
@@ -49,7 +49,7 @@ const BacklogView = () => {
             setIsVisible(false);
             setBtnText('Add new userstory');
         }
-        
+
     }
 
     //fetching all of the stories from back-end
@@ -82,15 +82,15 @@ const BacklogView = () => {
                 <div className='backloglist__header-wrapper'>
                     <FontAwesomeIcon icon={faEllipsisH} />
                     <h1 className='backloglist__header'>Product Backlog</h1>
-                     <button className='add-userstory-btn' onClick={showUserstoryForm} >{btnText}</button>
+                    <button className='add-userstory-btn' onClick={showUserstoryForm} >{btnText}</button>
                 </div>
 
                 <AddUserstoryForm onStoryCreate={onStoryCreate} isVisible={isVisible} listId={backlogId} />
-                <BacklogList userstoryList={backlogList} title='Product Backlog' onStoryDelete={onStoryDelete} onStoryUpdate={onStoryUpdate}/>
+                <BacklogList userstoryList={backlogList} title='Product Backlog' onStoryDelete={onStoryDelete} onStoryUpdate={onStoryUpdate} />
             </div>
             <div className='backloglist-wrapper'>
                 <h1 className='backloglist__header' >Sprint Backlog</h1>
-                <BacklogList userstoryList={sprintlogList} title='Sprint Backlog' onStoryDelete={onStoryDelete} onStoryUpdate={onStoryUpdate}/>
+                <BacklogList userstoryList={sprintlogList} title='Sprint Backlog' onStoryDelete={onStoryDelete} onStoryUpdate={onStoryUpdate} />
             </div>
 
         </div>
