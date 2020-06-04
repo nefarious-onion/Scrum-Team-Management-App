@@ -5,6 +5,7 @@
     padding: .5rem;
     margin: .5rem .5rem .5rem 0;
     font-family: inherit;
+    font-size: inherit;
 }
 .form__input-field {
     display: flex;
