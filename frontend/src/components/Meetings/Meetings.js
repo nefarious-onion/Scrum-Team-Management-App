@@ -7,7 +7,7 @@ import OneMeeting from './OneMeeting';
 const Meetings = () => {
   let { url } = useRouteMatch();
   return (
-    <div>
+    <div className="sidenav-grid">
       <SideNavMeet meetingsUrl={url} />
       <div className="meet-container">
         <Switch>

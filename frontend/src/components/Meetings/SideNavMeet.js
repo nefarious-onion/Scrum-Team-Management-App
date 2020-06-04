@@ -1,10 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import '../SideNav.css';
 
 const SideNavMeet = ({ meetingsUrl }) => {
   return (
-    <div>
-      <h4>SIDEBAR NAV</h4>
+    <div className="side-navbar">
+      <h4>Meetings</h4>
       <ul>
         <li>
           <Link to={`${meetingsUrl}`}>Overview</Link>
