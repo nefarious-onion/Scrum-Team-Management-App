@@ -1,0 +1,31 @@
+.backlogview-container {
+    width: 100%;
+    /* display: inline-flex;
+    justify-content: space-evenly; */
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    grid-gap: 1rem;
+    padding: 1rem;
+  }
+  .backloglist-wrapper {
+    background-color: darkgoldenrod;
+    padding: 1rem;
+  }
+  .backloglist__header-wrapper {
+    display: grid;
+    grid-template-columns: 40px auto 80px;
+    align-items: center;
+    justify-items: center;
+    padding-bottom: .5rem;
+  }
+   
+  .add-userstory-btn {
+    font-family: inherit;
+    font-size: 1.05rem;
+    font-weight: 500;
+    padding: .3rem .5rem;
+    border-radius: 2px;
+    border: 2px black solid;
+    background-color: inherit;
+  }

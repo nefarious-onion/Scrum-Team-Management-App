@@ -1,6 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap');
-body {
-  font-family: 'Roboto Mono', monospace;
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;700&display=swap');
+* {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
@@ -9,8 +8,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-.backlogview {
-  width: 100%;
-  display: inline-flex;
-  justify-content: space-evenly;
+body {
+  font-family: 'Roboto Mono', monospace;
 }
