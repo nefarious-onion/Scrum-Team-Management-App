@@ -22,7 +22,9 @@
    
   .add-userstory-btn {
     font-family: inherit;
-    padding: .3rem 1rem;
+    font-size: 1.05rem;
+    font-weight: 500;
+    padding: .3rem .5rem;
     border-radius: 2px;
     border: 2px black solid;
     background-color: inherit;
