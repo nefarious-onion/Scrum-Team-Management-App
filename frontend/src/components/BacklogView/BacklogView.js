@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import BacklogList from './BacklogList/BacklogList';
 import SprintList from './SprintList/SprintList';
-import { getStories, getStory } from '../../services/api.service';
+import { getLists, getList } from '../../api_services/scrumlist.service';
 
 const BacklogView = () => {
     const [backlogList, setBacklogList] = useState([]);
@@ -9,7 +9,7 @@ const BacklogView = () => {
 
     //fetching all of the stories from back-end
     useEffect(() => {
-        getStories()
+        getList()
             .then(stories => {
                 console.log(stories)
                 setBacklogList(stories)
