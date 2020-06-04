@@ -2,6 +2,7 @@ import React from 'react';
 import BacklogView from './BacklogView/BacklogView';
 import ScrumboardView from './ScrumboardView/ScrumboardView';
 import Landing from './Landing/Landing';
+import Meetings from './Meetings/Meetings';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import NavBar from './NavBar/NavBar';
 
@@ -14,7 +15,7 @@ const App = () => {
           <Route exact path="/" component={Landing} />
           <Route path="/backlog" component={BacklogView} />
           <Route path="/scrumboard" component={ScrumboardView} />
-          <Route path="/meetings" />
+          <Route path="/meetings" component={Meetings} />
           <Route path="/calendar" />
           <Route path="/overview" />
         </Switch>
