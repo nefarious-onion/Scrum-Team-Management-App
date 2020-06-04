@@ -7,7 +7,6 @@ const ScrumboardList = ({ scrumBoard, title }) => {
             <Userstory key={story._id} id={story._id} title={story.title} desc={story.descr} />
         )
         : <p>Nothing to display in {title}</p>
-    { console.log(title) };
     return (
         <div className="card-list">
 
