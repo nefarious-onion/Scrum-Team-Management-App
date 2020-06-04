@@ -3,10 +3,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import './AddUserstoryForm.css';
 
-const AddUserstoryForm = ({ onStoryCreate, isVisible }) => {
+const AddUserstoryForm = ({ onStoryCreate, isVisible, listId }) => {
     const [storyInput, setStoryInput] = useState('');
 
-    if(!isVisible) {
+    //button in backlogview controls the value of this => if false, this form is not visible
+    if (!isVisible) {
         return null;
     }
 
@@ -16,15 +17,15 @@ const AddUserstoryForm = ({ onStoryCreate, isVisible }) => {
         //input validation
         const isInputValid = storyInput.length > 4;
 
-        const newStory = {
-            title: String(storyInput)
-        }
-
         if (isInputValid) {
-            onStoryCreate(newStory);
+            //save user input to an object
+            const newStory = {
+                title: String(storyInput)
+            }
+            //function defined in backlogview => makes axios.post api call
+            onStoryCreate(listId, newStory);
             console.log('this is the new userstory', newStory);
             setStoryInput('');
-
         } else {
             console.log('userstory needs to be minimum of 5 characters')
         }
@@ -33,6 +34,7 @@ const AddUserstoryForm = ({ onStoryCreate, isVisible }) => {
     //controlled form: state gets the value from event.target.value / value is set to be the state
     const onInputChange = event => {
         const _storyInput = event.target.value;
+        //user input is saved to the state
         setStoryInput(_storyInput);
     }
 
@@ -44,7 +46,7 @@ const AddUserstoryForm = ({ onStoryCreate, isVisible }) => {
                 <div className='form__input-field'>
                     <input
                         className='form__text-input'
-                        type='text' 
+                        type='text'
                         name='title'
                         value={storyInput}
                         placeholder='Write a new userstory...'
