@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import BacklogList from './BacklogList/BacklogList';
 import AddUserstoryForm from '../AddUserstoryForm/AddUserstoryForm';
+import EditUserstoryForm from '../EditUserstoryForm/EditUserstoryForm';
 import { getStory, createStory, deleteStory, updateStory } from '../../api_services/userstory.service';
 import { getList, getLists } from '../../api_services/scrumlist.service';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -10,8 +11,10 @@ import './BacklogView.css';
 const BacklogView = () => {
     const [backlogList, setBacklogList] = useState([]);
     const [sprintlogList, setSprintlogList] = useState([]);
-    const [isVisible, setIsVisible] = useState(false);
+    const [isAddFormVisible, setIsAddFormVisible] = useState(false);
+    const [isEditVisible, setIsEditVisible] = useState(true);
     const [btnText, setBtnText] = useState('Add new userstory');
+    const [storyToEdit, setStoryToEdit] = useState('');
 
     const backlogId = '5ed62a5e1940ce0f684b6b37';
     const sprintlogId = '5ed4dd9383e6833174ec0bc3';
@@ -36,20 +39,27 @@ const BacklogView = () => {
         await deleteStory(storyId);
         fetchLists();
     }
+    //gets storyId from Userstory component when edit-button is clicked
     const onStoryUpdate = async (storyId) => {
-        console.log('this story will be edited: ', storyId);
+        const editedStory = await getStory(storyId);
+        setStoryToEdit(editedStory);
+        setIsEditVisible(true);
+        console.log('this story will be edited: ', editedStory);
     }
 
     const showUserstoryForm = () => {
-        if (!isVisible) {
-            setIsVisible(true);
+        if (!isAddFormVisible) {
+            setIsAddFormVisible(true);
             setBtnText('Hide form');
         }
-        if (isVisible) {
-            setIsVisible(false);
+        if (isAddFormVisible) {
+            setIsAddFormVisible(false);
             setBtnText('Add new userstory');
         }
 
+    }
+    const onCloseEditForm = () => {
+        setIsEditVisible(false);
     }
 
     //fetching all of the stories from back-end
@@ -77,23 +87,24 @@ const BacklogView = () => {
     }, []);
 
     return (
-        <div className="backlogview-container">
-            <div className='backloglist-wrapper'>
-                <div className='backloglist__header-wrapper'>
-                    <FontAwesomeIcon icon={faEllipsisH} />
-                    <h1 className='backloglist__header'>Product Backlog</h1>
-                    <button className='add-userstory-btn' onClick={showUserstoryForm} >{btnText}</button>
+        <>
+            {isEditVisible ? < EditUserstoryForm onStoryDelete={onStoryDelete} onStoryUpdate={onStoryUpdate} storyToEdit={storyToEdit} onCloseEditForm={onCloseEditForm} /> : null}
+            <div className="backlogview-container">
+                <div className='backloglist-wrapper'>
+                    <div className='backloglist__header-wrapper'>
+                        <FontAwesomeIcon icon={faEllipsisH} />
+                        <h1 className='backloglist__header'>Product Backlog</h1>
+                        <button className='add-userstory-btn' onClick={showUserstoryForm} >{btnText}</button>
+                    </div>
+                    {isAddFormVisible ? <AddUserstoryForm onStoryCreate={onStoryCreate} listId={backlogId} /> : null}
+                    <BacklogList userstoryList={backlogList} title='Product Backlog' onStoryDelete={onStoryDelete} onStoryUpdate={onStoryUpdate} />
                 </div>
-
-                <AddUserstoryForm onStoryCreate={onStoryCreate} isVisible={isVisible} listId={backlogId} />
-                <BacklogList userstoryList={backlogList} title='Product Backlog' onStoryDelete={onStoryDelete} onStoryUpdate={onStoryUpdate} />
+                <div className='backloglist-wrapper'>
+                    <h1 className='backloglist__header' >Sprint Backlog</h1>
+                    <BacklogList userstoryList={sprintlogList} title='Sprint Backlog' onStoryDelete={onStoryDelete} onStoryUpdate={onStoryUpdate} />
+                </div>
             </div>
-            <div className='backloglist-wrapper'>
-                <h1 className='backloglist__header' >Sprint Backlog</h1>
-                <BacklogList userstoryList={sprintlogList} title='Sprint Backlog' onStoryDelete={onStoryDelete} onStoryUpdate={onStoryUpdate} />
-            </div>
-
-        </div>
+        </>
     );
 }
 
