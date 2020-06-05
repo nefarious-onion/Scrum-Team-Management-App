@@ -1,10 +1,19 @@
 import React from 'react';
-
-const AboutScrum = () => {
+import SideNavAbout from '../SideNavAbout/SideNavAbout'
+import './AboutScrum.css'
+const AboutScrum = ({ Roles }) => {
     return (
-        <div>
-            Hello im about
-        </div>
+        <>
+            <div className="about-container">
+                <SideNavAbout />
+                <div className="about-item" >
+                    <h2>hello</h2>
+                </div>
+                <div className="about-item" ref={Roles}>
+                    <h2>hello</h2>
+                </div>
+            </div>
+        </>
     );
 }
 
