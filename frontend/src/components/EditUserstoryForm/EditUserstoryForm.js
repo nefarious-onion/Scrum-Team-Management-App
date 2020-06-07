@@ -1,33 +1,44 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './EditUserstoryForm.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes, faListUl, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 
 const EditUserstoryForm = ({ onStoryDelete, onStoryUpdate, storyToEdit, onCloseEditForm }) => {
-    const [titleToEdit, setTitleToEdit] = useState(storyToEdit.title);
-    const [descrToEdit, setDescrToEdit] = useState(storyToEdit.descr);
+    const [titleToEdit, setTitleToEdit] = useState('');
+    const [descrToEdit, setDescrToEdit] = useState('');
     const [isTitleInputVisible, setIsTitleInputVisible] = useState(false);
     const [isTextareaVisible, setIsTextareaVisible] = useState(false);
+    const storyId = String(storyToEdit._id);
 
+    //makes sure state is not undefined if there is no title/descr
+    useEffect(() => {
+        if (storyToEdit.title) {
+            setTitleToEdit(storyToEdit.title)
+        }
+        if (storyToEdit.descr) {
+            setDescrToEdit(storyToEdit.descr)
+        }
+    }, []);
 
+    //shows the title input field when text is clicked
     const onTitleClick = () => {
         setIsTitleInputVisible(true);
         setIsTextareaVisible(false);
-
     }
+    //shows the description input field when text is clicked
     const onDescrClick = () => {
         setIsTextareaVisible(true);
         setIsTitleInputVisible(false)
     }
 
+    //sets isEditVisible-state in backlogview to false when close-button is clicked
+    //=> renders edit form to null
     const onClickClose = () => {
         onCloseEditForm();
     }
 
-    const onFormSubmit = event => {
-        event.preventDefault();
-        setIsTitleInputVisible(false);
-    }
+    //hides input fields when they are no longer in focus
+    //saves changed story to database
     const onInputBlur = () => {
         if (isTitleInputVisible) {
             setIsTitleInputVisible(false);
@@ -35,6 +46,27 @@ const EditUserstoryForm = ({ onStoryDelete, onStoryUpdate, storyToEdit, onCloseE
         if (isTextareaVisible) {
             setIsTextareaVisible(false)
         }
+        const story = { title: titleToEdit, descr: descrToEdit };
+        onStoryUpdate(storyId, story);
+        console.log('edit form edited story:', story);
+    }
+    //pressing enter removes focus from the input field
+    const onEnterPress = event => {
+        if (event.keyCode === 13) {
+            event.preventDefault();
+            onInputBlur();
+        }
+    }
+    //hides input fields and
+    //saves changes to database on submit
+    const onFormSubmit = event => {
+        event.preventDefault();
+        setIsTitleInputVisible(false);
+        setIsTextareaVisible(false);
+
+        const story = { title: titleToEdit, descr: descrToEdit };
+        onStoryUpdate(storyId, story);
+        console.log('edit form edited story:', storyId, story);
     }
 
     return (
@@ -52,34 +84,31 @@ const EditUserstoryForm = ({ onStoryDelete, onStoryUpdate, storyToEdit, onCloseE
                     <form onSubmit={onFormSubmit}>
                         <h4 className='editform__header'>Title:</h4>
                         <div className='editform__story-title' onClick={onTitleClick}>
-                            {!isTitleInputVisible
-                                ? <label for='userstoryTitle' className='editform__label-title' >{titleToEdit}</label>
-                                : null}
                             {isTitleInputVisible
                                 ? <textarea
                                     className='editform__text-input'
                                     value={titleToEdit}
                                     name='userstoryTitle'
                                     onChange={event => setTitleToEdit(event.target.value)}
+                                    onKeyDown={onEnterPress}
                                     onBlur={onInputBlur}
                                     autoFocus />
-                                : null
+                                : <label htmlFor='userstoryTitle' className='editform__label-title' >{titleToEdit}</label>
                             }
                         </div>
                         <h4 className='editform__header'>Description:</h4>
                         <div className='editform__story-descr' onClick={onDescrClick}>
-                            {!isTextareaVisible
-                                ? <label for='userstoryDescr' className='editform__label-descr' >{descrToEdit}</label>
-                                : null}
                             {isTextareaVisible
                                 ? <textarea
                                     className='editform__textarea'
                                     name='userstoryDescr'
                                     value={descrToEdit}
                                     onChange={event => setDescrToEdit(event.target.value)}
+                                    onKeyDown={onEnterPress}
                                     onBlur={onInputBlur}
                                     autoFocus />
-                                : null}
+                                : <label htmlFor='userstoryDescr' className='editform__label-descr' >{descrToEdit}</label>
+                            }
                         </div>
 
 
