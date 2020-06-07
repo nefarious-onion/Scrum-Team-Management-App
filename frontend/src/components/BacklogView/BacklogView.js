@@ -12,7 +12,7 @@ const BacklogView = () => {
     const [backlogList, setBacklogList] = useState([]);
     const [sprintlogList, setSprintlogList] = useState([]);
     const [isAddFormVisible, setIsAddFormVisible] = useState(false);
-    const [isEditVisible, setIsEditVisible] = useState(true);
+    const [isEditVisible, setIsEditVisible] = useState(false);
     const [btnText, setBtnText] = useState('Add new userstory');
     const [storyToEdit, setStoryToEdit] = useState('');
 
@@ -35,16 +35,26 @@ const BacklogView = () => {
         //fetch updated information from db and re-render the lists
         fetchLists();
     }
+    //note to self: change this!! only do delete -> get id with getStorytoDelete etc
     const onStoryDelete = async (storyId) => {
         await deleteStory(storyId);
         fetchLists();
     }
-    //gets storyId from Userstory component when edit-button is clicked
-    const onStoryUpdate = async (storyId) => {
-        const editedStory = await getStory(storyId);
-        setStoryToEdit(editedStory);
-        setIsEditVisible(true);
-        console.log('this story will be edited: ', editedStory);
+    // get story to edit, open edit form
+    const getStoryForEdit = async (storyId) => {
+        const _storyToEdit = await getStory(storyId);
+        if(_storyToEdit) {
+            setStoryToEdit(_storyToEdit);
+            setIsEditVisible(true);
+        } else {
+            throw new Error('Something went wrong: Story was not found')
+        }
+    };
+    //save edited userstory in edit form
+    const onStoryUpdate = async (storyId, updatedStory) => {
+        await updateStory(storyId, updatedStory);
+
+        console.log('this story was edited: ', updatedStory);
     }
 
     const showUserstoryForm = () => {
@@ -60,9 +70,11 @@ const BacklogView = () => {
     }
     const onCloseEditForm = () => {
         setIsEditVisible(false);
+        setStoryToEdit('');
+        fetchLists();
     }
 
-    //fetching all of the stories from back-end
+    //fetching all of the stories once when component is rendered
     useEffect(() => {
         getLists()
             .then(lists => console.log(lists));
@@ -97,11 +109,11 @@ const BacklogView = () => {
                         <button className='add-userstory-btn' onClick={showUserstoryForm} >{btnText}</button>
                     </div>
                     {isAddFormVisible ? <AddUserstoryForm onStoryCreate={onStoryCreate} listId={backlogId} /> : null}
-                    <BacklogList userstoryList={backlogList} title='Product Backlog' onStoryDelete={onStoryDelete} onStoryUpdate={onStoryUpdate} />
+                    <BacklogList userstoryList={backlogList} title='Product Backlog' onStoryDelete={onStoryDelete} getStoryForEdit={getStoryForEdit} />
                 </div>
                 <div className='backloglist-wrapper'>
                     <h1 className='backloglist__header' >Sprint Backlog</h1>
-                    <BacklogList userstoryList={sprintlogList} title='Sprint Backlog' onStoryDelete={onStoryDelete} onStoryUpdate={onStoryUpdate} />
+                    <BacklogList userstoryList={sprintlogList} title='Sprint Backlog' onStoryDelete={onStoryDelete} getStoryForEdit={getStoryForEdit} />
                 </div>
             </div>
         </>
