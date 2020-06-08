@@ -35,7 +35,7 @@ const BacklogView = () => {
         //fetch updated information from db and re-render the lists
         fetchLists();
     }
-    //note to self: change this!! only do delete -> get id with getStorytoDelete etc
+    //deletes userstory and re-renders lists
     const onStoryDelete = async (storyId) => {
         await deleteStory(storyId);
         fetchLists();
