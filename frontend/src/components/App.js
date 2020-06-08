@@ -1,17 +1,18 @@
 import React from 'react';
 import NavBar from './NavBar/NavBar'
-import AboutScrum from './AboutScrum/AboutScrum'
+//import AboutScrum from './AboutScrum/AboutScrumView'
+import AboutScrum from './AboutScrum/TestAbout/AboutScrumView'
 import BacklogView from './BacklogView/BacklogView';
 import ScrumboardView from './ScrumboardView/ScrumboardView'
 import Landing from './Landing/Landing'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
-
+import { createBrowserHistory } from 'history'
 
 const App = () => {
 
 
     return (
-        <Router>
+        <Router history={createBrowserHistory()}>
             <NavBar />
             <div>
                 <Switch>

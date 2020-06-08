@@ -3,6 +3,9 @@
   flex-direction: column;
   list-style: none;
   justify-content: space-evenly;
+  cursor: pointer;
+  width: 20rem;
+  background-color: brown;
 }
 
 .side-navbar-item {
@@ -11,7 +14,17 @@
   text-decoration: none;
   color: black;
 }
-
+/*
 .about-item {
-  height: 100rem;
+  padding: 2rem;
+  background-color: blue;
+  height: 100%;
+  width: 50vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}*/
+.about-container {
+  display: grid;
+  grid-template-columns: 50% 50%;
 }
