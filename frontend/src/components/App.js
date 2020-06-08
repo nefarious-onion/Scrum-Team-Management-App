@@ -5,6 +5,7 @@ import Landing from './Landing/Landing';
 import Meetings from './Meetings/Meetings';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import NavBar from './NavBar/NavBar';
+import Calendar from './Calendar/Calendar';
 
 const App = () => {
   return (
@@ -16,7 +17,7 @@ const App = () => {
           <Route path="/backlog" component={BacklogView} />
           <Route path="/scrumboard" component={ScrumboardView} />
           <Route path="/meetings" component={Meetings} />
-          <Route path="/calendar" />
+          <Route path="/calendar" component={Calendar} />
           <Route path="/overview" />
         </Switch>
       </main>
