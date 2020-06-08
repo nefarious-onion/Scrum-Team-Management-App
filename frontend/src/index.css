@@ -11,8 +11,3 @@
 body {
   font-family: 'Roboto Mono', monospace;
 }
-
-/* Prevents scrolling when modal is open */
-html, body {
-  overflow: hidden;
-}
