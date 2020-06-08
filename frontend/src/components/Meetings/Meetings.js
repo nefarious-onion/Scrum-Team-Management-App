@@ -4,6 +4,8 @@ import SideNavMeet from './SideNavMeet';
 import OverviewMeet from './OverviewMeet';
 import OneMeeting from './OneMeeting';
 
+import './Meetings.css';
+
 const Meetings = () => {
   let { url } = useRouteMatch();
   return (

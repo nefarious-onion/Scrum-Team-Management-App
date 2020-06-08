@@ -2,10 +2,11 @@
 .sidenav-grid {
   display: grid;
   grid-template-columns: 200px auto;
+  min-height: calc(100vh - 5rem);
 }
 
 .side-navbar {
-  background: violet;
+  background-color: rgb(207, 205, 205);
 }
 
 .side-navbar h4 {
@@ -22,6 +23,5 @@
 }
 
 .side-navbar a:hover {
-  /* REMEMBER TO MAKE THIS ONE A BIT DIFFERENT THAN THE FINAL COLOR OF SIDE-NAVBAR BG */
-  background: rgb(218, 112, 218);
+  background-color: rgb(221, 221, 221);
 }
