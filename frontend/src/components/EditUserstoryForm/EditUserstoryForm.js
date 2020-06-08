@@ -8,7 +8,7 @@ const EditUserstoryForm = ({ onStoryDelete, onStoryUpdate, storyToEdit, onCloseE
     const [descrToEdit, setDescrToEdit] = useState('');
     const [isTitleInputVisible, setIsTitleInputVisible] = useState(false);
     const [isTextareaVisible, setIsTextareaVisible] = useState(false);
-    const storyId = String(storyToEdit._id);
+    const storyId = storyToEdit._id;
 
     //makes sure state is not undefined if there is no title/descr
     useEffect(() => {
@@ -69,14 +69,21 @@ const EditUserstoryForm = ({ onStoryDelete, onStoryUpdate, storyToEdit, onCloseE
         console.log('edit form edited story:', storyId, story);
     }
 
+    //deletes the userstory when trashcan is clicked => no confirmation, the form just closes. Needs a fix.
+    const onClickDelete = () => {
+        onStoryDelete(storyId);
+        onCloseEditForm();
+    }
+
     return (
-        <div className='form-overlay'>
-            <div className='editform-container'>
+        <>
+            <div className='form-overlay' onClick={onCloseEditForm} ></div>
+            <div className='editform-container' >
                 <div className='edit-panel' >
                     <h2>Edit userstory</h2>
                     <p></p>
                     <FontAwesomeIcon className='editform__move-btn' icon={faListUl} size='2x' />
-                    <FontAwesomeIcon className='editform__delete-btn' icon={faTrashAlt} size='2x' />
+                    <FontAwesomeIcon className='editform__delete-btn' icon={faTrashAlt} size='2x' onClick={onClickDelete}/>
                     <p></p>
                     <FontAwesomeIcon className='editform__close-btn' icon={faTimes} size='2x' onClick={onClickClose} />
                 </div>
@@ -116,7 +123,8 @@ const EditUserstoryForm = ({ onStoryDelete, onStoryUpdate, storyToEdit, onCloseE
 
                 </div>
             </div>
-        </div>
+        </>
+
 
     );
 }
