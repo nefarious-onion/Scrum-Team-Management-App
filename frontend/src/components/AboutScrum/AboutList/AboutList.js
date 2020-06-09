@@ -10,8 +10,8 @@ const AboutList = ({ aboutList }) => {
             <About
                 title={post.fields.title}
                 content={post.fields.content}
-                key={post.fields.id}
-                id={post.fields.id}
+                key={post.sys.id}
+                id={post.fields.identifier}
             />)
         : <p>nothing to show</p>;
     return (
