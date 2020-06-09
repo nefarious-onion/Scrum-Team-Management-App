@@ -1,0 +1,27 @@
+/* GRID TO KEEP SIDE NAV NARROW AND ON THE SIDE */
+.sidenav-grid {
+  display: grid;
+  grid-template-columns: 200px auto;
+  min-height: calc(100vh - 5rem);
+}
+
+.side-navbar {
+  background-color: rgb(207, 205, 205);
+}
+
+.side-navbar h4 {
+  text-transform: uppercase;
+  padding: 1rem;
+}
+
+.side-navbar a {
+  display: block;
+  padding: 1rem;
+  color: black;
+  text-decoration: none;
+  list-style: none;
+}
+
+.side-navbar a:hover {
+  background-color: rgb(221, 221, 221);
+}

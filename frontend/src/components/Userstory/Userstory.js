@@ -3,7 +3,7 @@ import './Userstory.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes, faEllipsisV } from '@fortawesome/free-solid-svg-icons';
 
-const Userstory = ({ title, _id, desc, onStoryDelete, onStoryUpdate }) => {
+const Userstory = ({ title, _id, desc, onStoryDelete, getStoryForEdit }) => {
 
     const onClickDelete = () => {
        const storyId = _id;
@@ -14,8 +14,8 @@ const Userstory = ({ title, _id, desc, onStoryDelete, onStoryUpdate }) => {
     const onClickEdit = () => {
         const storyId = _id;
         console.log('clicked userstory', storyId);
-         //defined in backlogview
-        onStoryUpdate(storyId);
+         //sends userstoryId to backlogview
+        getStoryForEdit(storyId);
     }
     
     return (

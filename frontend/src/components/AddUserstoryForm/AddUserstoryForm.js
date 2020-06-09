@@ -3,13 +3,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import './AddUserstoryForm.css';
 
-const AddUserstoryForm = ({ onStoryCreate, isVisible, listId }) => {
+const AddUserstoryForm = ({ onStoryCreate, listId }) => {
     const [storyInput, setStoryInput] = useState('');
-
-    //button in backlogview controls the value of this => if false, this form is not visible
-    if (!isVisible) {
-        return null;
-    }
 
     const onSubmit = event => {
         event.preventDefault();
