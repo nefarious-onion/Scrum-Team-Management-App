@@ -3,15 +3,26 @@ import ScrumboardList from '../../components/ScrumboardView/ScrumboardList/Scrum
 import '../ScrumboardView/ScrumboardView.css'
 import { getList } from '../../api_services/scrumlist.service';
 
+import { sprintlogId, donelogId, reviewlogId, progresslogId } from '../../api_services/config';
+
+
 const ScrumboardView = () => {
     const [sprintlogList, setSprintlogList] = useState([]);
     const [inprogressList, setInProgressList] = useState([]);
     const [inreviewList, setInReviewList] = useState([]);
     const [indoneList, setDoneList] = useState([]);
 
-    //
+    const fetchLists = async () => {
+        const _backlogList = await getList(backlogId);
+        const _sprintlogList = await getList(sprintlogId);
+        //sort the lists!!
+        setBacklogList(_backlogList.stories);
+        setSprintlogList(_sprintlogList.stories);
+    }
+
+    //Fetch single list with ID
     useEffect(() => {
-        getList('5ed4dd9383e6833174ec0bc3')
+        getList(sprintlogId)
             .then(list => {
                 console.log(list.stories)
                 setSprintlogList(list.stories)
@@ -19,7 +30,7 @@ const ScrumboardView = () => {
             .catch((err) => {
                 console.log(new Error(err))
             })
-        getList('5ed4ddc583e6833174ec0bc4')
+        getList(progresslogId)
             .then(list => {
                 console.log(list.stories)
                 setInProgressList(list.stories)
@@ -27,7 +38,7 @@ const ScrumboardView = () => {
             .catch((err) => {
                 console.log(new Error(err))
             })
-        getList('5ed4ddfd83e6833174ec0bc5')
+        getList(reviewlogId)
             .then(list => {
                 console.log(list.stories)
                 setInReviewList(list.stories)
@@ -35,7 +46,7 @@ const ScrumboardView = () => {
             .catch((err) => {
                 console.log(new Error(err))
             })
-        getList('5ed624db56b733499ca332d8')
+        getList(donelogId)
             .then(list => {
                 console.log(list.stories)
                 setDoneList(list.stories)
