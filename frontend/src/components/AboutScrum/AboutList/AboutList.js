@@ -1,27 +1,23 @@
 import React from 'react';
 import About from '../About/About'
-import { useEntries } from '../../../custom_hooks/'
+import Nav from '../SideNavAbout/SideNavAbout'
+const AboutList = ({ aboutList }) => {
 
-
-
-const AboutList = () => {
-    const [entries, isLoading] = useEntries()
-    const isValid = entries !== undefined && entries.length > 0;
-
+    //checks that the list is not empty or undefined
+    const isValid = aboutList !== undefined && aboutList.length > 0;
     const aboutScrum = isValid
-        ? entries.map(entry =>
+        ? aboutList.map(post =>
             <About
-
-                title={entry.fields.title}
-
+                title={post.fields.title}
+                content={post.fields.content}
+                key={post.fields.id}
+                id={post.fields.id}
             />)
-        : <p> {isLoading} loading.. </p>;
-
+        : <p>nothing to show</p>;
     return (
-        <>
+        <div>
             {aboutScrum}
-        </>
-
+        </div>
     );
 }
 

@@ -15,16 +15,27 @@
   color: black;
 }
 /*
-.about-item {
-  padding: 2rem;
-  background-color: blue;
-  height: 100%;
-  width: 50vw;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-}*/
+  .about-item {
+    padding: 2rem;
+    background-color: blue;
+    height: 100%;
+    width: 50vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+  }*/
 .about-container {
   display: grid;
-  grid-template-columns: 50% 50%;
+  grid-template-columns: 20% 80%;
+}
+
+.box-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  background-color: blueviolet;
+  width: 70vw;
+  border-radius: 5px;
+  margin-bottom: 2rem;
+  padding: 2rem;
 }

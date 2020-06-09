@@ -1,13 +1,12 @@
 import React from 'react';
 import '../../AboutScrum/About/About.css'
 import * as Markdown from 'react-markdown'
-const About = (props) => {
+const About = ({ title, content, id }) => {
     return (
         <>
-            <div className="box-content">
-                <h1>{props.title}</h1>
-                <Markdown source={props.content} />
-
+            <div className="box-content" id={id}>
+                <h1>{title}</h1>
+                <Markdown source={content} />
             </div>
 
         </>

@@ -1,47 +1,34 @@
-import React, { Component } from 'react';
-import About from './About/About'
+import React, { useState, useEffect } from 'react';
+import '../../api_services/contentful.services'
+import { getAllEntries } from '../../api_services/contentful.services';
+import AboutList from './AboutList/AboutList'
 import SideNav from './SideNavAbout/SideNavAbout'
 import './AboutScrum.css'
 
-class AboutScrumView extends Component {
-    state = {
-        posts: []
-    }
-    //init contentful
-    client = require('contentful').createClient({
-        space: 'n041sndlsw1t',
-        accessToken: 'Bu4RwmRWubJ2JzRGJxE-uf1ikkfpCa7XoUgVMx12pnE'
-    });
-    //fetch on componen mount and re render
-    componentDidMount() {
-        this.fetchPosts()
-            .then(this.setPosts)
-    };
+const AboutScrumView = () => {
 
-    fetchPosts = () => this.client.getEntries()
+    const [aboutScrumList, setAboutScrumList] = useState([]);
 
-    setPosts = response => {
-        this.setState({
-            posts: response.items,
-        })
-    };
-
-    render() {
-
-        return (
-            <>
+    useEffect(() => {
+        getAllEntries()
+            .then(list =>
+                setAboutScrumList(list)
+            )
+            .catch((error) => {
+                console.log(new Error(error))
+            })
+    }, []);
+    return (
+        <div className="about-container">
+            <div>
                 <SideNav />
-                <div className="about-container">
-                    <div className="about-item" id="section1">
+            </div>
+            <div>
 
-                        {this.state.posts.map(({ fields }, i) =>
-                            <About key={i} {...fields} />
-                        )}
-                    </div>
-                </div>
-            </>
-        );
-    }
+                <AboutList aboutList={aboutScrumList} />
+            </div>
+        </div>
+    );
 }
 
 export default AboutScrumView;

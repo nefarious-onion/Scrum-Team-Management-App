@@ -7,7 +7,7 @@ const SideNavAbout = ({ id }) => {
     return (
         <ul className="side-navbar">
             <li>
-                <Link className="side-navbar-item" to={id === 1} smooth={true}>What is scrum</Link>
+                <Link className="side-navbar-item" to="section1" smooth={true}>What is scrum</Link>
             </li>
             <li>
                 <Link className="side-navbar-item" to="section1" smooth={true}>Roles</Link>
