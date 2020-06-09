@@ -12,6 +12,8 @@ import './BacklogView.css';
 const BacklogView = () => {
     const [backlogList, setBacklogList] = useState([]);
     const [sprintlogList, setSprintlogList] = useState([]);
+
+    const [currentList, setCurrentList] = useState('');
     const [isAddFormVisible, setIsAddFormVisible] = useState(false);
     const [isEditVisible, setIsEditVisible] = useState(false);
     const [btnText, setBtnText] = useState('Add new userstory');
@@ -39,10 +41,11 @@ const BacklogView = () => {
         fetchLists();
     }
     // get story to edit, open edit form
-    const getStoryForEdit = async (storyId) => {
+    const getStoryForEdit = async (storyId, listName) => {
         const _storyToEdit = await getStory(storyId);
         if(_storyToEdit) {
             setStoryToEdit(_storyToEdit);
+            setCurrentList(listName);
             setIsEditVisible(true);
         } else {
             throw new Error('Something went wrong: Story was not found')
@@ -64,7 +67,6 @@ const BacklogView = () => {
             setIsAddFormVisible(false);
             setBtnText('Add new userstory');
         }
-
     }
     const onCloseEditForm = () => {
         setIsEditVisible(false);
@@ -98,20 +100,36 @@ const BacklogView = () => {
 
     return (
         <>
-            {isEditVisible ? < EditUserstoryForm onStoryDelete={onStoryDelete} onStoryUpdate={onStoryUpdate} storyToEdit={storyToEdit} onCloseEditForm={onCloseEditForm} /> : null}
+            {isEditVisible ? < EditUserstoryForm listName={currentList} onStoryDelete={onStoryDelete} onStoryUpdate={onStoryUpdate} storyToEdit={storyToEdit} onCloseEditForm={onCloseEditForm} /> : null}
             <div className="backlogview-container">
-                <div className='backloglist-wrapper'>
+                <div className='backloglist-wrapper productBacklog-light'>
                     <div className='backloglist__header-wrapper'>
                         <FontAwesomeIcon icon={faEllipsisH} />
                         <h1 className='backloglist__header'>Product Backlog</h1>
                         <button className='add-userstory-btn' onClick={showUserstoryForm} >{btnText}</button>
                     </div>
                     {isAddFormVisible ? <AddUserstoryForm onStoryCreate={onStoryCreate} listId={backlogId} /> : null}
-                    <BacklogList userstoryList={backlogList} title='Product Backlog' onStoryDelete={onStoryDelete} getStoryForEdit={getStoryForEdit} />
+                    <BacklogList 
+                        userstoryList={backlogList} 
+                        title='Product Backlog' 
+                        onStoryDelete={onStoryDelete} 
+                        getStoryForEdit={storyId => getStoryForEdit(storyId, 'product backlog')} 
+                    />
                 </div>
-                <div className='backloglist-wrapper'>
-                    <h1 className='backloglist__header' >Sprint Backlog</h1>
-                    <BacklogList userstoryList={sprintlogList} title='Sprint Backlog' onStoryDelete={onStoryDelete} getStoryForEdit={getStoryForEdit} />
+                <div className='backloglist-wrapper sprintBacklog-light'>
+                <div className='backloglist__header-wrapper'>
+                        <FontAwesomeIcon icon={faEllipsisH} />
+                        <h1 className='backloglist__header'>Sprint Backlog</h1>
+                        <button className='add-userstory-btn' onClick={showUserstoryForm} >{btnText}</button>
+                    </div>
+                    {isAddFormVisible ? <AddUserstoryForm onStoryCreate={onStoryCreate} listId={sprintlogId} /> : null}
+                    {/* <h1 className='backloglist__header' >Sprint Backlog</h1> */}
+                    <BacklogList 
+                        userstoryList={sprintlogList} 
+                        title='Sprint Backlog' 
+                        onStoryDelete={onStoryDelete} 
+                        g getStoryForEdit={storyId => getStoryForEdit(storyId, 'sprint backlog')} 
+                    />
                 </div>
             </div>
         </>
