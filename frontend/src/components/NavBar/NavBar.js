@@ -34,6 +34,11 @@ const NavBar = () => {
             Project Overview
           </Link>
         </li>
+        <li className='nav-item'>
+          <Link className="nav-link" to='/about'>
+            About Scrum
+            </Link>
+        </li>
       </ul>
     </nav>
   );
