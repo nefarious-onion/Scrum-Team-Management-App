@@ -3,6 +3,7 @@ import BacklogList from './BacklogList/BacklogList';
 import AddUserstoryForm from '../AddUserstoryForm/AddUserstoryForm';
 import EditUserstoryForm from '../EditUserstoryForm/EditUserstoryForm';
 import { getStory, createStory, deleteStory, updateStory } from '../../api_services/userstory.service';
+import { backlogId, sprintlogId } from '../../api_services/config';
 import { getList, getLists } from '../../api_services/scrumlist.service';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsisH } from '@fortawesome/free-solid-svg-icons';
@@ -15,9 +16,6 @@ const BacklogView = () => {
     const [isEditVisible, setIsEditVisible] = useState(false);
     const [btnText, setBtnText] = useState('Add new userstory');
     const [storyToEdit, setStoryToEdit] = useState('');
-
-    const backlogId = '5ed62a5e1940ce0f684b6b37';
-    const sprintlogId = '5ed4dd9383e6833174ec0bc3';
 
     //helper function for fetching stories from database and re-rendering the component
     const fetchLists = async () => {
