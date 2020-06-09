@@ -12,14 +12,6 @@ const ScrumboardView = () => {
     const [inreviewList, setInReviewList] = useState([]);
     const [indoneList, setDoneList] = useState([]);
 
-    const fetchLists = async () => {
-        const _backlogList = await getList(backlogId);
-        const _sprintlogList = await getList(sprintlogId);
-        //sort the lists!!
-        setBacklogList(_backlogList.stories);
-        setSprintlogList(_sprintlogList.stories);
-    }
-
     //Fetch single list with ID
     useEffect(() => {
         getList(sprintlogId)
