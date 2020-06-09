@@ -1,11 +1,5 @@
 .side-navbar {
-  display: flex;
-  flex-direction: column;
-  list-style: none;
-  justify-content: space-evenly;
-  cursor: pointer;
   width: 20rem;
-  background-color: brown;
 }
 
 .side-navbar-item {
@@ -33,7 +27,7 @@
   display: flex;
   flex-direction: column;
   justify-content: start;
-  background-color: blueviolet;
+  background-color: rgba(221, 221, 221);
   width: 70vw;
   border-radius: 5px;
   margin-bottom: 2rem;
