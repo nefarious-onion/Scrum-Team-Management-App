@@ -3,11 +3,41 @@ import './Landing.css';
 
 const Landing = () => {
   return (
-    <div className="landing-container">
-      <div className="landing-items">
-        <h1 className="welcome"> Welcome to LIRA</h1>
+    <>
+      <div className="landing-container">
+        <section >
+          <div className="hero-items">
+            <h1 className="hero-welcome"> lira</h1>
+            <p className="hero-content">Begin your path to mastering the Scrum method today!</p>
+          </div>
+          <div className="hero-img"> picture here</div>
+        </section>
       </div>
-    </div>
+      <section className="">
+        <h1 className=""></h1>
+        <p className=""></p>
+      </section>
+      <section className="">
+        <h1 className=""></h1>
+        <p className=""></p>
+      </section>
+      <section className="">
+        <h1 className="hero-welcome"></h1>
+        <p className="hero-content"></p>
+      </section>
+      <section className="hero-items">
+        <h1 className="hero-welcome"></h1>
+        <p className="hero-content"></p>
+      </section>
+      <section className="hero-items">
+        <h1 className="hero-welcome"></h1>
+        <p className="hero-content"></p>
+      </section>
+      <section className="hero-items">
+        <h1 className="hero-welcome"></h1>
+        <p className="hero-content"></p>
+      </section>
+    </>
   );
 };
 
