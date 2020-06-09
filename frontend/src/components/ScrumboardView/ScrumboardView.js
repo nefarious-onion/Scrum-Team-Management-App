@@ -12,7 +12,6 @@ const ScrumboardView = () => {
     const [inreviewList, setInReviewList] = useState([]);
     const [indoneList, setDoneList] = useState([]);
 
-
     //Fetch single list with ID
     useEffect(() => {
         getList(sprintlogId)

@@ -1,6 +1,5 @@
 import React from 'react';
 import About from '../About/About'
-import Nav from '../SideNavAbout/SideNavAbout'
 const AboutList = ({ aboutList }) => {
 
     //checks that the list is not empty or undefined
