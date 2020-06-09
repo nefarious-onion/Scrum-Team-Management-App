@@ -1,32 +1,29 @@
 import React from 'react';
-import NavBar from './NavBar/NavBar'
-//import AboutScrum from './AboutScrum/AboutScrumView'
 import AboutScrum from './AboutScrum/AboutScrumView'
 import BacklogView from './BacklogView/BacklogView';
-import ScrumboardView from './ScrumboardView/ScrumboardView'
-import Landing from './Landing/Landing'
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
-import { createBrowserHistory } from 'history'
+import ScrumboardView from './ScrumboardView/ScrumboardView';
+import Landing from './Landing/Landing';
+import Meetings from './Meetings/Meetings';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import NavBar from './NavBar/NavBar';
 
 const App = () => {
-
-
     return (
-        <Router history={createBrowserHistory()}>
+        <Router>
             <NavBar />
-            <div>
+            <main>
                 <Switch>
-                    <Route exact path='/' component={Landing} />
-                    <Route path='/backlog' component={BacklogView} />
-                    <Route path='/scrumboard' component={ScrumboardView} />
-                    <Route path='/meetings' />
-                    <Route path='/calendar' />
-                    <Route path='/overview' />
+                    <Route exact path="/" component={Landing} />
+                    <Route path="/backlog" component={BacklogView} />
+                    <Route path="/scrumboard" component={ScrumboardView} />
+                    <Route path="/meetings" component={Meetings} />
+                    <Route path="/calendar" />
+                    <Route path="/overview" />
                     <Route path='/about' component={AboutScrum} />
                 </Switch>
-            </div>
+            </main>
         </Router>
     );
-}
+};
 
 export default App;

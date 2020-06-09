@@ -1,0 +1,11 @@
+.meet-container {
+  padding: 1rem;
+}
+
+.meet-container h3 {
+  text-align: center;
+}
+
+.meet-container ul li {
+  list-style-type: none;
+}
