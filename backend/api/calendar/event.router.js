@@ -46,7 +46,6 @@ router.post('/', async (req, res, next) => {
         res
             .status(201)
             .json(newEvent)
-        next();
     } catch (error) {
         next(new ErrorHandler(500, 'Server Error'));
     }
