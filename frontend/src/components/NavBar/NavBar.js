@@ -29,10 +29,15 @@ const NavBar = () => {
             Calendar
           </Link>
         </li>
-        <li className="nav-item">
+        {/* <li className="nav-item">
           <Link className="nav-link" to="/overview">
             Project Overview
           </Link>
+        </li> */}
+        <li className='nav-item'>
+          <Link className="nav-link" to='/about'>
+            About Scrum
+            </Link>
         </li>
       </ul>
     </nav>
