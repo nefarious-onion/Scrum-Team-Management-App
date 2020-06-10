@@ -11,7 +11,7 @@ const BacklogList = ({ userstoryList, title, onStoryDelete, onStoryUpdate, getSt
             <Userstory
                 key={story._id}
                 title={story.title}
-                _id={story._id}
+                id={story._id}
                 desc={story.descr}
                 onStoryDelete={onStoryDelete}
                 onStoryUpdate={onStoryUpdate}

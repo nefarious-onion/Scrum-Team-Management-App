@@ -3,12 +3,23 @@ import './EditUserstoryForm.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes, faListUl, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 
-const EditUserstoryForm = ({ onStoryDelete, onStoryUpdate, storyToEdit, onCloseEditForm }) => {
+const listStyles = {
+    "current sprint": "currentSprint",
+    "in progress": "inProgress",
+    "in review": "inReview",
+    "done": "done",
+    "product backlog": "productBacklog",
+    "sprint backlog": "sprintBacklog"
+}
+
+const EditUserstoryForm = ({ onStoryDelete, onStoryUpdate, storyToEdit, onCloseEditForm, listName }) => {
     const [titleToEdit, setTitleToEdit] = useState('');
     const [descrToEdit, setDescrToEdit] = useState('');
     const [isTitleInputVisible, setIsTitleInputVisible] = useState(false);
     const [isTextareaVisible, setIsTextareaVisible] = useState(false);
     const storyId = storyToEdit._id;
+    const currentList = listName;
+    const currentListStyle = listStyles[currentList];
 
     //makes sure state is not undefined if there is no title/descr
     useEffect(() => {
@@ -78,12 +89,12 @@ const EditUserstoryForm = ({ onStoryDelete, onStoryUpdate, storyToEdit, onCloseE
     return (
         <>
             <div className='form-overlay' onClick={onCloseEditForm} ></div>
-            <div className='editform-container' >
+            <div className={`editform-container ${currentListStyle}`}>
                 <div className='edit-panel' >
                     <h2>Edit userstory</h2>
-                    <p></p>
+                    <p>{currentList}</p>
                     <FontAwesomeIcon className='editform__move-btn' icon={faListUl} size='2x' />
-                    <FontAwesomeIcon className='editform__delete-btn' icon={faTrashAlt} size='2x' onClick={onClickDelete}/>
+                    <FontAwesomeIcon className='editform__delete-btn' icon={faTrashAlt} size='2x' onClick={onClickDelete} />
                     <p></p>
                     <FontAwesomeIcon className='editform__close-btn' icon={faTimes} size='2x' onClick={onClickClose} />
                 </div>
