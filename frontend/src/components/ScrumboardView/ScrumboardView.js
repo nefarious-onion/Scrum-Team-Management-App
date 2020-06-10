@@ -1,7 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import ScrumboardList from '../../components/ScrumboardView/ScrumboardList/ScrumboardList'
+import EditUserstoryForm from '../EditUserstoryForm/EditUserstoryForm';
+import AddUserstoryForm from '../AddUserstoryForm/AddUserstoryForm';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
 import '../ScrumboardView/ScrumboardView.css'
 import { getList } from '../../api_services/scrumlist.service';
+import { deleteStory, getStory, updateStory, createStory } from '../../api_services/userstory.service';
+import { sprintlogId, donelogId, reviewlogId, progresslogId } from '../../api_services/config';
+
 
 const ScrumboardView = () => {
     const [sprintlogList, setSprintlogList] = useState([]);
@@ -9,35 +16,98 @@ const ScrumboardView = () => {
     const [inreviewList, setInReviewList] = useState([]);
     const [indoneList, setDoneList] = useState([]);
 
-    //
+    const [currentList, setCurrentList] = useState('');
+    const [storyToEdit, setStoryToEdit] = useState('');
+    const [isAddFormVisible, setIsAddFormVisible] = useState(false);
+    const [isEditVisible, setIsEditVisible] = useState(false);
+
+    //helper function for fetching stories from database and re-rendering the component
+    const fetchLists = async () => {
+        const _sprintlogList = await getList(sprintlogId);
+        const _inprogressList = await getList(progresslogId);
+        const _inreviewList = await getList(reviewlogId);
+        const _indoneList = await getList(donelogId);
+        //sort the lists!!
+        setSprintlogList(_sprintlogList.stories);
+        setInProgressList(_inprogressList.stories);
+        setInReviewList(_inreviewList.stories);
+        setDoneList(_indoneList.stories);
+    }
+
+    //event callback function for creating new userstories
+    const onStoryCreate = async (listId, storyInput) => {
+        //create new story and save it to db with API post request
+        await createStory(listId, storyInput);
+        //fetch updated information from db and re-render the lists
+        fetchLists();
+    }
+
+    //deletes userstory and re-renders lists
+    const onStoryDelete = async (storyId) => {
+        await deleteStory(storyId);
+        fetchLists();
+    }
+
+    const getStoryForEdit = async (storyId, listName) => {
+        const _storyToEdit = await getStory(storyId);
+        if (_storyToEdit) {
+            setStoryToEdit(_storyToEdit);
+            setCurrentList(listName);
+            setIsEditVisible(true);
+        } else {
+            throw new Error('Something went wrong: Story was not found')
+        }
+    };
+
+    //save edited userstory in edit form
+    const onStoryUpdate = async (storyId, updatedStory) => {
+        await updateStory(storyId, updatedStory);
+
+        console.log('this story was edited: ', updatedStory);
+    }
+    const showUserstoryForm = () => {
+        if (!isAddFormVisible) {
+            setIsAddFormVisible(true);
+        }
+        if (isAddFormVisible) {
+            setIsAddFormVisible(false);
+        }
+    }
+    const onCloseEditForm = () => {
+        setIsEditVisible(false);
+        setStoryToEdit('');
+        fetchLists();
+    }
+
+    //Fetch single list with ID
     useEffect(() => {
-        getList('5ed4dd9383e6833174ec0bc3')
+        getList(sprintlogId)
             .then(list => {
-                console.log(list.stories)
+                //console.log(list.stories)
                 setSprintlogList(list.stories)
             })
             .catch((err) => {
                 console.log(new Error(err))
             })
-        getList('5ed4ddc583e6833174ec0bc4')
+        getList(progresslogId)
             .then(list => {
-                console.log(list.stories)
+                //console.log(list.stories)
                 setInProgressList(list.stories)
             })
             .catch((err) => {
                 console.log(new Error(err))
             })
-        getList('5ed4ddfd83e6833174ec0bc5')
+        getList(reviewlogId)
             .then(list => {
-                console.log(list.stories)
+                //console.log(list.stories)
                 setInReviewList(list.stories)
             })
             .catch((err) => {
                 console.log(new Error(err))
             })
-        getList('5ed624db56b733499ca332d8')
+        getList(donelogId)
             .then(list => {
-                console.log(list.stories)
+                //console.log(list.stories)
                 setDoneList(list.stories)
             })
             .catch((err) => {
@@ -46,24 +116,58 @@ const ScrumboardView = () => {
     }, []);
 
     return (
-        <div className="scrumboard">
-            <div className="scrumboard-list">
-                <h2>sprint</h2>
-                <ScrumboardList scrumBoard={sprintlogList} title='Sprint backlog' />
+        <>
+            {isEditVisible ? < EditUserstoryForm listName={currentList} onStoryDelete={onStoryDelete} onStoryUpdate={onStoryUpdate} storyToEdit={storyToEdit} onCloseEditForm={onCloseEditForm} /> : null}
+            <div className="scrumboard">
+                <div className="scrumboard-list currentSprint-light">
+                    <div className="list-header">
+                        <h3>current sprint</h3>
+                        {/* <button className='add-userstory-btn' onClick={showUserstoryForm} >{btnText}</button> */}
+                       {!isAddFormVisible ? <FontAwesomeIcon icon={faPlus} size='lg' onClick={showUserstoryForm} /> : <FontAwesomeIcon icon={faMinus} size='lg' onClick={showUserstoryForm} />}
+                    </div>
+                    {isAddFormVisible ? <AddUserstoryForm onStoryCreate={onStoryCreate} listId={sprintlogId} /> : null}
+                    <ScrumboardList
+                        scrumBoard={sprintlogList}
+                        title='Sprint backlog'
+                        onStoryDelete={onStoryDelete}
+                        getStoryForEdit={storyId => getStoryForEdit(storyId, "current sprint")}
+                    />
+                </div>
+                <div className="scrumboard-list inProgress-light">
+                    <div className="list-header">
+                        <h3>in progress</h3>
+                    </div>
+                    <ScrumboardList
+                        scrumBoard={inprogressList}
+                        title='Progress'
+                        onStoryDelete={onStoryDelete}
+                        getStoryForEdit={storyId => getStoryForEdit(storyId, "in progress")}
+                    />
+                </div>
+                <div className="scrumboard-list inReview-light">
+                    <div className="list-header">
+                        <h3>in review</h3>
+                    </div>
+                    <ScrumboardList
+                        scrumBoard={inreviewList}
+                        title='Review'
+                        onStoryDelete={onStoryDelete}
+                        getStoryForEdit={storyId => getStoryForEdit(storyId, "in review")}
+                    />
+                </div>
+                <div className="scrumboard-list done-light">
+                    <div className="list-header">
+                        <h3>done</h3>
+                    </div>
+                    <ScrumboardList
+                        scrumBoard={indoneList}
+                        title='Done'
+                        onStoryDelete={onStoryDelete}
+                        getStoryForEdit={storyId => getStoryForEdit(storyId, "done")}
+                    />
+                </div>
             </div>
-            <div className="scrumboard-list">
-                <h2>in progress</h2>
-                <ScrumboardList scrumBoard={inprogressList} title='Progress' />
-            </div>
-            <div className="scrumboard-list">
-                <h2>in review</h2>
-                <ScrumboardList scrumBoard={inreviewList} title='Review' />
-            </div>
-            <div className="scrumboard-list">
-                <h2>done</h2>
-                <ScrumboardList scrumBoard={indoneList} title='Done' />
-            </div>
-        </div>
+        </>
     );
 }
 
