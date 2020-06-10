@@ -3,14 +3,27 @@
   grid-template-columns: 50% 50%;
   grid-template-rows: 25% 25% 25% 25%;
   width: 100%;
-  height: 100%;
+  height: 60vh;
   justify-items: center;
 }
 .hero-left-container {
+  display: grid;
+
   grid-column: 1;
-  grid-row: 1;
+  grid-row: 2 ;
+}
+.hero-right-container{
+  display: grid;
+  grid-column: 2;
+  grid-row: 2;
+  
+
 }
 .hero-left-container,
 .hero-right-container {
-  height: 30vh;
+height: 40vh;
+}
+
+.hero-content, .hero-cat{
+  width: 20rem;
 }
