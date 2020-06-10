@@ -1,7 +1,7 @@
 .form-overlay {
     height: 100%;
     width: 100%;
-    background-color: rgba(51, 33, 0, .8);
+    background-color: rgba(52, 58, 64, .8);
     position: fixed;
     left: 0;
     top: 0;
@@ -11,7 +11,8 @@
 }
 
 .editform-container {
-    background-color: rgba(196, 128, 0, 1);
+    /* background-color: rgba(196, 128, 0, 1); */
+    opacity: 1;
     width: 700px;
     height: 500px;
     position: absolute;
@@ -39,7 +40,7 @@
     justify-self: end;
 }
 .editform__story-title {
-    background-color: rgb(228, 183, 100);
+    background-color: rgb(247, 237, 226);
     border-radius: 5px;
     padding: .5rem;
 }
@@ -49,13 +50,13 @@
 .editform__text-input{
     resize: none;
     outline: none;
-    background-color: rgb(228, 183, 100);
+    background-color: rgb(247, 237, 226);
     font-family: inherit;
     font-size: 1.5rem;
     width: 100%;
 }
 .editform__story-descr {
-    background-color: rgb(228, 183, 100);
+    background-color: rgb(247, 237, 226);
     height: 5rem;
     border-radius: 5px;
     padding: .5rem;
@@ -65,7 +66,7 @@
     outline: none;
     height: 4rem;
     width: 100%;
-    background-color: rgb(228, 183, 100);
+    background-color: rgb(247, 237, 226);
     font-family: inherit;
     font-size: inherit;
 }
