@@ -1,6 +1,7 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import data from '../../data_services/data-meetings.json';
+import Timer from './Timer';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -33,6 +34,7 @@ const OneMeeting = () => {
 
   return (
     <div>
+      <Timer />
       <h3>{currentMeeting.name}</h3>
       <div className="meeting-grid">
         <div className="icon-style">
