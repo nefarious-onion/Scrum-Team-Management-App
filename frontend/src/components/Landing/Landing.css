@@ -1,36 +1,16 @@
-.landing-container {
-  width: 100%;
-  height: 100%;
+.section-grid-2col {
   display: grid;
   grid-template-columns: 50% 50%;
   grid-template-rows: 25% 25% 25% 25%;
-  row-gap: 2rem;
-  column-gap: 2rem;
-}
-.hero-items {
-  padding: 2rem;
   width: 100%;
   height: 100%;
-  display: flex;
-  flex-direction: column;
+  justify-items: center;
+}
+.hero-left-container {
   grid-column: 1;
-  grid-row: 4;
-}
-
-.hero-welcome {
-  display: flex;
-  width: 100%;
-  height: 100%;
   grid-row: 1;
-  grid-column: 1;
-  font-size: 7rem;
-  text-transform: uppercase;
 }
-.hero-content {
-  width: 30rem;
-  font-size: 3rem;
-}
-
-.hero-img {
-  grid-column: 2;
+.hero-left-container,
+.hero-right-container {
+  height: 30vh;
 }
