@@ -14,6 +14,7 @@
     "history": "^4.10.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-dragula": "^1.1.17",
     "react-markdown": "^4.3.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
