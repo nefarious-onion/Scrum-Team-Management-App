@@ -11,7 +11,7 @@
 }
 .contact-form label {
   display: block;
-  margin: 0px 0px 15px 0px;
+  margin-bottom: 1rem;
 }
 .contact-form label > span {
   width: 100px;

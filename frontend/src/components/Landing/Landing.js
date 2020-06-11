@@ -47,7 +47,7 @@ const Landing = () => {
           <p>こんにちは私の名前はコンテンツです</p>
         </div>
       </section>
-      <section className='productInfo-container section-grid-2col'>
+      <section className='section-grid-2col'>
         <div className='marketing-content-left-col'>
           <p>こんにちは私の名前はコンテンツです</p>
         </div>
