@@ -8,6 +8,7 @@ import { getList, getLists } from '../../api_services/scrumlist.service';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsisH } from '@fortawesome/free-solid-svg-icons';
 import './BacklogView.css';
+import { ReactSortable } from "react-sortablejs";
 
 const BacklogView = () => {
     const [backlogList, setBacklogList] = useState([]);
@@ -43,7 +44,7 @@ const BacklogView = () => {
     // get story to edit, open edit form
     const getStoryForEdit = async (storyId, listName) => {
         const _storyToEdit = await getStory(storyId);
-        if(_storyToEdit) {
+        if (_storyToEdit) {
             setStoryToEdit(_storyToEdit);
             setCurrentList(listName);
             setIsEditVisible(true);
@@ -109,26 +110,28 @@ const BacklogView = () => {
                         <button className='add-userstory-btn' onClick={showUserstoryForm} >{btnText}</button>
                     </div>
                     {isAddFormVisible ? <AddUserstoryForm onStoryCreate={onStoryCreate} listId={backlogId} /> : null}
-                    <BacklogList 
-                        userstoryList={backlogList} 
-                        title='Product Backlog' 
-                        onStoryDelete={onStoryDelete} 
-                        getStoryForEdit={storyId => getStoryForEdit(storyId, 'product backlog')} 
+
+                    <BacklogList
+                        userstoryList={backlogList}
+                        title='Product Backlog'
+                        onStoryDelete={onStoryDelete}
+                        getStoryForEdit={storyId => getStoryForEdit(storyId, 'product backlog')}
                     />
+
                 </div>
                 <div className='backloglist-wrapper sprintBacklog-light'>
-                <div className='backloglist__header-wrapper'>
+                    <div className='backloglist__header-wrapper'>
                         <FontAwesomeIcon icon={faEllipsisH} />
                         <h1 className='backloglist__header'>Sprint Backlog</h1>
                         <button className='add-userstory-btn' onClick={showUserstoryForm} >{btnText}</button>
                     </div>
                     {isAddFormVisible ? <AddUserstoryForm onStoryCreate={onStoryCreate} listId={sprintlogId} /> : null}
                     {/* <h1 className='backloglist__header' >Sprint Backlog</h1> */}
-                    <BacklogList 
-                        userstoryList={sprintlogList} 
-                        title='Sprint Backlog' 
-                        onStoryDelete={onStoryDelete} 
-                        g getStoryForEdit={storyId => getStoryForEdit(storyId, 'sprint backlog')} 
+                    <BacklogList
+                        userstoryList={sprintlogList}
+                        title='Sprint Backlog'
+                        onStoryDelete={onStoryDelete}
+                        g getStoryForEdit={storyId => getStoryForEdit(storyId, 'sprint backlog')}
                     />
                 </div>
             </div>
