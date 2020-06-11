@@ -1,4 +1,4 @@
 .backloglist-container {
-    display: grid;
-    grid-gap: .5rem;
+  display: grid;
+  grid-gap: 0.5rem;
 }
