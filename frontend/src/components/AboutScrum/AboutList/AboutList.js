@@ -12,7 +12,7 @@ const AboutList = ({ aboutList }) => {
                 key={post.sys.id}
                 id={post.fields.identifier}
             />)
-        : <p>nothing to show</p>;
+        : <p>Loading content from Contentful..</p>;
     return (
         <div>
             {aboutScrum}
