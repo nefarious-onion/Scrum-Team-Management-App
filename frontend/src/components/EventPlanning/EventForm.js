@@ -1,50 +1,80 @@
 import React, { useState } from 'react';
 
 const EventForm = () => {
-  const [eventOne, setEventOne] = useState({
+  const [saveMessage, setSaveMessage] = useState();
+  const [showSaveMessage, setShowSaveMessage] = useState(false);
+  const [newEvent, setNewEvent] = useState({
     title: '',
     start: '',
+    end: '',
   });
 
   // changes in inputs saved to state
   const handleInputChange = (event) => {
-    setEventOne({
-      ...eventOne,
+    setNewEvent({
+      ...newEvent,
       [event.target.name]: event.target.value,
     });
-    console.log(eventOne);
-    console.log(typeof eventOne.title);
-    console.log(typeof eventOne.start);
   };
 
   // clicking "save" button adds event to calendar
   const addEvent = (event) => {
     event.preventDefault();
-    console.log(
-      `Ta daaa, event added to calendar - title: ${eventOne.title}, date: ${eventOne.start}`,
-    );
+    if (newEvent.title === '' || newEvent.start === '') {
+      setSaveMessage(
+        <p style={{ color: 'red' }}>
+          Title and start date are required - event not saved
+        </p>,
+      );
+      console.log('Title and start date are required');
+    } else {
+      setSaveMessage(
+        <p style={{ color: 'green' }}>Woohoo, new event saved!</p>,
+      );
+      console.log(
+        `Ta daaa, event added to calendar - title: ${newEvent.title}, start: ${newEvent.start}`,
+      );
+    }
+    setShowSaveMessage(true);
   };
 
   return (
     <>
       <form>
         <div className="form-section">
-          <h4>Event 1:</h4>
-          <label htmlFor="title">Title of event 1:</label>
+          <label htmlFor="title1">Name of event*:</label>
           <input
             id="title"
             name="title"
             type="text"
+            value={newEvent.title}
             onChange={handleInputChange}
           />
-          <label htmlFor="start">Start date of event 1:</label>
+        </div>
+        <div className="form-section">
+          <label htmlFor="start">Start date of event*:</label>
           <input
             id="start"
             name="start"
             type="date"
+            value={newEvent.start}
             onChange={handleInputChange}
           />
         </div>
+        <div className="form-section">
+          <label htmlFor="end">End date of event:</label>
+          <input
+            id="end"
+            name="end"
+            type="date"
+            value={newEvent.end}
+            onChange={handleInputChange}
+          />
+        </div>
+        <div>
+          <p>Fields marked with * are required.</p>
+        </div>
+        {showSaveMessage && saveMessage}
         <button type="submit" onClick={addEvent}>
           Save event to calendar
         </button>
