@@ -1,0 +1,27 @@
+.side-navbar {
+  width: 20rem;
+  cursor: pointer;
+}
+
+.side-navbar-item {
+  display: flex;
+  padding: 2rem;
+  text-decoration: none;
+  color: black;
+}
+
+.about-container {
+  display: grid;
+  grid-template-columns: 20% 80%;
+}
+
+.box-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  background-color: rgba(221, 221, 221);
+  width: 70vw;
+  border-radius: 5px;
+  margin-bottom: 2rem;
+  padding: 2rem;
+}

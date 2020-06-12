@@ -1,21 +1,47 @@
 .scrumboard {
   width: 100%;
-  height: 100%;
   display: grid;
-  justify-content: space-between;
-  grid-template-columns: 25% 25% 25% 25%;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 1rem;
+  padding: 1rem;
 }
 
 .scrumboard-list {
-  background-color: brown;
+  padding: .5rem;
+  min-height: 85vh;
+}
+
+.list-header {
+  padding-bottom: .5rem;
   display: grid;
-  grid-template-columns: 100%;
-  grid-template-rows: 10% 90%;
-  justify-content: space-between;
-  margin: 2rem;
-  padding: 2rem;
-  height: 80vh;
-  max-height: 100vh;
-  overflow-x: hidden;
-  overflow-y: auto;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  justify-items: center;
+}
+
+.currentSprint {
+  /* background-color: rgba(246, 189, 96, .5); */
+  background-color: rgb(246, 189, 96);
+}
+.currentSprint-light {
+  /* background-color: rgba(246, 189, 96, .5); */
+  background-color: rgba(246, 189, 96, .5);
+}
+.inProgress {
+  background-color: rgb(245, 202, 195);
+}
+.inProgress-light {
+  background-color: rgba(245, 202, 195, .5);
+}
+.inReview {
+  background-color: rgb(132, 165, 157);
+}
+.inReview-light {
+  background-color: rgba(132, 165, 157, .5);
+}
+.done {
+  background-color: rgb(242, 132, 130);
+}
+.done-light {
+  background-color: rgba(242, 132, 130, .5);
 }
