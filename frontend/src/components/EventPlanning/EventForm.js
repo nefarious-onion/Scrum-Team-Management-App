@@ -57,11 +57,19 @@ const EventForm = () => {
       console.log('Title and start date are required');
     } else {
       // if title and start date provided, prepare all the data and save
-      // build a start Date object from start date and start time strings
+
+      // build a START DATE OBJECT from start date and start time strings
       newEvent.start = new Date(
         startStrings.startDate + 'T' + startStrings.startTime,
       );
-      // if provided, build an end Date object from end date and end time strings
+
+      // if provided, build an END DATE OBJECT from end date and end time strings
+      // if end date not provided, but time provided, default the date to start date
+      if (endStrings.endDate === '' && endStrings.endTime !== '') {
+        newEvent.end = new Date(
+          startStrings.startDate + 'T' + endStrings.endTime,
+        );
+      }
       if (endStrings.endDate !== '') {
         // if endtime not provided, default to midnight
         if (endStrings.endTime === '') {
@@ -70,16 +78,15 @@ const EventForm = () => {
         newEvent.end = new Date(endStrings.endDate + 'T' + endStrings.endTime);
       }
 
+      // set the USER FEEDBACK MESSAGE
       setSaveMessage(
         <p style={{ color: 'green' }}>Woohoo, new event saved!</p>,
       );
-      console.log(
-        `Event will be saved - title: ${newEvent.title}, start: ${newEvent.start}, end: ${newEvent.end}`,
-      );
       console.log(newEvent);
-      // save the event entry to the db
+      // SAVE TO DB
       createEvent(newEvent);
     }
+    // show the feedback message, positive or not
     setShowSaveMessage(true);
   };
 
