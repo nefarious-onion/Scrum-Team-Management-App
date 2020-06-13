@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { createEvent } from '../../api_services/event.service';
 
 const EventForm = () => {
   const [saveMessage, setSaveMessage] = useState();
@@ -16,7 +17,7 @@ const EventForm = () => {
   const [newEvent, setNewEvent] = useState({
     title: '',
     start: {},
-    end: {},
+    end: undefined,
   });
 
   // changes in inputs saved to state - title
@@ -76,7 +77,8 @@ const EventForm = () => {
         `Event will be saved - title: ${newEvent.title}, start: ${newEvent.start}, end: ${newEvent.end}`,
       );
       console.log(newEvent);
-      // save the event entry !!!
+      // save the event entry to the db
+      createEvent(newEvent);
     }
     setShowSaveMessage(true);
   };
