@@ -14,13 +14,15 @@ const EventForm = () => {
     endTime: '',
     // endTime set to default - if not set here nor in inputs, it saves the next full o'clock from the time of saving (eg. at 14:48 it saves 15:00)
   });
+  const [checkedRecurrOption, setCheckedRecurrOption] = useState('one-time');
   const [newEvent, setNewEvent] = useState({
     title: '',
     start: {},
     end: undefined,
+    daysOfWeek: [],
   });
 
-  // changes in inputs saved to state - title
+  // changes in inputs saved to state - title (soon color or something else added here?)
   const handleInputChange = (event) => {
     setNewEvent({
       ...newEvent,
@@ -44,6 +46,12 @@ const EventForm = () => {
     });
   };
 
+  // changes in inputs saved to state - recurrence days of week from radio buttons
+  const recurrenceRadioBtns = (event) => {
+    console.log('clicked option value: ' + event.target.value);
+    setCheckedRecurrOption(event.target.value);
+  };
+
   // clicking "save" button adds event to calendar
   const addEvent = (event) => {
     event.preventDefault();
@@ -59,6 +67,9 @@ const EventForm = () => {
       // if title and start date provided, prepare all the data and save
 
       // build a START DATE OBJECT from start date and start time strings
+      if (startStrings.startTime === '') {
+        startStrings.startTime = '00:00';
+      }
       newEvent.start = new Date(
         startStrings.startDate + 'T' + startStrings.startTime,
       );
@@ -78,6 +89,18 @@ const EventForm = () => {
         newEvent.end = new Date(endStrings.endDate + 'T' + endStrings.endTime);
       }
 
+      // checked options - set RECURRENCE DAYS OF WEEK
+      if (checkedRecurrOption === 'daily-mon-fri') {
+        newEvent.daysOfWeek = [1, 2, 3, 4, 5];
+      } else if (checkedRecurrOption === 'weekly-fri') {
+        newEvent.daysOfWeek = [5];
+      } else if (checkedRecurrOption === 'weekly-mon') {
+        newEvent.daysOfWeek = [1];
+      } else {
+        // 'one-time' checked or anything else
+        newEvent.daysOfWeek = [];
+      }
+
       // set the USER FEEDBACK MESSAGE
       setSaveMessage(
         <p style={{ color: 'green' }}>Woohoo, new event saved!</p>,
@@ -93,6 +116,9 @@ const EventForm = () => {
   return (
     <>
       <form>
+        <br></br>
+        <hr></hr>
+        <br></br>
         {/* EVENT TITLE */}
         <div className="form-section">
           <label htmlFor="title1">Name of event*:</label>
@@ -104,6 +130,9 @@ const EventForm = () => {
             onChange={handleInputChange}
           />
         </div>
+        <br></br>
+        <hr></hr>
+        <br></br>
         {/* EVENT START DATE */}
         <div className="form-section">
           <label htmlFor="startDate">Start date of event*:</label>
@@ -126,6 +155,9 @@ const EventForm = () => {
             onChange={inputStartDateTime}
           />
         </div>
+        <br></br>
+        <hr></hr>
+        <br></br>
         {/* EVENT END DATE */}
         <div className="form-section">
           <label htmlFor="endDate">End date of event:</label>
@@ -149,10 +181,61 @@ const EventForm = () => {
             onChange={inputEndDateTime}
           />
         </div>
+        <br></br>
+        <hr></hr>
+        <br></br>
+        {/* RECURRENCE OF EVENT */}
+        <div className="form-section">
+          <h4>How often do you want this meeting to happen?</h4>
+          <input
+            type="radio"
+            id="one-time"
+            name="event-recurr"
+            value="one-time"
+            checked={checkedRecurrOption === 'one-time'}
+            onChange={recurrenceRadioBtns}
+          />
+          <label htmlFor="one-time">Just once</label>
+          <br></br>
+          <input
+            type="radio"
+            id="daily-mon-fri"
+            name="event-recurr"
+            value="daily-mon-fri"
+            checked={checkedRecurrOption === 'daily-mon-fri'}
+            onChange={recurrenceRadioBtns}
+          />
+          <label htmlFor="daily-mon-fri">Every day Monday to Friday</label>
+          <br></br>
+          <input
+            type="radio"
+            id="weekly-fri"
+            name="event-recurr"
+            value="weekly-fri"
+            checked={checkedRecurrOption === 'weekly-fri'}
+            onChange={recurrenceRadioBtns}
+          />
+          <label htmlFor="weekly-fri">Every week on Friday</label>
+          <br></br>
+          <input
+            type="radio"
+            id="weekly-mon"
+            name="event-recurr"
+            value="weekly-mon"
+            checked={checkedRecurrOption === 'weekly-mon'}
+            onChange={recurrenceRadioBtns}
+          />
+          <label htmlFor="weekly-mon">Every week on Monday</label>
+        </div>
+        <br></br>
+        <hr></hr>
+        <br></br>
         <div>
           <p>Fields marked with * are required.</p>
         </div>
+        <br></br>
         {showSaveMessage && saveMessage}
+        <br></br>
         <button type="submit" onClick={addEvent}>
           Save event to calendar
         </button>
