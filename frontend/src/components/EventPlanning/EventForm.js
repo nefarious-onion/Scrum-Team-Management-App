@@ -3,13 +3,23 @@ import React, { useState } from 'react';
 const EventForm = () => {
   const [saveMessage, setSaveMessage] = useState();
   const [showSaveMessage, setShowSaveMessage] = useState(false);
+  const [startStrings, setStartStrings] = useState({
+    startDate: '',
+    startTime: '00:00',
+    // startTime set to default - if not set here nor in inputs, it saves the next full o'clock from the time of saving (eg. at 14:48 it saves 15:00)
+  });
+  const [endStrings, setEndStrings] = useState({
+    endDate: '',
+    endTime: '',
+    // endTime set to default - if not set here nor in inputs, it saves the next full o'clock from the time of saving (eg. at 14:48 it saves 15:00)
+  });
   const [newEvent, setNewEvent] = useState({
     title: '',
-    start: '',
-    end: '',
+    start: {},
+    end: {},
   });
 
-  // changes in inputs saved to state
+  // changes in inputs saved to state - title
   const handleInputChange = (event) => {
     setNewEvent({
       ...newEvent,
@@ -17,10 +27,27 @@ const EventForm = () => {
     });
   };
 
+  // changes in inputs saved to state - start date, start time - strings
+  const inputStartDateTime = (event) => {
+    setStartStrings({
+      ...startStrings,
+      [event.target.name]: event.target.value,
+    });
+  };
+
+  // changes in inputs saved to state - end date, end time - strings
+  const inputEndDateTime = (event) => {
+    setEndStrings({
+      ...endStrings,
+      [event.target.name]: event.target.value,
+    });
+  };
+
   // clicking "save" button adds event to calendar
   const addEvent = (event) => {
     event.preventDefault();
-    if (newEvent.title === '' || newEvent.start === '') {
+    // if title or start date are not provided, don't save the event
+    if (newEvent.title === '' || startStrings.startDate === '') {
       setSaveMessage(
         <p style={{ color: 'red' }}>
           Title and start date are required - event not saved
@@ -28,12 +55,28 @@ const EventForm = () => {
       );
       console.log('Title and start date are required');
     } else {
+      // if title and start date provided, prepare all the data and save
+      // build a start Date object from start date and start time strings
+      newEvent.start = new Date(
+        startStrings.startDate + 'T' + startStrings.startTime,
+      );
+      // if provided, build an end Date object from end date and end time strings
+      if (endStrings.endDate !== '') {
+        // if endtime not provided, default to midnight
+        if (endStrings.endTime === '') {
+          endStrings.endTime = '23:59';
+        }
+        newEvent.end = new Date(endStrings.endDate + 'T' + endStrings.endTime);
+      }
+
       setSaveMessage(
         <p style={{ color: 'green' }}>Woohoo, new event saved!</p>,
       );
       console.log(
-        `Ta daaa, event added to calendar - title: ${newEvent.title}, start: ${newEvent.start}`,
+        `Event will be saved - title: ${newEvent.title}, start: ${newEvent.start}, end: ${newEvent.end}`,
       );
+      console.log(newEvent);
+      // save the event entry !!!
     }
     setShowSaveMessage(true);
   };
@@ -41,6 +84,7 @@ const EventForm = () => {
   return (
     <>
       <form>
+        {/* EVENT TITLE */}
         <div className="form-section">
           <label htmlFor="title1">Name of event*:</label>
           <input
@@ -51,24 +95,49 @@ const EventForm = () => {
             onChange={handleInputChange}
           />
         </div>
+        {/* EVENT START DATE */}
         <div className="form-section">
-          <label htmlFor="start">Start date of event*:</label>
+          <label htmlFor="startDate">Start date of event*:</label>
           <input
-            id="start"
-            name="start"
+            id="startDate"
+            name="startDate"
             type="date"
-            value={newEvent.start}
-            onChange={handleInputChange}
+            value={startStrings.startDate}
+            onChange={inputStartDateTime}
           />
         </div>
+        {/* EVENT START TIME */}
         <div className="form-section">
-          <label htmlFor="end">End date of event:</label>
+          <label htmlFor="startTime">Start time of event:</label>
           <input
-            id="end"
-            name="end"
+            id="startTime"
+            name="startTime"
+            type="time"
+            value={startStrings.startTime}
+            onChange={inputStartDateTime}
+          />
+        </div>
+        {/* EVENT END DATE */}
+        <div className="form-section">
+          <label htmlFor="endDate">End date of event:</label>
+          <input
+            id="endDate"
+            name="endDate"
             type="date"
-            value={newEvent.end}
-            onChange={handleInputChange}
+            value={endStrings.endDate}
+            onChange={inputEndDateTime}
+          />
+          <p>(If no end date provided, the event is marked as all day long)</p>
+        </div>
+        {/* EVENT END TIME */}
+        <div className="form-section">
+          <label htmlFor="endTime">End time of event:</label>
+          <input
+            id="endTime"
+            name="endTime"
+            type="time"
+            value={endStrings.endTime}
+            onChange={inputEndDateTime}
           />
         </div>
         <div>
