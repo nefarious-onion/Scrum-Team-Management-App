@@ -9,9 +9,9 @@ const BacklogList = ({ userstoryList, title, onStoryDelete, onStoryUpdate, getSt
     const dragulaArray = [];
 
     useEffect(() => {
-        dragulaDecorator(dragula.current)
-        //let options = {};
-        //Dragula([dragulaArray], options);
+        dragulaDecorator(dragula)
+        let options = {};
+        Dragula([dragulaArray], options);
     });
     /*
         const dragulaDecorator = (componentBackingInstance) => {
@@ -19,8 +19,8 @@ const BacklogList = ({ userstoryList, title, onStoryDelete, onStoryUpdate, getSt
                 dragulaArray.push(dragula)
                 console.log(dragula.current)
             }
-        };
-    */
+        };*/
+
     const dragulaDecorator = (componentBackingInstance) => {
         if (componentBackingInstance) {
             let options = {};
