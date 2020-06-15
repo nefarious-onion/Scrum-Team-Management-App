@@ -136,7 +136,7 @@ const BacklogView = () => {
                         userstoryList={sprintlogList}
                         title='Sprint Backlog'
                         onStoryDelete={onStoryDelete}
-                        g getStoryForEdit={storyId => getStoryForEdit(storyId, 'sprint backlog')}
+                        getStoryForEdit={storyId => getStoryForEdit(storyId, 'sprint backlog')}
                     />
                 </div>
             </div>
