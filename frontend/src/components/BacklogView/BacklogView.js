@@ -6,13 +6,15 @@ import { getStory, createStory, deleteStory, updateStory } from '../../api_servi
 import { backlogId, sprintlogId } from '../../api_services/config';
 import { getList, getLists } from '../../api_services/scrumlist.service';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEllipsisH, faInfoCircle, faInfo } from '@fortawesome/free-solid-svg-icons';
+import { faEllipsisH, faInfoCircle, } from '@fortawesome/free-solid-svg-icons';
 import ReactTooltip from 'react-tooltip';
 import './BacklogView.css';
 import { DragDropContext } from 'react-beautiful-dnd';
 
 const productBacklogInfo = 'This is backloglist';
 const sprintBacklogInfo = 'This is the sprintbacklog';
+
+
 
 const BacklogView = () => {
     const [backlogList, setBacklogList] = useState([]);
@@ -23,6 +25,17 @@ const BacklogView = () => {
     const [isEditVisible, setIsEditVisible] = useState(false);
     const [btnText, setBtnText] = useState('Add new userstory');
     const [storyToEdit, setStoryToEdit] = useState('');
+
+    const getListById = id => {
+        switch (id) {
+            case backlogId:
+                return backlogList;
+            case sprintlogId:
+                return sprintlogList;
+            default:
+                break;
+        }
+    }
 
     //helper function for fetching stories from database and re-rendering the component
     const fetchLists = async () => {
@@ -35,18 +48,61 @@ const BacklogView = () => {
 
     const onDragEnd = result => {
         const { destination, source, draggableId } = result;
+        console.log(result);
+        console.log(backlogList)
 
         if (!destination) {
             return;
         }
         //check the userstory actually moved
         if (
-            destination.droppableId = source.draggableId &&
+            destination.droppableId === source.droppableId &&
             destination.index === source.index
         ) {
             return;
         }
-        // const column = 
+        const listDraggedFrom = getListById(source.droppableId);
+        console.log('list dragged from: ', listDraggedFrom);
+        const listDraggedTo = getListById(destination.droppableId);
+        console.log('list dragged to', listDraggedTo)
+        //move userstory within one list
+        if (listDraggedFrom === listDraggedTo) {
+            const newStoryList = Array.from(listDraggedFrom);
+            //array destructuring => splice returns an array of 1 item = draggedstory
+            const [draggedStory] = newStoryList.splice(source.index, 1);
+            console.log(draggedStory);
+            newStoryList.splice(destination.index, 0, draggedStory);
+            //setBacklogList(newStoryList);
+            switch (destination.droppableId) {
+                case backlogId:
+                    setBacklogList(newStoryList);
+                    break;
+                case sprintlogId:
+                    setSprintlogList(newStoryList);
+                    break;
+                default:
+                    break;
+            }
+            console.log(newStoryList);
+        } else {
+            //move userstory between lists
+            const newDraggedFromList = Array.from(listDraggedFrom);
+            const [draggedStory] = newDraggedFromList.splice(source.index, 1);
+            const newDraggedToList = Array.from(listDraggedTo);
+            newDraggedToList.splice(destination.index, 0, draggedStory);
+            switch (destination.droppableId) {
+                case backlogId:
+                    setBacklogList(newDraggedToList);
+                    setSprintlogList(newDraggedFromList);
+                    break;
+                case sprintlogId:
+                    setSprintlogList(newDraggedToList);
+                    setBacklogList(newDraggedFromList);
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 
     //event callback function for creating new userstories
@@ -121,7 +177,7 @@ const BacklogView = () => {
 
     return (
         <>
-            <DragDropContext onDragEnd={onDragEnd}>
+            <DragDropContext onDragEnd={onDragEnd} onDragStart={() => console.log('dsds')}>
                 {isEditVisible ? < EditUserstoryForm listName={currentList} onStoryDelete={onStoryDelete} onStoryUpdate={onStoryUpdate} storyToEdit={storyToEdit} onCloseEditForm={onCloseEditForm} /> : null}
                 <div className="backlogview-container">
                     <div className='backloglist-wrapper productBacklog-light'>
@@ -138,6 +194,7 @@ const BacklogView = () => {
                             title='Product Backlog'
                             onStoryDelete={onStoryDelete}
                             getStoryForEdit={storyId => getStoryForEdit(storyId, 'product backlog')}
+                            id={backlogId}
                         />
                     </div>
                     <div className='backloglist-wrapper sprintBacklog-light'>
@@ -154,6 +211,7 @@ const BacklogView = () => {
                             title='Sprint Backlog'
                             onStoryDelete={onStoryDelete}
                             getStoryForEdit={storyId => getStoryForEdit(storyId, 'sprint backlog')}
+                            id={sprintlogId}
                         />
                     </div>
                 </div>
