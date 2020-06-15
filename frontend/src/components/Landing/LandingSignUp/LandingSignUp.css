@@ -1,7 +1,8 @@
 .contact-form {
   width: 40vw;
   padding: 2rem;
-  font: 13px Arial, Helvetica, sans-serif;
+  /* font: 13px Arial, Helvetica, sans-serif; */
+  font: inherit;
 }
 .contact-form-heading {
   text-align: center;
