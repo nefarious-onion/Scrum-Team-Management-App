@@ -24,7 +24,7 @@
 
 .edit-panel {
     display: grid;
-    grid-template-columns: auto auto 50px 50px 50px 50px;
+    grid-template-columns: auto auto auto 50px 50px 50px;
     grid-gap: .5rem;
     border-bottom: solid 2px rgba(0, 0, 0, 0.308);
     padding: .5rem;
