@@ -16,9 +16,9 @@ const EventCalendar = ({ events, timeZone }) => {
                 weekends={true}
                 weekNumbers={true}
                 header={{
-                    left: 'prev, next, today, listDay,listWeek,listMonth',
+                    left: 'prev, next, ,dayGridMonth,timeGridWeek,timeGridDay,today, ',
                     center: 'title',
-                    right: 'addEventButton,dayGridMonth,timeGridWeek,timeGridDay'
+                    right: 'addEventButton,listWeek,listMonth'
                 }}
                 customButtons={{
                     addEventButton: {
@@ -29,9 +29,8 @@ const EventCalendar = ({ events, timeZone }) => {
                     }
                 }}
                 views={{
-                    listDay: { buttonText: 'list day' },
-                    listWeek: { buttonText: 'list week' },
-                    listMonth: { buttonText: 'list month' }
+                    listWeek: { buttonText: 'events: week' },
+                    listMonth: { buttonText: 'events: month' }
                 }}
                 firstDay={1}
                 nowIndicator={true}
