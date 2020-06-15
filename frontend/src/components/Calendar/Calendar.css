@@ -2,9 +2,12 @@
     font-family: inherit;
     
 }
-
+.calendar-edit-panel {
+    padding: 1rem;
+}
 .calendar-content {
     margin: 0 auto;
     max-width: 90%;
     font-size: 14px;
+    padding-bottom: 1rem;
 }
