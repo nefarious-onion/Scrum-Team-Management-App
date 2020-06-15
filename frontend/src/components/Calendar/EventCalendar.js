@@ -5,20 +5,20 @@ import interactionPlugin from '@fullcalendar/interaction'
 import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';
 
-const EventCalendar = ({ events, timeZone }) => {
+const EventCalendar = ({ events, timeZone, showWeekends, onDateClick, onEventClick }) => {
 
     return (
-        <div>
+       
             <FullCalendar
                 defaultView="dayGridMonth"
                 plugins={[ dayGridPlugin, interactionPlugin, timeGridPlugin, listPlugin ]}
                 timeZone={timeZone}
-                weekends={true}
+                weekends={showWeekends}
                 weekNumbers={true}
                 header={{
-                    left: 'prev, next, ,dayGridMonth,timeGridWeek,timeGridDay,today, ',
+                    left: 'prev, next, dayGridMonth, timeGridWeek, timeGridDay, today, ',
                     center: 'title',
-                    right: 'addEventButton,listWeek,listMonth'
+                    right: 'addEventButton, listWeek, listMonth'
                 }}
                 customButtons={{
                     addEventButton: {
@@ -39,9 +39,11 @@ const EventCalendar = ({ events, timeZone }) => {
                     startTime: '09:30',
                     endTime: '15:00'
                 }}
+                dateClick={onDateClick}
+                eventClick={onEventClick}
                 events={events}
             />
-        </div>
+        
     );
 }
 
