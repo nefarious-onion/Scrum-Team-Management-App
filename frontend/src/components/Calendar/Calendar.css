@@ -1,0 +1,10 @@
+.calendar-container {
+    font-family: inherit;
+    
+}
+
+.calendar-content {
+    margin: 0 auto;
+    max-width: 90%;
+    font-size: 14px;
+}
