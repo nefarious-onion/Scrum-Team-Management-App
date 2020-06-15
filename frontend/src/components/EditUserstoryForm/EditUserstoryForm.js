@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import './EditUserstoryForm.css';
+import ReactTooltip from 'react-tooltip';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTimes, faListUl, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+import { faTimes, faListUl, faTrashAlt, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 
 const listStyles = {
     "current sprint": "currentSprint",
@@ -11,6 +12,8 @@ const listStyles = {
     "product backlog": "productBacklog",
     "sprint backlog": "sprintBacklog"
 }
+
+const userstoryInfo = 'This is a userstory'
 
 const EditUserstoryForm = ({ onStoryDelete, onStoryUpdate, storyToEdit, onCloseEditForm, listName }) => {
     const [titleToEdit, setTitleToEdit] = useState('');
@@ -92,10 +95,11 @@ const EditUserstoryForm = ({ onStoryDelete, onStoryUpdate, storyToEdit, onCloseE
             <div className={`editform-container ${currentListStyle}`}>
                 <div className='edit-panel' >
                     <h2>Edit userstory</h2>
+                    <FontAwesomeIcon icon={faInfoCircle} className='info-icon' spin data-tip data-for='userstory' />
+                    <ReactTooltip id='userstory' place='top' effect='solid'>{userstoryInfo}</ReactTooltip>
                     <p>{currentList}</p>
                     <FontAwesomeIcon className='editform__move-btn' icon={faListUl} size='2x' />
                     <FontAwesomeIcon className='editform__delete-btn' icon={faTrashAlt} size='2x' onClick={onClickDelete} />
-                    <p></p>
                     <FontAwesomeIcon className='editform__close-btn' icon={faTimes} size='2x' onClick={onClickClose} />
                 </div>
                 <div className='edit-content'>
