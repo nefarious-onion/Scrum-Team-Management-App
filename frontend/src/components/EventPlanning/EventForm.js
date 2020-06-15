@@ -4,6 +4,9 @@ import { createEvent } from '../../api_services/event.service';
 const EventForm = () => {
   const [saveMessage, setSaveMessage] = useState();
   const [showSaveMessage, setShowSaveMessage] = useState(false);
+
+  // STATES KEEPING THE PIECES OF DATA FROM THE FORM
+
   const [startStrings, setStartStrings] = useState({
     startDate: '',
     startTime: '00:00',
@@ -14,13 +17,17 @@ const EventForm = () => {
     endTime: '',
     // endTime set to default - if not set here nor in inputs, it saves the next full o'clock from the time of saving (eg. at 14:48 it saves 15:00)
   });
-  const [checkedRecurrOption, setCheckedRecurrOption] = useState('one-time');
+  const [checkedRecurOption, setCheckedRecurOption] = useState('one-time');
+  const [startRecurDate, setStartRecurDate] = useState('');
+  const [endRecurDate, setEndRecurDate] = useState('');
   const [newEvent, setNewEvent] = useState({
     title: '',
     start: {},
     end: undefined,
     daysOfWeek: [],
   });
+
+  // INPUT CHANGE HANDLERS
 
   // changes in inputs saved to state - title (soon color or something else added here?)
   const handleInputChange = (event) => {
@@ -48,14 +55,25 @@ const EventForm = () => {
 
   // changes in inputs saved to state - recurrence days of week from radio buttons
   const recurrenceRadioBtns = (event) => {
-    console.log('clicked option value: ' + event.target.value);
-    setCheckedRecurrOption(event.target.value);
+    setCheckedRecurOption(event.target.value);
   };
 
-  // clicking "save" button adds event to calendar
+  // changes in inputs saved to state - recurrence start date
+  const inputStartRecurDate = (event) => {
+    setStartRecurDate(event.target.value);
+  };
+
+  // changes in inputs saved to state - recurrence end date
+  const inputEndRecurDate = (event) => {
+    setEndRecurDate(event.target.value);
+  };
+
+  // CLICK "SAVE"
+  // BUILD THE EVENT OBJECT IN THE CORRECT FORM
+  // SAVE IT TO THE DB
   const addEvent = (event) => {
     event.preventDefault();
-    // if title or start date are not provided, don't save the event
+    // if title or start date are not provided, DON'T SAVE the event
     if (newEvent.title === '' || startStrings.startDate === '') {
       setSaveMessage(
         <p style={{ color: 'red' }}>
@@ -64,7 +82,7 @@ const EventForm = () => {
       );
       console.log('Title and start date are required');
     } else {
-      // if title and start date provided, prepare all the data and save
+      // if title and start date provided, PREPARE DATA AND SAVE
 
       // build a START DATE OBJECT from start date and start time strings
       if (startStrings.startTime === '') {
@@ -90,22 +108,32 @@ const EventForm = () => {
       }
 
       // checked options - set RECURRENCE DAYS OF WEEK
-      if (checkedRecurrOption === 'daily-mon-fri') {
+      if (checkedRecurOption === 'daily-mon-fri') {
         newEvent.daysOfWeek = [1, 2, 3, 4, 5];
-      } else if (checkedRecurrOption === 'weekly-fri') {
+      } else if (checkedRecurOption === 'weekly-fri') {
         newEvent.daysOfWeek = [5];
-      } else if (checkedRecurrOption === 'weekly-mon') {
+      } else if (checkedRecurOption === 'weekly-mon') {
         newEvent.daysOfWeek = [1];
       } else {
         // 'one-time' checked or anything else
         newEvent.daysOfWeek = [];
       }
 
+      // if provided, build START RECUR DATE OBJECT
+      if (startRecurDate !== '') {
+        newEvent.startRecur = new Date(startRecurDate + 'T00:00');
+      }
+
+      // if provided, build END RECUR DATE OBJECT
+      if (endRecurDate !== '') {
+        newEvent.endRecur = new Date(endRecurDate + 'T23:59');
+      }
+
       // set the USER FEEDBACK MESSAGE
       setSaveMessage(
         <p style={{ color: 'green' }}>Woohoo, new event saved!</p>,
       );
-      console.log(newEvent);
+
       // SAVE TO DB
       createEvent(newEvent);
     }
@@ -190,9 +218,9 @@ const EventForm = () => {
           <input
             type="radio"
             id="one-time"
-            name="event-recurr"
+            name="event-recur"
             value="one-time"
-            checked={checkedRecurrOption === 'one-time'}
+            checked={checkedRecurOption === 'one-time'}
             onChange={recurrenceRadioBtns}
           />
           <label htmlFor="one-time">Just once</label>
@@ -200,9 +228,9 @@ const EventForm = () => {
           <input
             type="radio"
             id="daily-mon-fri"
-            name="event-recurr"
+            name="event-recur"
             value="daily-mon-fri"
-            checked={checkedRecurrOption === 'daily-mon-fri'}
+            checked={checkedRecurOption === 'daily-mon-fri'}
             onChange={recurrenceRadioBtns}
           />
           <label htmlFor="daily-mon-fri">Every day Monday to Friday</label>
@@ -210,9 +238,9 @@ const EventForm = () => {
           <input
             type="radio"
             id="weekly-fri"
-            name="event-recurr"
+            name="event-recur"
             value="weekly-fri"
-            checked={checkedRecurrOption === 'weekly-fri'}
+            checked={checkedRecurOption === 'weekly-fri'}
             onChange={recurrenceRadioBtns}
           />
           <label htmlFor="weekly-fri">Every week on Friday</label>
@@ -220,12 +248,36 @@ const EventForm = () => {
           <input
             type="radio"
             id="weekly-mon"
-            name="event-recurr"
+            name="event-recur"
             value="weekly-mon"
-            checked={checkedRecurrOption === 'weekly-mon'}
+            checked={checkedRecurOption === 'weekly-mon'}
             onChange={recurrenceRadioBtns}
           />
           <label htmlFor="weekly-mon">Every week on Monday</label>
+        </div>
+        {/* EVENT RECURRENCE START DATE */}
+        <div className="form-section">
+          <label htmlFor="startRecurDate">
+            Start of the recurrence period:
+          </label>
+          <input
+            id="startRecurDate"
+            name="startRecurDate"
+            type="date"
+            value={startRecurDate}
+            onChange={inputStartRecurDate}
+          />
+        </div>
+        {/* EVENT RECURRENCE END DATE */}
+        <div className="form-section">
+          <label htmlFor="endRecurDate">End date of event:</label>
+          <input
+            id="endRecurDate"
+            name="endRecurDate"
+            type="date"
+            value={endRecurDate}
+            onChange={inputEndRecurDate}
+          />
         </div>
         <br></br>
         <hr></hr>
