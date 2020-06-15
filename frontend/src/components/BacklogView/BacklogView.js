@@ -8,6 +8,7 @@ import { getList, getLists } from '../../api_services/scrumlist.service';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsisH } from '@fortawesome/free-solid-svg-icons';
 import './BacklogView.css';
+import { DragDropContext } from 'react-beautiful-dnd';
 
 const BacklogView = () => {
     const [backlogList, setBacklogList] = useState([]);
@@ -28,6 +29,22 @@ const BacklogView = () => {
         setSprintlogList(_sprintlogList.stories);
     }
 
+    const onDragEnd = result => {
+        const { destination, source, draggableId } = result;
+
+        if (!destination) {
+            return;
+        }
+        //check the userstory actually moved
+        if (
+            destination.droppableId = source.draggableId &&
+            destination.index === source.index
+        ) {
+            return;
+        }
+        const column = 
+    }
+
     //event callback function for creating new userstories
     const onStoryCreate = async (listId, storyInput) => {
         //create new story and save it to db with API post request
@@ -43,7 +60,7 @@ const BacklogView = () => {
     // get story to edit, open edit form
     const getStoryForEdit = async (storyId, listName) => {
         const _storyToEdit = await getStory(storyId);
-        if(_storyToEdit) {
+        if (_storyToEdit) {
             setStoryToEdit(_storyToEdit);
             setCurrentList(listName);
             setIsEditVisible(true);
@@ -100,38 +117,42 @@ const BacklogView = () => {
 
     return (
         <>
-            {isEditVisible ? < EditUserstoryForm listName={currentList} onStoryDelete={onStoryDelete} onStoryUpdate={onStoryUpdate} storyToEdit={storyToEdit} onCloseEditForm={onCloseEditForm} /> : null}
-            <div className="backlogview-container">
-                <div className='backloglist-wrapper productBacklog-light'>
-                    <div className='backloglist__header-wrapper'>
-                        <FontAwesomeIcon icon={faEllipsisH} />
-                        <h1 className='backloglist__header'>Product Backlog</h1>
-                        <button className='add-userstory-btn' onClick={showUserstoryForm} >{btnText}</button>
+            <DragDropContext
+                onDragEnd={onDragEnd}
+            >
+                {isEditVisible ? < EditUserstoryForm listName={currentList} onStoryDelete={onStoryDelete} onStoryUpdate={onStoryUpdate} storyToEdit={storyToEdit} onCloseEditForm={onCloseEditForm} /> : null}
+                <div className="backlogview-container">
+                    <div className='backloglist-wrapper productBacklog-light'>
+                        <div className='backloglist__header-wrapper'>
+                            <FontAwesomeIcon icon={faEllipsisH} />
+                            <h1 className='backloglist__header'>Product Backlog</h1>
+                            <button className='add-userstory-btn' onClick={showUserstoryForm} >{btnText}</button>
+                        </div>
+                        {isAddFormVisible ? <AddUserstoryForm onStoryCreate={onStoryCreate} listId={backlogId} /> : null}
+                        <BacklogList
+                            userstoryList={backlogList}
+                            title='Product Backlog'
+                            onStoryDelete={onStoryDelete}
+                            getStoryForEdit={storyId => getStoryForEdit(storyId, 'product backlog')}
+                        />
                     </div>
-                    {isAddFormVisible ? <AddUserstoryForm onStoryCreate={onStoryCreate} listId={backlogId} /> : null}
-                    <BacklogList 
-                        userstoryList={backlogList} 
-                        title='Product Backlog' 
-                        onStoryDelete={onStoryDelete} 
-                        getStoryForEdit={storyId => getStoryForEdit(storyId, 'product backlog')} 
-                    />
-                </div>
-                <div className='backloglist-wrapper sprintBacklog-light'>
-                <div className='backloglist__header-wrapper'>
-                        <FontAwesomeIcon icon={faEllipsisH} />
-                        <h1 className='backloglist__header'>Sprint Backlog</h1>
-                        <button className='add-userstory-btn' onClick={showUserstoryForm} >{btnText}</button>
+                    <div className='backloglist-wrapper sprintBacklog-light'>
+                        <div className='backloglist__header-wrapper'>
+                            <FontAwesomeIcon icon={faEllipsisH} />
+                            <h1 className='backloglist__header'>Sprint Backlog</h1>
+                            <button className='add-userstory-btn' onClick={showUserstoryForm} >{btnText}</button>
+                        </div>
+                        {isAddFormVisible ? <AddUserstoryForm onStoryCreate={onStoryCreate} listId={sprintlogId} /> : null}
+                        {/* <h1 className='backloglist__header' >Sprint Backlog</h1> */}
+                        <BacklogList
+                            userstoryList={sprintlogList}
+                            title='Sprint Backlog'
+                            onStoryDelete={onStoryDelete}
+                            g getStoryForEdit={storyId => getStoryForEdit(storyId, 'sprint backlog')}
+                        />
                     </div>
-                    {isAddFormVisible ? <AddUserstoryForm onStoryCreate={onStoryCreate} listId={sprintlogId} /> : null}
-                    {/* <h1 className='backloglist__header' >Sprint Backlog</h1> */}
-                    <BacklogList 
-                        userstoryList={sprintlogList} 
-                        title='Sprint Backlog' 
-                        onStoryDelete={onStoryDelete} 
-                        g getStoryForEdit={storyId => getStoryForEdit(storyId, 'sprint backlog')} 
-                    />
                 </div>
-            </div>
+            </DragDropContext>
         </>
     );
 }
