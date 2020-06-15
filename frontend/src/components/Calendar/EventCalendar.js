@@ -42,6 +42,9 @@ const EventCalendar = ({ events, timeZone, showWeekends, onDateClick, onEventCli
                 dateClick={onDateClick}
                 eventClick={onEventClick}
                 events={events}
+                height={'parent'}
+                minTime={'07:00:00'}
+                maxTime={'20:00:00'}
             />
         
     );
