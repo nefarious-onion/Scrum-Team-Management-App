@@ -1,0 +1,21 @@
+.delete-confirm {
+  opacity: 1;
+  width: 700px;
+  height: 500px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+}
+.delete-confirm {
+  opacity: 1;
+  display: grid;
+  justify-content: center;
+  padding: 2rem;
+  width: 20vw;
+  height: auto;
+  clear: both;
+  grid-template-rows: auto;
+  row-gap: 0.5rem;
+}

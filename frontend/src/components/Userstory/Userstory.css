@@ -1,8 +1,8 @@
 .userstory-container {
-    border-radius: 5px;
-    background-color: white;
-    padding: .5rem;
-    display: grid;
-    align-items: center;
-    grid-template-columns: 1rem auto 1rem;
+  border-radius: 5px;
+  background-color: white;
+  padding: 0.5rem;
+  display: grid;
+  align-items: center;
+  grid-template-columns: 2rem auto 2rem;
 }

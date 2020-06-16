@@ -1,72 +1,75 @@
 .form-overlay {
-    height: 100%;
-    width: 100%;
-    background-color: rgba(52, 58, 64, .8);
-    position: fixed;
-    left: 0;
-    top: 0;
-    display: grid;
-    justify-items: center;
-    align-items: center;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(52, 58, 64, 0.8);
+  position: fixed;
+  left: 0;
+  top: 0;
+  display: grid;
+  justify-items: center;
+  align-items: center;
 }
 
 .editform-container {
-    /* background-color: rgba(196, 128, 0, 1); */
-    opacity: 1;
-    width: 700px;
-    height: 500px;
-    position: absolute;
-    left: 0;
-    right: 0;
-    margin-left: auto;
-    margin-right: auto;
+  /* background-color: rgba(196, 128, 0, 1); */
+  opacity: 1;
+  width: 700px;
+  height: 500px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  display: grid;
+  grid-template-rows: auto;
+  height: auto;
 }
 
 .edit-panel {
-    display: grid;
-    grid-template-columns: auto auto 50px 50px 50px 50px;
-    grid-gap: .5rem;
-    border-bottom: solid 2px rgba(0, 0, 0, 0.308);
-    padding: .5rem;
+  display: grid;
+  grid-template-columns: auto auto auto 50px 50px 50px;
+  grid-gap: 0.5rem;
+  border-bottom: solid 2px rgba(0, 0, 0, 0.308);
+  padding: 0.5rem;
 }
 .edit-content {
-    padding: .5rem;
+  padding: 0.5rem;
 }
 .editform__header {
-    margin: 1rem 0 .5rem 0;
+  margin: 1rem 0 0.5rem 0;
 }
 
 .editform__close-btn {
-    justify-self: end;
+  justify-self: end;
 }
 .editform__story-title {
-    background-color: rgb(247, 237, 226);
-    border-radius: 5px;
-    padding: .5rem;
+  background-color: rgb(247, 237, 226);
+  border-radius: 5px;
+  padding: 0.5rem;
 }
 .editform__label-title {
-    font-size: 1.5rem;
+  font-size: 1.5rem;
 }
-.editform__text-input{
-    resize: none;
-    outline: none;
-    background-color: rgb(247, 237, 226);
-    font-family: inherit;
-    font-size: 1.5rem;
-    width: 100%;
+.editform__text-input {
+  resize: none;
+  outline: none;
+  background-color: rgb(247, 237, 226);
+  font-family: inherit;
+  font-size: 1.5rem;
+  width: 100%;
 }
 .editform__story-descr {
-    background-color: rgb(247, 237, 226);
-    height: 5rem;
-    border-radius: 5px;
-    padding: .5rem;
+  background-color: rgb(247, 237, 226);
+  height: 5rem;
+  border-radius: 5px;
+  padding: 0.5rem;
 }
 .editform__textarea {
-    resize: none;
-    outline: none;
-    height: 4rem;
-    width: 100%;
-    background-color: rgb(247, 237, 226);
-    font-family: inherit;
-    font-size: inherit;
+  resize: none;
+  outline: none;
+  height: 4rem;
+  width: 100%;
+  background-color: rgb(247, 237, 226);
+  font-family: inherit;
+  font-size: inherit;
 }

@@ -1,11 +1,12 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import data from '../../data_services/data-meetings.json';
+import Timer from './Timer';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faCalendarAlt,
-  faUsers,
+  faUser,
   faStopwatch,
   faCrosshairs,
   faTools,
@@ -22,42 +23,61 @@ const OneMeeting = () => {
   // create the To Do List based on array from data.json
   const toDoList = currentMeeting.toDo.map((task) => {
     return (
-      <li>
-        <FontAwesomeIcon icon={faCheck} />
-        {task}
-      </li>
+      <div className="meeting-grid" key={task.id}>
+        <div className="icon-style">
+          <FontAwesomeIcon icon={faCheck} size={'2x'} />
+        </div>
+        <p>{task.task}</p>
+      </div>
     );
   });
 
   return (
     <div>
+      {/* <Timer /> */}
       <h3>{currentMeeting.name}</h3>
-      <p>
-        <FontAwesomeIcon icon={faCalendarAlt} />
-        <strong>When - </strong>
-        {currentMeeting.when}
-      </p>
-      <p>
-        <FontAwesomeIcon icon={faUsers} />
-        <strong>Who - </strong>
-        {currentMeeting.who}
-      </p>
-      <p>
-        <FontAwesomeIcon icon={faStopwatch} />
-        <strong>How long - </strong>
-        {currentMeeting.duration}
-      </p>
-      <p>
-        <FontAwesomeIcon icon={faCrosshairs} />
-        <strong>Aims - </strong>
-        {currentMeeting.aims}
-      </p>
-      <p>
-        <FontAwesomeIcon icon={faTools} />
-        <strong>How to - </strong>
-        {currentMeeting.how}
-      </p>
-      <ul>{toDoList}</ul>
+      <div className="meeting-grid">
+        <div className="icon-style">
+          <FontAwesomeIcon icon={faCalendarAlt} size={'2x'} />
+        </div>
+        <p>
+          <strong>When - </strong>
+          {currentMeeting.when}
+        </p>
+
+        <div className="icon-style">
+          <FontAwesomeIcon icon={faUser} size={'2x'} />
+        </div>
+        <p>
+          <strong>Who - </strong>
+          {currentMeeting.who}
+        </p>
+
+        <div className="icon-style">
+          <FontAwesomeIcon icon={faStopwatch} size={'2x'} />
+        </div>
+        <p>
+          <strong>How long - </strong>
+          {currentMeeting.duration}
+        </p>
+
+        <div className="icon-style">
+          <FontAwesomeIcon icon={faCrosshairs} size={'2x'} />
+        </div>
+        <p>
+          <strong>Aims - </strong>
+          {currentMeeting.aims}
+        </p>
+
+        <div className="icon-style">
+          <FontAwesomeIcon icon={faTools} size={'2x'} />
+        </div>
+        <p>
+          <strong>How to - </strong>
+          {currentMeeting.how}
+        </p>
+      </div>
+      {toDoList}
     </div>
   );
 };
