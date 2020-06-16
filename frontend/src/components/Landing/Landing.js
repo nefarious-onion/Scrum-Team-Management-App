@@ -1,6 +1,22 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './Landing.css';
 import LandingSignUp from '../Landing/LandingSignUp/LandingSignUp';
+import career1 from '../../assets/career__flatline.svg';
+//import career2 from '../../assets/career2__flatline.svg';
+import checklist from '../../assets/checklist__flatline.svg';
+//import completed_task from '../../assets/completed_task__flatline.svg';
+//import creative_process from '../../assets/creative_process__flatline.svg';
+//import graphic_chart from '../../assets/graphic_chart__flatline.svg';
+import moving_forward from '../../assets/moving_forward__flatline.svg';
+//import office_work from '../../assets/office_work__flatline.svg';
+import problem_solving from '../../assets/problem_solving__flatline.svg';
+import reminder_note from '../../assets/reminder_note__flatline.svg';
+//import rocketplanning from '../../assets/rocketplanning__flatline.svg';
+import scrum_board from '../../assets/scrum_board__flatline.svg';
+import team_meeting from '../../assets/team_meeting__flatline.svg';
+//import team_presentation from '../../assets/team_presentation__flatline.svg';
+//import team_presentation2 from '../../assets/team_presentation2__flatline.svg';
 
 const Landing = () => {
   return (
@@ -11,15 +27,17 @@ const Landing = () => {
           <p className="hero-cta-content">
             Begin your path to mastering the Scrum method today!
           </p>
-          <button className="hero-cta-btn">get started!</button>
+          <Link className="nav-link" to="/about">
+            <button className="hero-cta-btn landing-btn">Get started!</button>
+          </Link>
         </div>
         <div className="hero-right-container">
-          <p>こんにちは私の名前はコンテンツです</p>
+          <img src={career1} alt="career up" />
         </div>
       </section>
       <section className="section-grid-2col">
         <div className="marketing-content-left-col">
-          <p>こんにちは私の名前はコンテンツです</p>
+          <img src={moving_forward} alt="moving forward" />
         </div>
         <div className="marketing-content-right-col">
           <p>
@@ -36,12 +54,12 @@ const Landing = () => {
           </p>
         </div>
         <div className="marketing-content-right-col">
-          <p>こんにちは私の名前はコンテンツです</p>
+          <img src={checklist} alt="checklist" />
         </div>
       </section>
       <section className="section-grid-2col">
         <div className="marketing-content-left-col">
-          <p>こんにちは私の名前はコンテンツです</p>
+          <img src={scrum_board} alt="scrum board" />
         </div>
         <div className="marketing-content-right-col">
           <p>
@@ -58,12 +76,12 @@ const Landing = () => {
           </p>
         </div>
         <div className="marketing-content-right-col">
-          <p>こんにちは私の名前はコンテンツです</p>
+          <img src={team_meeting} alt="team meeting" />
         </div>
       </section>
       <section className="section-grid-2col">
         <div className="marketing-content-left-col">
-          <p>こんにちは私の名前はコンテンツです</p>
+          <img src={reminder_note} alt="reminder note" />
         </div>
         <div className="marketing-content-right-col">
           <p>
@@ -72,8 +90,13 @@ const Landing = () => {
           </p>
         </div>
       </section>
-      <section className="contact">
-        <LandingSignUp />
+      <section className="section-grid-2col contact">
+        <div className="marketing-content-left-col">
+          <LandingSignUp />
+        </div>
+        <div className="marketing-content-right-col">
+          <img src={problem_solving} alt="problem solving" />
+        </div>
       </section>
     </>
   );

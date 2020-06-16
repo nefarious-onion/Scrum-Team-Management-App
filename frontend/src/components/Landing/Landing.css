@@ -2,7 +2,7 @@
   display: grid;
   grid-template-columns: 50% 50%;
   width: 100%;
-  height: 60vh;
+  height: 70vh;
   justify-items: center;
   align-items: center;
   grid-gap: 2rem;
@@ -14,6 +14,55 @@
   background-color: hsl(150, 61%, 76%);
 }
 
+/* illustrations */
+.section-grid-2col img {
+  height: 80%;
+  width: 100%;
+}
+
+/* buttons on landing page - general and CTA */
+
+.landing-btn {
+  background: hsl(60, 60%, 50%);
+  color: black;
+  font-family: inherit;
+  font-size: 1.2rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  width: 70%;
+  height: 3rem;
+  border: none;
+  border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  box-shadow: 1px 2px 4px #afafaf;
+  -moz-box-shadow: 1px 2px 4px #afafaf;
+  -webkit-box-shadow: 1px 2px 4px #afafaf;
+}
+
+.landing-btn:hover {
+  background: hsl(60, 60%, 65%);
+  background: linear-gradient(
+    0deg,
+    hsl(60, 60%, 65%) 0%,
+    hsl(60, 60%, 50%) 100%
+  );
+}
+
+.landing-btn:active {
+  background: hsl(60, 60%, 46%);
+  background: linear-gradient(
+    0deg,
+    hsl(60, 60%, 50%) 0%,
+    hsl(60, 60%, 46%) 100%
+  );
+}
+
+.hero-cta-btn {
+  align-self: flex-start;
+}
+
 /* hero banner */
 .hero-left-container {
   display: grid;
@@ -23,44 +72,23 @@
 }
 
 .hero-right-container {
+  height: 100%;
+  width: 100%;
+  display: grid;
+  align-items: center;
+  justify-items: center;
 }
 
 .hero-welcome {
   font-size: 3rem;
+  line-height: 3rem;
+  letter-spacing: 0.5rem;
   text-transform: uppercase;
   align-self: flex-end;
 }
 
 .hero-cta-content {
   font-size: 2rem;
-}
-
-.hero-cta-btn {
-  align-self: flex-start;
-  height: 6vh;
-  width: 15vw;
-  display: grid;
-  align-content: center;
-  border: none;
-  background: hsla(60, 60%, 65%, 1);
-  color: black;
-  box-shadow: 1px 1px 4px #000;
-  -moz-box-shadow: 1px 1px 4px #000;
-  -webkit-box-shadow: 1px 1px 4px #000;
-  border-radius: 3px;
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-}
-
-.hero-cta-btn:hover {
-  background: hsl(60, 61%, 50%);
-  background: linear-gradient(
-    0deg,
-    hsl(60, 61%, 50%) 0%,
-    hsl(60, 60%, 65%) 100%
-  );
 }
 
 /*content after hero banner*/
@@ -83,5 +111,5 @@
   display: flex;
   justify-content: center;
   width: 100%;
-  min-height: 70vh;
+  min-height: 90vh;
 }
