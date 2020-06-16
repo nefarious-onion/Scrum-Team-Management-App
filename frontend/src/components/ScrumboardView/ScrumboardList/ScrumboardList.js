@@ -1,16 +1,18 @@
 import React from 'react';
 import Userstory from '../../Userstory/Userstory';
 import './ScrumboardList.css'
+import { Droppable } from 'react-beautiful-dnd';
 
-const ScrumboardList = ({ scrumBoard, title, onStoryDelete, onStoryUpdate, getStoryForEdit }) => {
+const ScrumboardList = ({ scrumBoard, title, onStoryDelete, onStoryUpdate, getStoryForEdit, id }) => {
 
     const isValid = scrumBoard !== undefined && scrumBoard.length > 0;
     const inScrumBoard = isValid
-        ? scrumBoard.map(story =>
-            <Userstory 
-                key={story._id} 
-                id={story._id} 
-                title={story.title} 
+        ? scrumBoard.map((story, index) =>
+            <Userstory
+                key={story._id}
+                id={story._id}
+                index={index}
+                title={story.title}
                 desc={story.descr}
                 onStoryDelete={onStoryDelete}
                 onStoryUpdate={onStoryUpdate}
@@ -19,10 +21,19 @@ const ScrumboardList = ({ scrumBoard, title, onStoryDelete, onStoryUpdate, getSt
         )
         : <p>Nothing to display in {title}</p>
     return (
-        <div className="card-list">
+        <Droppable droppableId={id}>
+            {(provided) => (
+                <div className="card-list"
+                    ref={provided.innerRef}
+                    {...provided.droppableProps}
+                >
 
-            {inScrumBoard}
-        </div>
+                    {inScrumBoard}
+                    {provided.placeholder}
+                </div>
+            )}
+
+        </Droppable>
     );
 }
 
