@@ -3,7 +3,7 @@ import './Userstory.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes, faEllipsisV } from '@fortawesome/free-solid-svg-icons';
 
-const Userstory = ({ title, id, desc, onStoryDelete, getStoryForEdit, getStoryForDelete }) => {
+const Userstory = ({ title, id, desc, getStoryForEdit, getStoryForDelete }) => {
 
     const onClickDelete = () => {
         const storyId = id;
@@ -20,9 +20,15 @@ const Userstory = ({ title, id, desc, onStoryDelete, getStoryForEdit, getStoryFo
 
     return (
         <div className='userstory-container'>
-            <FontAwesomeIcon icon={faEllipsisV} onClick={onClickEdit} />
+            <div onClick={onClickEdit}>
+
+                <FontAwesomeIcon icon={faEllipsisV} />
+            </div>
             <p className='userstory-title'>{title}</p>
-            <FontAwesomeIcon icon={faTimes} onClick={onClickDelete} />
+            <div onClick={onClickDelete} >
+
+                <FontAwesomeIcon icon={faTimes} />
+            </div>
         </div>
     );
 }

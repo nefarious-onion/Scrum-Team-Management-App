@@ -2,7 +2,9 @@ import React from 'react';
 import Userstory from '../../Userstory/Userstory';
 import './BacklogList.css';
 
-const BacklogList = ({ userstoryList, title, onStoryDelete, onStoryUpdate, getStoryForEdit }) => {
+const BacklogList = ({ userstoryList, title, onStoryUpdate, getStoryForEdit, getStoryForDelete }) => {
+
+
     //checks that the list is not empty or undefined
     const isValid = userstoryList !== undefined && userstoryList.length > 0;
 
@@ -13,9 +15,9 @@ const BacklogList = ({ userstoryList, title, onStoryDelete, onStoryUpdate, getSt
                 title={story.title}
                 id={story._id}
                 desc={story.descr}
-                onStoryDelete={onStoryDelete}
                 onStoryUpdate={onStoryUpdate}
                 getStoryForEdit={getStoryForEdit}
+                getStoryForDelete={getStoryForDelete}
             />)
         : <p>{title} is empty</p>;
 

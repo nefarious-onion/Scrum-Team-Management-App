@@ -15,7 +15,7 @@ const listStyles = {
 
 const userstoryInfo = 'This is a userstory'
 
-const EditUserstoryForm = ({ onStoryDelete, onStoryUpdate, storyToEdit, onCloseEditForm, listName }) => {
+const EditUserstoryForm = ({ onFormDeleteStory, onStoryUpdate, storyToEdit, onCloseEditForm, listName, get }) => {
     const [titleToEdit, setTitleToEdit] = useState('');
     const [descrToEdit, setDescrToEdit] = useState('');
     const [isTitleInputVisible, setIsTitleInputVisible] = useState(false);
@@ -85,8 +85,7 @@ const EditUserstoryForm = ({ onStoryDelete, onStoryUpdate, storyToEdit, onCloseE
 
     //deletes the userstory when trashcan is clicked => no confirmation, the form just closes. Needs a fix.
     const onClickDelete = () => {
-        onStoryDelete(storyId);
-        onCloseEditForm();
+        onFormDeleteStory(storyToEdit)
     }
 
     return (
