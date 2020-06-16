@@ -30,7 +30,6 @@
   height: 3rem;
 }
 .contact-form input.input-field,
-.contact-form .tel-number-field,
 .contact-form .textarea-field,
 .contact-form .select-field {
   box-sizing: border-box;

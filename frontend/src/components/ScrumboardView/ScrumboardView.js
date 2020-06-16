@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import ScrumboardList from '../../components/ScrumboardView/ScrumboardList/ScrumboardList'
 import EditUserstoryForm from '../EditUserstoryForm/EditUserstoryForm';
 import AddUserstoryForm from '../AddUserstoryForm/AddUserstoryForm';
+import DeleteUserstory from '../DeleteUserstory/DeleteUserstory'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faMinus, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import ReactTooltip from 'react-tooltip';
@@ -9,6 +10,9 @@ import '../ScrumboardView/ScrumboardView.css'
 import { getList } from '../../api_services/scrumlist.service';
 import { deleteStory, getStory, updateStory, createStory } from '../../api_services/userstory.service';
 import { sprintlogId, donelogId, reviewlogId, progresslogId } from '../../api_services/config';
+import { DragDropContext } from 'react-beautiful-dnd';
+
+
 
 const sprintBacklogInfo = 'These are the tasks for the current sprint';
 const inProgressInfo = 'these userstories are in progress';
@@ -25,6 +29,41 @@ const ScrumboardView = () => {
     const [storyToEdit, setStoryToEdit] = useState('');
     const [isAddFormVisible, setIsAddFormVisible] = useState(false);
     const [isEditVisible, setIsEditVisible] = useState(false);
+    const [isDeleteVisible, setIsDeleteVisible] = useState(false);
+    const [storyToDelete, setStoryToDelete] = useState('');
+
+    const getListById = id => {
+        switch (id) {
+            case sprintlogId:
+                return sprintlogList;
+            case progresslogId:
+                return inprogressList;
+            case reviewlogId:
+                return inreviewList;
+            case donelogId:
+                return indoneList;
+            default:
+                break;
+        }
+    }
+    const setListById = (listId, newArray) => {
+        switch (listId) {
+            case sprintlogId:
+                setSprintlogList(newArray);
+                break;
+            case progresslogId:
+                setInProgressList(newArray);
+                break;
+            case reviewlogId:
+                setInReviewList(newArray);
+                break;
+            case donelogId:
+                setDoneList(newArray);
+                break;
+            default:
+                break;
+        }
+    }
 
     //helper function for fetching stories from database and re-rendering the component
     const fetchLists = async () => {
@@ -38,6 +77,41 @@ const ScrumboardView = () => {
         setInReviewList(_inreviewList.stories);
         setDoneList(_indoneList.stories);
     }
+    const onDragEnd = result => {
+        const { destination, source, draggableId } = result;
+        console.log('result: ', result);
+        if (!destination) {
+            return;
+        }
+        //check the userstory actually moved
+        if (
+            destination.droppableId === source.droppableId &&
+            destination.index === source.index
+        ) {
+            return;
+        }
+        const listDraggedFrom = getListById(source.droppableId);
+        const listDraggedTo = getListById(destination.droppableId);
+
+        //move userstory within one list
+        if (listDraggedFrom === listDraggedTo) {
+            const newDraggedFromAndToList = Array.from(listDraggedFrom);
+            //array destructuring => splice returns an array of 1 item = draggedstory
+            const [draggedStory] = newDraggedFromAndToList.splice(source.index, 1);
+            newDraggedFromAndToList.splice(destination.index, 0, draggedStory);
+
+            setListById(destination.droppableId, newDraggedFromAndToList);
+        } else {
+            const newDraggedFromList = Array.from(listDraggedFrom);
+            const [draggedStory] = newDraggedFromList.splice(source.index, 1);
+            const newDraggedToList = Array.from(listDraggedTo);
+            newDraggedToList.splice(destination.index, 0, draggedStory);
+
+            setListById(source.droppableId, newDraggedFromList);
+            setListById(destination.droppableId, newDraggedToList);
+        }
+
+    }
 
     //event callback function for creating new userstories
     const onStoryCreate = async (listId, storyInput) => {
@@ -50,7 +124,9 @@ const ScrumboardView = () => {
     //deletes userstory and re-renders lists
     const onStoryDelete = async (storyId) => {
         await deleteStory(storyId);
+        console.log('story deleted')
         fetchLists();
+
     }
 
     const getStoryForEdit = async (storyId, listName) => {
@@ -59,6 +135,18 @@ const ScrumboardView = () => {
             setStoryToEdit(_storyToEdit);
             setCurrentList(listName);
             setIsEditVisible(true);
+        } else {
+            throw new Error('Something went wrong: Story was not found')
+        }
+    };
+
+    // get story to delete and open confirmation
+    const getStoryForDelete = async (storyId, listName) => {
+        const _storyToDelete = await getStory(storyId);
+        if (_storyToDelete) {
+            setStoryToDelete(_storyToDelete);
+            setCurrentList(listName);
+            setIsDeleteVisible(true);
         } else {
             throw new Error('Something went wrong: Story was not found')
         }
@@ -83,7 +171,15 @@ const ScrumboardView = () => {
         setStoryToEdit('');
         fetchLists();
     }
-
+    //close delete story confirm window
+    const onCloseDeleteStory = () => {
+        setIsDeleteVisible(false);
+        setStoryToDelete('');
+    }
+    const onFormDeleteStory = (story) => {
+        setStoryToDelete(story)
+        setIsDeleteVisible(true);
+    }
     //Fetch single list with ID
     useEffect(() => {
         getList(sprintlogId)
@@ -122,64 +218,75 @@ const ScrumboardView = () => {
 
     return (
         <>
-            {isEditVisible ? < EditUserstoryForm listName={currentList} onStoryDelete={onStoryDelete} onStoryUpdate={onStoryUpdate} storyToEdit={storyToEdit} onCloseEditForm={onCloseEditForm} /> : null}
-            <div className="scrumboard">
-                <div className="scrumboard-list currentSprint-light">
-                    <div className="list-header">
-                        <FontAwesomeIcon icon={faInfoCircle} className='info-icon' spin data-tip data-for='sprintBacklog' />
-                        <ReactTooltip id='sprintBacklog' place='bottom' effect='solid'>{sprintBacklogInfo}</ReactTooltip>
-                        <h3>current sprint</h3>
-                        {/* <button className='add-userstory-btn' onClick={showUserstoryForm} >{btnText}</button> */}
-                        {!isAddFormVisible ? <FontAwesomeIcon icon={faPlus} size='lg' onClick={showUserstoryForm} /> : <FontAwesomeIcon icon={faMinus} size='lg' onClick={showUserstoryForm} />}
+            <DragDropContext onDragEnd={onDragEnd} onDragStart={() => console.log('dsds')}>
+                {isEditVisible ? < EditUserstoryForm listName={currentList} onStoryDelete={onStoryDelete} onStoryUpdate={onStoryUpdate} storyToEdit={storyToEdit} onCloseEditForm={onCloseEditForm} onFormDeleteStory={onFormDeleteStory} /> : null}
+                {isDeleteVisible ? <DeleteUserstory listName={currentList} storyToDelete={storyToDelete} onStoryDelete={onStoryDelete} onCloseDeleteStory={onCloseDeleteStory} onCloseEditForm={onCloseEditForm} isEditVisible={isEditVisible} /> : null}
+                <div className="scrumboard">
+                    <div className="scrumboard-list currentSprint-light">
+                        <div className="list-header">
+                            <FontAwesomeIcon icon={faInfoCircle} className='info-icon' spin data-tip data-for='sprintBacklog' />
+                            <ReactTooltip id='sprintBacklog' place='bottom' effect='solid'>{sprintBacklogInfo}</ReactTooltip>
+                            <h3>current sprint</h3>
+                            {/* <button className='add-userstory-btn' onClick={showUserstoryForm} >{btnText}</button> */}
+                            {!isAddFormVisible ? <FontAwesomeIcon icon={faPlus} size='lg' onClick={showUserstoryForm} /> : <FontAwesomeIcon icon={faMinus} size='lg' onClick={showUserstoryForm} />}
+                        </div>
+                        {isAddFormVisible ? <AddUserstoryForm onStoryCreate={onStoryCreate} listId={sprintlogId} /> : null}
+                        <ScrumboardList
+                            scrumBoard={sprintlogList}
+                            title='Sprint backlog'
+                            onStoryDelete={onStoryDelete}
+                            getStoryForEdit={storyId => getStoryForEdit(storyId, "current sprint")}
+                            getStoryForDelete={storyId => getStoryForDelete(storyId, 'current sprint')}
+                            id={sprintlogId}
+                        />
                     </div>
-                    {isAddFormVisible ? <AddUserstoryForm onStoryCreate={onStoryCreate} listId={sprintlogId} /> : null}
-                    <ScrumboardList
-                        scrumBoard={sprintlogList}
-                        title='Sprint backlog'
-                        onStoryDelete={onStoryDelete}
-                        getStoryForEdit={storyId => getStoryForEdit(storyId, "current sprint")}
-                    />
-                </div>
-                <div className="scrumboard-list inProgress-light">
-                    <div className="list-header">
-                        <FontAwesomeIcon icon={faInfoCircle} className='info-icon' spin data-tip data-for='inProgress' />
-                        <ReactTooltip id='inProgress' place='bottom' effect='solid'>{inProgressInfo}</ReactTooltip>
-                        <h3>in progress</h3>
+                    <div className="scrumboard-list inProgress-light">
+                        <div className="list-header">
+                            <FontAwesomeIcon icon={faInfoCircle} className='info-icon' spin data-tip data-for='inProgress' />
+                            <ReactTooltip id='inProgress' place='bottom' effect='solid'>{inProgressInfo}</ReactTooltip>
+                            <h3>in progress</h3>
+                        </div>
+                        <ScrumboardList
+                            scrumBoard={inprogressList}
+                            title='Progress'
+                            onStoryDelete={onStoryDelete}
+                            getStoryForEdit={storyId => getStoryForEdit(storyId, "in progress")}
+                            getStoryForDelete={storyId => getStoryForDelete(storyId, 'in progress')}
+                            id={progresslogId}
+                        />
                     </div>
-                    <ScrumboardList
-                        scrumBoard={inprogressList}
-                        title='Progress'
-                        onStoryDelete={onStoryDelete}
-                        getStoryForEdit={storyId => getStoryForEdit(storyId, "in progress")}
-                    />
-                </div>
-                <div className="scrumboard-list inReview-light">
-                    <div className="list-header">
-                        <FontAwesomeIcon icon={faInfoCircle} className='info-icon' spin data-tip data-for='inReview' />
-                        <ReactTooltip id='inReview' place='bottom' effect='solid'>{inReviewInfo}</ReactTooltip>
-                        <h3>in review</h3>
+                    <div className="scrumboard-list inReview-light">
+                        <div className="list-header">
+                            <FontAwesomeIcon icon={faInfoCircle} className='info-icon' spin data-tip data-for='inReview' />
+                            <ReactTooltip id='inReview' place='bottom' effect='solid'>{inReviewInfo}</ReactTooltip>
+                            <h3>in review</h3>
+                        </div>
+                        <ScrumboardList
+                            scrumBoard={inreviewList}
+                            title='Review'
+                            onStoryDelete={onStoryDelete}
+                            getStoryForEdit={storyId => getStoryForEdit(storyId, "in review")}
+                            getStoryForDelete={storyId => getStoryForDelete(storyId, 'in review ')}
+                            id={reviewlogId}
+                        />
                     </div>
-                    <ScrumboardList
-                        scrumBoard={inreviewList}
-                        title='Review'
-                        onStoryDelete={onStoryDelete}
-                        getStoryForEdit={storyId => getStoryForEdit(storyId, "in review")}
-                    />
-                </div>
-                <div className="scrumboard-list done-light">
-                    <div className="list-header">
-                        <FontAwesomeIcon icon={faInfoCircle} className='info-icon' spin data-tip data-for='done' />
-                        <ReactTooltip id='done' place='bottom' effect='solid'>{doneInfo}</ReactTooltip>
-                        <h3>done</h3>
+                    <div className="scrumboard-list done-light">
+                        <div className="list-header">
+                            <FontAwesomeIcon icon={faInfoCircle} className='info-icon' spin data-tip data-for='done' />
+                            <ReactTooltip id='done' place='bottom' effect='solid'>{doneInfo}</ReactTooltip>
+                            <h3>done</h3>
+                        </div>
+                        <ScrumboardList
+                            scrumBoard={indoneList}
+                            title='Done'
+                            onStoryDelete={onStoryDelete}
+                            getStoryForEdit={storyId => getStoryForEdit(storyId, "done")}
+                            getStoryForDelete={storyId => getStoryForDelete(storyId, 'done')}
+                            id={donelogId}
+                        />
                     </div>
-                    <ScrumboardList
-                        scrumBoard={indoneList}
-                        title='Done'
-                        onStoryDelete={onStoryDelete}
-                        getStoryForEdit={storyId => getStoryForEdit(storyId, "done")}
-                    />
                 </div>
-            </div>
+            </DragDropContext>
         </>
     );
 }
