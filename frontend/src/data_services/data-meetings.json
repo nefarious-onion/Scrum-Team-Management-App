@@ -22,11 +22,26 @@
       "aims": "Creating product backlog, estimating the timeframe",
       "how": "Since Product Owner is the link between the Stakeholders and the Dev Team, s/he needs to know exactly what the product is supposed to look like. Who is it for, how is it supposed to look, what does it do and why - everything has to be written down, agreed on and prioritized.",
       "toDo": [
-        "Define the users, target group, their age and needs;",
-        "Talk about the product in detail - requirements, basic features, extra features;",
-        "Agree on a loose timeframe - how much time for the whole project, think about the exact sprint length, deadlines for releases;",
-        "Write userstories (and epics, if needed) describing the tasks to be done;",
-        "Prioritize the userstories in the backlog you have just created."
+        {
+          "id": 1,
+          "task": "Define the users, target group, their age and needs;"
+        },
+        {
+          "id": 2,
+          "task": "Talk about the product in detail - requirements, basic features, extra features;"
+        },
+        {
+          "id": 3,
+          "task": "Agree on a loose timeframe - how much time for the whole project, think about the exact sprint length, deadlines for releases;"
+        },
+        {
+          "id": 4,
+          "task": "Write userstories (and epics, if needed) describing the tasks to be done;"
+        },
+        {
+          "id": 5,
+          "task": "Prioritize the userstories in the backlog you have just created."
+        }
       ]
     },
     {
@@ -39,12 +54,30 @@
       "aims": "Creating sprint backlog",
       "how": "Choosing tasks from product backlog may seem easy, but deciding how much you can actually do within the sprint time might be tricky. Even though the Scrum Master is usually the person with most experience in the group, the team collectively decides which features to focus on and how much time to allocate for each piece of work. In the end the sprint log should be a list of tasks undoubtedly possible to achieve within a sprint.",
       "toDo": [
-        "Product Owner describes the MVP for the sprint and presents the backlog tasks;",
-        "Together with the whole team decide which features to focus on - think which ones depend on others, try to see the connections between them;",
-        "Let everyone voice their opinion on the workflow and possible issues, but don't go too deep into discussing those and stick to the time slot scheduled for this meeting;",
-        "Remember about the span of a sprint - you only have one sprint to deliver whatever you put in the sprint backlog;",
-        "Go through the sprint backlog again and make sure you can achieve all that work by the end of the sprint. Give yourselves some buffer time for unexpected (yet inevitable) issues;",
-        "Put the 'to be done next' tasks on top of the product backlog. You can easily pick up those if you achieve everything from the sprint backlog early."
+        {
+          "id": 1,
+          "task": "Product Owner describes the MVP for the sprint and presents the backlog tasks;"
+        },
+        {
+          "id": 2,
+          "task": "Together with the whole team decide which features to focus on - think which ones depend on others, try to see the connections between them;"
+        },
+        {
+          "id": 3,
+          "task": "Let everyone voice their opinion on the workflow and possible issues, but don't go too deep into discussing those and stick to the time slot scheduled for this meeting;"
+        },
+        {
+          "id": 4,
+          "task": "Remember about the span of a sprint - you only have one sprint to deliver whatever you put in the sprint backlog;"
+        },
+        {
+          "id": 5,
+          "task": "Go through the sprint backlog again and make sure you can achieve all that work by the end of the sprint. Give yourselves some buffer time for unexpected (yet inevitable) issues;"
+        },
+        {
+          "id": 6,
+          "task": "Put the 'to be done next' tasks on top of the product backlog. You can easily pick up those if you achieve everything from the sprint backlog early."
+        }
       ]
     },
     {
@@ -57,12 +90,30 @@
       "aims": "Updating everyone in the team of progress, taking responsibility",
       "how": "The meeting called Daily or Stand-Up is what it sounds like - it happens every day and you stand up when attending it (it's a physical reminder to keep the session short and to the point). Telling your coworkers what you achieved the previous day and what is your plan for that day not only keeps you motivated ('yay, I did all of that!') but also holds you accountable for your promises ('I don't want to be the one to say tomorrow that I didn't do what I was supposed to').",
       "toDo": [
-        "Choose a time that works for everyone and hold the daily meetings at the same time every single day;",
-        "Every member of the team tells what s/he did the previous day, what s/he will do that day and if s/he encountered any blocking issues;",
-        "If any big problems appear, the Scrum Master decides what to do about them - pairing up two people to tacle the task, reassigning the task to someone else etc.;",
-        "The Daily is not time for discussion but only for quick updates - keep it short and to the point;",
-        "You can try tossing a ball (the ball holder talks) - it keeps everyone focused, especially in bigger teams, since you can't throw the ball to th eperson next to you or to someone who has talked already;",
-        "How the Daily look depens on the team and what works best for them. You can discuss that as well in Retrospective meeting and try out different things in different sprints."
+        {
+          "id": 1,
+          "task": "Choose a time that works for everyone and hold the daily meetings at the same time every single day;"
+        },
+        {
+          "id": 2,
+          "task": "Every member of the team tells what s/he did the previous day, what s/he will do that day and if s/he encountered any blocking issues;"
+        },
+        {
+          "id": 3,
+          "task": "If any big problems appear, the Scrum Master decides what to do about them - pairing up two people to tacle the task, reassigning the task to someone else etc.;"
+        },
+        {
+          "id": 4,
+          "task": "The Daily is not time for discussion but only for quick updates - keep it short and to the point;"
+        },
+        {
+          "id": 5,
+          "task": "You can try tossing a ball (the ball holder talks) - it keeps everyone focused, especially in bigger teams, since you can't throw the ball to th eperson next to you or to someone who has talked already;"
+        },
+        {
+          "id": 6,
+          "task": "How the Daily look depens on the team and what works best for them. You can discuss that as well in Retrospective meeting and try out different things in different sprints."
+        }
       ]
     },
     {
@@ -75,10 +126,22 @@
       "aims": "Showcasing the work done, getting feedback from the Stakeholders",
       "how": "The Sprint Review meeting is the place and time to show off what you achieved in the sprint. Presenting working features to the Stakeholders and teammates can boost Dev Team's confidence and give a feeling of purpose as everyone can see the fruits of hard work. It's also time to get direct feedback from the Stakeholders (your only chance to talk with them, in other phases of the process the Product Owner shouldn't let the Client anywhere near the Dev Team). Use this meeting to celebrate the victories, get clear opinion of Stakeholders on the work so far - and be proud of your achievements!",
       "toDo": [
-        "Show the Stakeholders and the rest of the Dev Team the features you've done - only the functioning ones, up and running. Show/describe how it all works nicely together;",
-        "If the work to showcase is less visual (backend), consider using flow diagrams to describe what is done;",
-        "Listen to the Stakeholders' opinion - if they like it, they can give you hints on what they want next (priorities), and if they are not satisfied with the results, you can get immediate and direct feedback on what to change, what is that thing that they actually wanted;",
-        "The Stakeholders' feedback is so important because you can continuously make sure you're building what is expected and you're not losing time on code that will be thrown away."
+        {
+          "id": 1,
+          "task": "Show the Stakeholders and the rest of the Dev Team the features you've done - only the functioning ones, up and running. Show/describe how it all works nicely together;"
+        },
+        {
+          "id": 2,
+          "task": "If the work to showcase is less visual (backend), consider using flow diagrams to describe what is done;"
+        },
+        {
+          "id": 3,
+          "task": "Listen to the Stakeholders' opinion - if they like it, they can give you hints on what they want next (priorities), and if they are not satisfied with the results, you can get immediate and direct feedback on what to change, what is that thing that they actually wanted;"
+        },
+        {
+          "id": 4,
+          "task": "The Stakeholders' feedback is so important because you can continuously make sure you're building what is expected and you're not losing time on code that will be thrown away."
+        }
       ]
     },
     {
@@ -91,15 +154,42 @@
       "aims": "Understanding what is and what is not working for the team, making an action plan for next sprint",
       "how": "Since the Scrum method is based on interation, you have many chances to try to make things work better - as many chances as there are sprints in your project. In Sprint Retrospective meeting (Retro for short), the team analyzes the previous sprint from the perspective of efficiency and conflicts. To make the sprint go smoother and smoother with every sprint, you have to pin down what is working for the specific group to continue doing it, and what is causing problems or conflicts - and decide what to do about that. There are many ways of conducting an efficient Retro, including online tools (great for remote teams) and physical Post-It methods, but always stick to a time frame. Below you'll find an example:",
       "toDo": [
-        "Scrum Master facilitates this meeting, so s/he decides on the details and keeps track of time;",
-        "In 5 minutes of silence, every team member writes down one good and one bad things about the past sprint - limiting the number here encourages people to focus on the things they care about the most;",
-        "All the notes (Post-It-sized pieces of paper) with the author's name are on the table. Every note is shortly explained (not discussed!) by the author and nobody else;",
-        "The Scrum Master with the Dev Team's help merges similar notes;",
-        "In 2-3 minutes, everyone votes on the order of notes to be discussed - a team member has 3 votes to distribute to the notes s/he wants to talk about most (3 votes for good and bad things, not 3 votes for each category);",
-        "Scrum Master sorts the notes according to the number of votes and facilitates discussion, starting with the highest-voted topics, making sure everyone has time and space to share their opinion;",
-        "Every discussion on a note should end with a measurable action point - what can we do next sprint to make this thing go well?;",
-        "Keep the list of the action points in a place where the team members can access it during the next sprint - it's a guide for the sprint and a checklist for the next Retro;",
-        "Discussion continues till the end of the designated time, whether or not all the notes have been discussed."
+        {
+          "id": 1,
+          "task": "Scrum Master facilitates this meeting, so s/he decides on the details and keeps track of time;"
+        },
+        {
+          "id": 2,
+          "task": "In 5 minutes of silence, every team member writes down one good and one bad things about the past sprint - limiting the number here encourages people to focus on the things they care about the most;"
+        },
+        {
+          "id": 3,
+          "task": "All the notes (Post-It-sized pieces of paper) with the author's name are on the table. Every note is shortly explained (not discussed!) by the author and nobody else;"
+        },
+        {
+          "id": 4,
+          "task": "The Scrum Master with the Dev Team's help merges similar notes;"
+        },
+        {
+          "id": 5,
+          "task": "In 2-3 minutes, everyone votes on the order of notes to be discussed - a team member has 3 votes to distribute to the notes s/he wants to talk about most (3 votes for good and bad things, not 3 votes for each category);"
+        },
+        {
+          "id": 6,
+          "task": "Scrum Master sorts the notes according to the number of votes and facilitates discussion, starting with the highest-voted topics, making sure everyone has time and space to share their opinion;"
+        },
+        {
+          "id": 7,
+          "task": "Every discussion on a note should end with a measurable action point - what can we do next sprint to make this thing go well?;"
+        },
+        {
+          "id": 8,
+          "task": "Keep the list of the action points in a place where the team members can access it during the next sprint - it's a guide for the sprint and a checklist for the next Retro;"
+        },
+        {
+          "id": 9,
+          "task": "Discussion continues till the end of the designated time, whether or not all the notes have been discussed."
+        }
       ]
     }
   ]

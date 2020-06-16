@@ -23,18 +23,18 @@ const OneMeeting = () => {
   // create the To Do List based on array from data.json
   const toDoList = currentMeeting.toDo.map((task) => {
     return (
-      <>
+      <div className="meeting-grid" key={task.id}>
         <div className="icon-style">
           <FontAwesomeIcon icon={faCheck} size={'2x'} />
         </div>
-        <p>{task}</p>
-      </>
+        <p>{task.task}</p>
+      </div>
     );
   });
 
   return (
     <div>
-      <Timer />
+      {/* <Timer /> */}
       <h3>{currentMeeting.name}</h3>
       <div className="meeting-grid">
         <div className="icon-style">
@@ -76,8 +76,8 @@ const OneMeeting = () => {
           <strong>How to - </strong>
           {currentMeeting.how}
         </p>
-        {toDoList}
       </div>
+      {toDoList}
     </div>
   );
 };

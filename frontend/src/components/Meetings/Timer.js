@@ -32,6 +32,10 @@ export default class Timer extends Component {
     clearInterval(this.myInterval);
   }
 
+  clickedButton = () => {
+    console.log('button clcked');
+  };
+
   render() {
     const { minutes, seconds } = this.state;
     return (
@@ -43,6 +47,9 @@ export default class Timer extends Component {
             Time Remaining: {minutes}:{seconds < 10 ? `0${seconds}` : seconds}
           </h1>
         )}
+        <button onClick={this.clickedButton}>Start</button>
+        <button onClick={this.clickedButton}>Stop</button>
+        <button onClick={this.clickedButton}>Restart</button>
       </div>
     );
   }
