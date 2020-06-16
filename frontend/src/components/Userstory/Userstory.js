@@ -2,8 +2,9 @@ import React from 'react';
 import './Userstory.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes, faEllipsisV } from '@fortawesome/free-solid-svg-icons';
+import { Draggable } from 'react-beautiful-dnd';
 
-const Userstory = ({ title, id, desc, getStoryForEdit, getStoryForDelete }) => {
+const Userstory = ({ title, id, desc, getStoryForEdit, getStoryForDelete, index }) => {
 
     const onClickDelete = () => {
         const storyId = id;
@@ -19,17 +20,25 @@ const Userstory = ({ title, id, desc, getStoryForEdit, getStoryForDelete }) => {
     }
 
     return (
-        <div className='userstory-container'>
-            <div onClick={onClickEdit}>
+        <Draggable draggableId={id} index={index} >
+            {(provided) => (
+                <div className='userstory-container'
+                    {...provided.draggableProps}
+                    {...provided.dragHandleProps}
+                    ref={provided.innerRef}
+                >   <div onClick={onClickEdit}>
+                        <FontAwesomeIcon icon={faEllipsisV} />
+                    </div>
+                    <p className='userstory-title'>{title}</p>
+                    <div onClick={onClickDelete} >
+                        <FontAwesomeIcon icon={faTimes} />
+                    </div>
+                </div>
+            )
 
-                <FontAwesomeIcon icon={faEllipsisV} />
-            </div>
-            <p className='userstory-title'>{title}</p>
-            <div onClick={onClickDelete} >
+            }
 
-                <FontAwesomeIcon icon={faTimes} />
-            </div>
-        </div>
+        </Draggable>
     );
 }
 
