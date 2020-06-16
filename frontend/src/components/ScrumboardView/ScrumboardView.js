@@ -124,7 +124,9 @@ const ScrumboardView = () => {
     //deletes userstory and re-renders lists
     const onStoryDelete = async (storyId) => {
         await deleteStory(storyId);
+        console.log('story deleted')
         fetchLists();
+
     }
 
     const getStoryForEdit = async (storyId, listName) => {

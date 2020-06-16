@@ -15,7 +15,7 @@ const listStyles = {
 
 const userstoryInfo = 'This is a userstory'
 
-const EditUserstoryForm = ({ onFormDeleteStory, onStoryUpdate, storyToEdit, onCloseEditForm, listName, get }) => {
+const EditUserstoryForm = ({ onFormDeleteStory, onStoryUpdate, storyToEdit, onCloseEditForm, listName }) => {
     const [titleToEdit, setTitleToEdit] = useState('');
     const [descrToEdit, setDescrToEdit] = useState('');
     const [isTitleInputVisible, setIsTitleInputVisible] = useState(false);

@@ -11,6 +11,7 @@ const Userstory = ({ title, id, desc, getStoryForEdit, getStoryForDelete, index 
         console.log('clicked userstory', storyId);
         //defined in backlogview
         getStoryForDelete(storyId);
+
     }
     const onClickEdit = () => {
         const storyId = id;

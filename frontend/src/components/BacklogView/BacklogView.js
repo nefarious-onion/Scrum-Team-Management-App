@@ -107,7 +107,7 @@ const BacklogView = () => {
     }
     //deletes userstory and re-renders lists
     const onStoryDelete = async (storyId) => {
-        deleteStory(storyId);
+        await deleteStory(storyId);
         setIsDeleteVisible(false);
         setStoryToDelete('')
         fetchLists();
@@ -195,7 +195,7 @@ const BacklogView = () => {
 
     return (
         <>
-            <DragDropContext onDragEnd={onDragEnd} onDragStart={() => console.log('dsds')}>
+            <DragDropContext onDragEnd={onDragEnd} onDragStart={() => console.log('onDragStart')}>
                 {isEditVisible ? < EditUserstoryForm listName={currentList} onStoryDelete={onStoryDelete} onStoryUpdate={onStoryUpdate} storyToEdit={storyToEdit} onCloseEditForm={onCloseEditForm} onFormDeleteStory={onFormDeleteStory} /> : null}
                 {isDeleteVisible ? <DeleteUserstory listName={currentList} storyToDelete={storyToDelete} onStoryDelete={onStoryDelete} onCloseDeleteStory={onCloseDeleteStory} onCloseEditForm={onCloseEditForm} isEditVisible={isEditVisible} /> : null}
                 <div className="backlogview-container">
