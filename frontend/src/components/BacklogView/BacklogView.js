@@ -7,8 +7,12 @@ import { getStory, createStory, deleteStory, updateStory } from '../../api_servi
 import { backlogId, sprintlogId } from '../../api_services/config';
 import { getList, getLists } from '../../api_services/scrumlist.service';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEllipsisH } from '@fortawesome/free-solid-svg-icons';
+import { faEllipsisH, faInfoCircle, faInfo } from '@fortawesome/free-solid-svg-icons';
+import ReactTooltip from 'react-tooltip';
 import './BacklogView.css';
+
+const productBacklogInfo = 'This is backloglist';
+const sprintBacklogInfo = 'This is the sprintbacklog';
 
 const BacklogView = () => {
     const [backlogList, setBacklogList] = useState([]);
@@ -122,6 +126,8 @@ const BacklogView = () => {
                     <div className='backloglist__header-wrapper'>
                         <FontAwesomeIcon icon={faEllipsisH} />
                         <h1 className='backloglist__header'>Product Backlog</h1>
+                        <FontAwesomeIcon icon={faInfoCircle} className='info-icon' spin data-tip data-for='productBacklog' />
+                        <ReactTooltip id='productBacklog' place='bottom' effect='solid'>{productBacklogInfo}</ReactTooltip>
                         <button className='add-userstory-btn' onClick={showUserstoryForm} >{btnText}</button>
                     </div>
                     {isAddFormVisible ? <AddUserstoryForm onStoryCreate={onStoryCreate} listId={backlogId} /> : null}
@@ -130,13 +136,14 @@ const BacklogView = () => {
                         title='Product Backlog'
                         onStoryDelete={onStoryDelete}
                         getStoryForEdit={storyId => getStoryForEdit(storyId, 'product backlog')}
-                        getStoryForDelete={storyId => getStoryForDelete(storyId, 'sprint backlog')}
                     />
                 </div>
                 <div className='backloglist-wrapper sprintBacklog-light'>
                     <div className='backloglist__header-wrapper'>
                         <FontAwesomeIcon icon={faEllipsisH} />
                         <h1 className='backloglist__header'>Sprint Backlog</h1>
+                        <FontAwesomeIcon icon={faInfoCircle} className='info-icon' spin data-tip data-for='sprintBacklog' />
+                        <ReactTooltip id='sprintBacklog' place='bottom' effect='solid'>{sprintBacklogInfo}</ReactTooltip>
                         <button className='add-userstory-btn' onClick={showUserstoryForm} >{btnText}</button>
                     </div>
                     {isAddFormVisible ? <AddUserstoryForm onStoryCreate={onStoryCreate} listId={sprintlogId} /> : null}
@@ -146,7 +153,6 @@ const BacklogView = () => {
                         title='Sprint Backlog'
                         onStoryDelete={onStoryDelete}
                         getStoryForEdit={storyId => getStoryForEdit(storyId, 'sprint backlog')}
-                        getStoryForDelete={storyId => getStoryForDelete(storyId, 'sprint backlog')}
                     />
                 </div>
             </div>
