@@ -2,19 +2,20 @@ import React from 'react';
 import Userstory from '../../Userstory/Userstory';
 import './ScrumboardList.css'
 
-const ScrumboardList = ({ scrumBoard, title, onStoryDelete, onStoryUpdate, getStoryForEdit }) => {
+const ScrumboardList = ({ scrumBoard, title, onStoryDelete, onStoryUpdate, getStoryForEdit, getStoryForDelete }) => {
 
     const isValid = scrumBoard !== undefined && scrumBoard.length > 0;
     const inScrumBoard = isValid
         ? scrumBoard.map(story =>
-            <Userstory 
-                key={story._id} 
-                id={story._id} 
-                title={story.title} 
+            <Userstory
+                key={story._id}
+                id={story._id}
+                title={story.title}
                 desc={story.descr}
                 onStoryDelete={onStoryDelete}
                 onStoryUpdate={onStoryUpdate}
                 getStoryForEdit={getStoryForEdit}
+                getStoryForDelete={getStoryForDelete}
             />
         )
         : <p>Nothing to display in {title}</p>
