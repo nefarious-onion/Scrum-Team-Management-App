@@ -1,6 +1,7 @@
-/* .side-navbar {
+.side-navbar {
   width: 20rem;
-} */
+  cursor: pointer;
+}
 
 .side-navbar-item {
   display: flex;
@@ -8,16 +9,7 @@
   text-decoration: none;
   color: black;
 }
-/*
-  .about-item {
-    padding: 2rem;
-    background-color: blue;
-    height: 100%;
-    width: 50vw;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-  }*/
+
 .about-container {
   display: grid;
   grid-template-columns: 20% 80%;
