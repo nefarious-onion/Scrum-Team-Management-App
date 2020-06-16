@@ -16,8 +16,13 @@
 body {
   font-family: 'Roboto Mono', monospace;
 }
+/*global pointer settings for clickable objects*/
 input[type='button'],
 input[type='submit'],
+input[type='date'],
+input[type='time'],
+button[type='submit'],
+input[type='text'],
 .hero-cta-btn,
 .add-userstory-btn,
 .userstory-container,
