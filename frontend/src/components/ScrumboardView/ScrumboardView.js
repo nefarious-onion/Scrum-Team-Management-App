@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import ScrumboardList from '../../components/ScrumboardView/ScrumboardList/ScrumboardList'
 import EditUserstoryForm from '../EditUserstoryForm/EditUserstoryForm';
 import AddUserstoryForm from '../AddUserstoryForm/AddUserstoryForm';
+import DeleteUserstory from '../DeleteUserstory/DeleteUserstory'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faMinus, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import ReactTooltip from 'react-tooltip';
@@ -28,6 +29,8 @@ const ScrumboardView = () => {
     const [storyToEdit, setStoryToEdit] = useState('');
     const [isAddFormVisible, setIsAddFormVisible] = useState(false);
     const [isEditVisible, setIsEditVisible] = useState(false);
+    const [isDeleteVisible, setIsDeleteVisible] = useState(false);
+    const [storyToDelete, setStoryToDelete] = useState('');
 
     const getListById = id => {
         switch (id) {
@@ -103,7 +106,7 @@ const ScrumboardView = () => {
             const [draggedStory] = newDraggedFromList.splice(source.index, 1);
             const newDraggedToList = Array.from(listDraggedTo);
             newDraggedToList.splice(destination.index, 0, draggedStory);
-            
+
             setListById(source.droppableId, newDraggedFromList);
             setListById(destination.droppableId, newDraggedToList);
         }
@@ -121,7 +124,9 @@ const ScrumboardView = () => {
     //deletes userstory and re-renders lists
     const onStoryDelete = async (storyId) => {
         await deleteStory(storyId);
+        console.log('story deleted')
         fetchLists();
+
     }
 
     const getStoryForEdit = async (storyId, listName) => {
@@ -130,6 +135,18 @@ const ScrumboardView = () => {
             setStoryToEdit(_storyToEdit);
             setCurrentList(listName);
             setIsEditVisible(true);
+        } else {
+            throw new Error('Something went wrong: Story was not found')
+        }
+    };
+
+    // get story to delete and open confirmation
+    const getStoryForDelete = async (storyId, listName) => {
+        const _storyToDelete = await getStory(storyId);
+        if (_storyToDelete) {
+            setStoryToDelete(_storyToDelete);
+            setCurrentList(listName);
+            setIsDeleteVisible(true);
         } else {
             throw new Error('Something went wrong: Story was not found')
         }
@@ -154,7 +171,15 @@ const ScrumboardView = () => {
         setStoryToEdit('');
         fetchLists();
     }
-
+    //close delete story confirm window
+    const onCloseDeleteStory = () => {
+        setIsDeleteVisible(false);
+        setStoryToDelete('');
+    }
+    const onFormDeleteStory = (story) => {
+        setStoryToDelete(story)
+        setIsDeleteVisible(true);
+    }
     //Fetch single list with ID
     useEffect(() => {
         getList(sprintlogId)
@@ -194,7 +219,8 @@ const ScrumboardView = () => {
     return (
         <>
             <DragDropContext onDragEnd={onDragEnd} onDragStart={() => console.log('dsds')}>
-                {isEditVisible ? < EditUserstoryForm listName={currentList} onStoryDelete={onStoryDelete} onStoryUpdate={onStoryUpdate} storyToEdit={storyToEdit} onCloseEditForm={onCloseEditForm} /> : null}
+                {isEditVisible ? < EditUserstoryForm listName={currentList} onStoryDelete={onStoryDelete} onStoryUpdate={onStoryUpdate} storyToEdit={storyToEdit} onCloseEditForm={onCloseEditForm} onFormDeleteStory={onFormDeleteStory} /> : null}
+                {isDeleteVisible ? <DeleteUserstory listName={currentList} storyToDelete={storyToDelete} onStoryDelete={onStoryDelete} onCloseDeleteStory={onCloseDeleteStory} onCloseEditForm={onCloseEditForm} isEditVisible={isEditVisible} /> : null}
                 <div className="scrumboard">
                     <div className="scrumboard-list currentSprint-light">
                         <div className="list-header">
@@ -210,6 +236,7 @@ const ScrumboardView = () => {
                             title='Sprint backlog'
                             onStoryDelete={onStoryDelete}
                             getStoryForEdit={storyId => getStoryForEdit(storyId, "current sprint")}
+                            getStoryForDelete={storyId => getStoryForDelete(storyId, 'current sprint')}
                             id={sprintlogId}
                         />
                     </div>
@@ -224,6 +251,7 @@ const ScrumboardView = () => {
                             title='Progress'
                             onStoryDelete={onStoryDelete}
                             getStoryForEdit={storyId => getStoryForEdit(storyId, "in progress")}
+                            getStoryForDelete={storyId => getStoryForDelete(storyId, 'in progress')}
                             id={progresslogId}
                         />
                     </div>
@@ -238,6 +266,7 @@ const ScrumboardView = () => {
                             title='Review'
                             onStoryDelete={onStoryDelete}
                             getStoryForEdit={storyId => getStoryForEdit(storyId, "in review")}
+                            getStoryForDelete={storyId => getStoryForDelete(storyId, 'in review ')}
                             id={reviewlogId}
                         />
                     </div>
@@ -252,6 +281,7 @@ const ScrumboardView = () => {
                             title='Done'
                             onStoryDelete={onStoryDelete}
                             getStoryForEdit={storyId => getStoryForEdit(storyId, "done")}
+                            getStoryForDelete={storyId => getStoryForDelete(storyId, 'done')}
                             id={donelogId}
                         />
                     </div>

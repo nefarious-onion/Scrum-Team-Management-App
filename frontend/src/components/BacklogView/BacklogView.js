@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import BacklogList from './BacklogList/BacklogList';
 import AddUserstoryForm from '../AddUserstoryForm/AddUserstoryForm';
 import EditUserstoryForm from '../EditUserstoryForm/EditUserstoryForm';
+import DeleteUserstory from '../DeleteUserstory/DeleteUserstory'
 import { getStory, createStory, deleteStory, updateStory } from '../../api_services/userstory.service';
 import { backlogId, sprintlogId } from '../../api_services/config';
 import { getList, getLists } from '../../api_services/scrumlist.service';
@@ -23,8 +24,10 @@ const BacklogView = () => {
     const [currentList, setCurrentList] = useState('');
     const [isAddFormVisible, setIsAddFormVisible] = useState(false);
     const [isEditVisible, setIsEditVisible] = useState(false);
+    const [isDeleteVisible, setIsDeleteVisible] = useState(false);
     const [btnText, setBtnText] = useState('Add new userstory');
     const [storyToEdit, setStoryToEdit] = useState('');
+    const [storyToDelete, setStoryToDelete] = useState('');
 
     const getListById = id => {
         switch (id) {
@@ -53,7 +56,7 @@ const BacklogView = () => {
     const fetchLists = async () => {
         const _backlogList = await getList(backlogId);
         const _sprintlogList = await getList(sprintlogId);
-        
+
         setBacklogList(_backlogList.stories);
         setSprintlogList(_sprintlogList.stories);
     }
@@ -81,7 +84,7 @@ const BacklogView = () => {
             const [draggedStory] = newDraggedFromAndToList.splice(source.index, 1);
             console.log('dtagged story: ', draggedStory);
             newDraggedFromAndToList.splice(destination.index, 0, draggedStory);
-     
+
             setListById(destination.droppableId, newDraggedFromAndToList);
         } else {
             //move userstory between lists
@@ -105,6 +108,8 @@ const BacklogView = () => {
     //deletes userstory and re-renders lists
     const onStoryDelete = async (storyId) => {
         await deleteStory(storyId);
+        setIsDeleteVisible(false);
+        setStoryToDelete('')
         fetchLists();
     }
     // get story to edit, open edit form
@@ -117,11 +122,23 @@ const BacklogView = () => {
         } else {
             throw new Error('Something went wrong: Story was not found')
         }
+    }
+    // get story to delete and open confirmation
+    const getStoryForDelete = async (storyId, listName) => {
+        const _storyToDelete = await getStory(storyId);
+        if (_storyToDelete) {
+            setStoryToDelete(_storyToDelete);
+            setCurrentList(listName);
+            setIsDeleteVisible(true);
+        } else {
+            throw new Error('Something went wrong: Story was not found')
+        }
     };
+
+
     //save edited userstory in edit form
     const onStoryUpdate = async (storyId, updatedStory) => {
         await updateStory(storyId, updatedStory);
-
         console.log('this story was edited: ', updatedStory);
     }
 
@@ -140,6 +157,17 @@ const BacklogView = () => {
         setStoryToEdit('');
         fetchLists();
     }
+
+    //close delete story confirm window
+    const onCloseDeleteStory = () => {
+        setIsDeleteVisible(false);
+        setStoryToDelete('');
+    }
+    const onFormDeleteStory = (story) => {
+        setStoryToDelete(story)
+        setIsDeleteVisible(true);
+    }
+
 
     //fetching all of the stories once when component is rendered
     useEffect(() => {
@@ -167,8 +195,9 @@ const BacklogView = () => {
 
     return (
         <>
-            <DragDropContext onDragEnd={onDragEnd} onDragStart={() => console.log('dsds')}>
-                {isEditVisible ? < EditUserstoryForm listName={currentList} onStoryDelete={onStoryDelete} onStoryUpdate={onStoryUpdate} storyToEdit={storyToEdit} onCloseEditForm={onCloseEditForm} /> : null}
+            <DragDropContext onDragEnd={onDragEnd} onDragStart={() => console.log('onDragStart')}>
+                {isEditVisible ? < EditUserstoryForm listName={currentList} onStoryDelete={onStoryDelete} onStoryUpdate={onStoryUpdate} storyToEdit={storyToEdit} onCloseEditForm={onCloseEditForm} onFormDeleteStory={onFormDeleteStory} /> : null}
+                {isDeleteVisible ? <DeleteUserstory listName={currentList} storyToDelete={storyToDelete} onStoryDelete={onStoryDelete} onCloseDeleteStory={onCloseDeleteStory} onCloseEditForm={onCloseEditForm} isEditVisible={isEditVisible} /> : null}
                 <div className="backlogview-container">
                     <div className='backloglist-wrapper productBacklog-light'>
                         <div className='backloglist__header-wrapper'>
@@ -182,8 +211,8 @@ const BacklogView = () => {
                         <BacklogList
                             userstoryList={backlogList}
                             title='Product Backlog'
-                            onStoryDelete={onStoryDelete}
                             getStoryForEdit={storyId => getStoryForEdit(storyId, 'product backlog')}
+                            getStoryForDelete={storyId => getStoryForDelete(storyId, 'product backlog')}
                             id={backlogId}
                         />
                     </div>
@@ -199,8 +228,8 @@ const BacklogView = () => {
                         <BacklogList
                             userstoryList={sprintlogList}
                             title='Sprint Backlog'
-                            onStoryDelete={onStoryDelete}
                             getStoryForEdit={storyId => getStoryForEdit(storyId, 'sprint backlog')}
+                            getStoryForDelete={storyId => getStoryForDelete(storyId, 'sprint backlog')}
                             id={sprintlogId}
                         />
                     </div>

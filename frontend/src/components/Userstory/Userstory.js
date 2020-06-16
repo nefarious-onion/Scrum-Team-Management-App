@@ -4,13 +4,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes, faEllipsisV } from '@fortawesome/free-solid-svg-icons';
 import { Draggable } from 'react-beautiful-dnd';
 
-const Userstory = ({ title, id, desc, onStoryDelete, getStoryForEdit, index }) => {
+const Userstory = ({ title, id, desc, getStoryForEdit, getStoryForDelete, index }) => {
 
     const onClickDelete = () => {
         const storyId = id;
         console.log('clicked userstory', storyId);
         //defined in backlogview
-        onStoryDelete(storyId);
+        getStoryForDelete(storyId);
+
     }
     const onClickEdit = () => {
         const storyId = id;
@@ -26,10 +27,13 @@ const Userstory = ({ title, id, desc, onStoryDelete, getStoryForEdit, index }) =
                     {...provided.draggableProps}
                     {...provided.dragHandleProps}
                     ref={provided.innerRef}
-                >
-                    <FontAwesomeIcon icon={faEllipsisV} onClick={onClickEdit} />
+                >   <div onClick={onClickEdit}>
+                        <FontAwesomeIcon icon={faEllipsisV} />
+                    </div>
                     <p className='userstory-title'>{title}</p>
-                    <FontAwesomeIcon icon={faTimes} onClick={onClickDelete} />
+                    <div onClick={onClickDelete} >
+                        <FontAwesomeIcon icon={faTimes} />
+                    </div>
                 </div>
             )
 

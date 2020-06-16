@@ -3,7 +3,7 @@ import Userstory from '../../Userstory/Userstory';
 import './ScrumboardList.css'
 import { Droppable } from 'react-beautiful-dnd';
 
-const ScrumboardList = ({ scrumBoard, title, onStoryDelete, onStoryUpdate, getStoryForEdit, id }) => {
+const ScrumboardList = ({ scrumBoard, title, onStoryDelete, onStoryUpdate, getStoryForEdit, getStoryForDelete, id }) => {
 
     const isValid = scrumBoard !== undefined && scrumBoard.length > 0;
     const inScrumBoard = isValid
@@ -17,6 +17,7 @@ const ScrumboardList = ({ scrumBoard, title, onStoryDelete, onStoryUpdate, getSt
                 onStoryDelete={onStoryDelete}
                 onStoryUpdate={onStoryUpdate}
                 getStoryForEdit={getStoryForEdit}
+                getStoryForDelete={getStoryForDelete}
             />
         )
         : <p>Nothing to display in {title}</p>

@@ -17,3 +17,23 @@ body {
   font-family: 'Roboto Mono', monospace;
   line-height: 1.5rem;
 }
+/*global pointer settings for clickable objects*/
+input[type='button'],
+input[type='submit'],
+input[type='date'],
+input[type='time'],
+button[type='submit'],
+input[type='text'],
+.hero-cta-btn,
+.add-userstory-btn,
+.userstory-container,
+.fa-times,
+.fa-trash-alt,
+.fa-list-ul,
+.fa-ellipsis-h,
+.fa-plus,
+.editform__story-title,
+.editform__story-descr,
+.fc-content {
+  cursor: pointer;
+}
