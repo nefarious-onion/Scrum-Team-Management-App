@@ -16,3 +16,18 @@
 body {
   font-family: 'Roboto Mono', monospace;
 }
+input[type='button'],
+input[type='submit'],
+.hero-cta-btn,
+.add-userstory-btn,
+.userstory-container,
+.fa-times,
+.fa-trash-alt,
+.fa-list-ul,
+.fa-ellipsis-h,
+.fa-plus,
+.editform__story-title,
+.editform__story-descr,
+.fc-content {
+  cursor: pointer;
+}
