@@ -36,20 +36,30 @@ const BacklogView = () => {
                 break;
         }
     }
+    const setListById = (listId, newArray) => {
+        switch (listId) {
+            case backlogId:
+                setBacklogList(newArray);
+                break;
+            case sprintlogId:
+                setSprintlogList(newArray);
+                break;
+            default:
+                break;
+        }
+    }
 
     //helper function for fetching stories from database and re-rendering the component
     const fetchLists = async () => {
         const _backlogList = await getList(backlogId);
         const _sprintlogList = await getList(sprintlogId);
-        //sort the lists!!
+        
         setBacklogList(_backlogList.stories);
         setSprintlogList(_sprintlogList.stories);
     }
 
-    const onDragEnd = result => {
+    const onDragEnd = async (result) => {
         const { destination, source, draggableId } = result;
-        console.log(result);
-        console.log(backlogList)
 
         if (!destination) {
             return;
@@ -62,46 +72,26 @@ const BacklogView = () => {
             return;
         }
         const listDraggedFrom = getListById(source.droppableId);
-        console.log('list dragged from: ', listDraggedFrom);
         const listDraggedTo = getListById(destination.droppableId);
-        console.log('list dragged to', listDraggedTo)
+
         //move userstory within one list
         if (listDraggedFrom === listDraggedTo) {
-            const newStoryList = Array.from(listDraggedFrom);
+            const newDraggedFromAndToList = Array.from(listDraggedFrom);
             //array destructuring => splice returns an array of 1 item = draggedstory
-            const [draggedStory] = newStoryList.splice(source.index, 1);
-            console.log(draggedStory);
-            newStoryList.splice(destination.index, 0, draggedStory);
-            //setBacklogList(newStoryList);
-            switch (destination.droppableId) {
-                case backlogId:
-                    setBacklogList(newStoryList);
-                    break;
-                case sprintlogId:
-                    setSprintlogList(newStoryList);
-                    break;
-                default:
-                    break;
-            }
-            console.log(newStoryList);
+            const [draggedStory] = newDraggedFromAndToList.splice(source.index, 1);
+            console.log('dtagged story: ', draggedStory);
+            newDraggedFromAndToList.splice(destination.index, 0, draggedStory);
+     
+            setListById(destination.droppableId, newDraggedFromAndToList);
         } else {
             //move userstory between lists
             const newDraggedFromList = Array.from(listDraggedFrom);
             const [draggedStory] = newDraggedFromList.splice(source.index, 1);
             const newDraggedToList = Array.from(listDraggedTo);
             newDraggedToList.splice(destination.index, 0, draggedStory);
-            switch (destination.droppableId) {
-                case backlogId:
-                    setBacklogList(newDraggedToList);
-                    setSprintlogList(newDraggedFromList);
-                    break;
-                case sprintlogId:
-                    setSprintlogList(newDraggedToList);
-                    setBacklogList(newDraggedFromList);
-                    break;
-                default:
-                    break;
-            }
+
+            setListById(source.droppableId, newDraggedFromList);
+            setListById(destination.droppableId, newDraggedToList);
         }
     }
 
@@ -159,7 +149,7 @@ const BacklogView = () => {
         //sort the lists!!
         getList(backlogId)
             .then(list => {
-                console.log(list.title)
+                //console.log(list.title)
                 setBacklogList(list.stories)
             })
             .catch((error) => {
@@ -167,7 +157,7 @@ const BacklogView = () => {
             })
         getList(sprintlogId)
             .then(list => {
-                console.log(list.title)
+                //console.log(list.title)
                 setSprintlogList(list.stories)
             })
             .catch((error) => {
