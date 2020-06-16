@@ -13,14 +13,6 @@ import { sprintlogId, donelogId, reviewlogId, progresslogId } from '../../api_se
 import { DragDropContext } from 'react-beautiful-dnd';
 import { CurrentSprintInfo, InProgressInfo, InReviewInfo, DoneInfo } from '../../data_services/data-tooltips';
 
-
-
-
-const sprintBacklogInfo = 'These are the tasks for the current sprint';
-const inProgressInfo = 'these userstories are in progress';
-const inReviewInfo = 'these userstories are completed and waiting for review';
-const doneInfo = 'these userstories are completed and merged into the final product';
-
 const ScrumboardView = () => {
     const [sprintlogList, setSprintlogList] = useState([]);
     const [inprogressList, setInProgressList] = useState([]);
