@@ -20,9 +20,11 @@ const BacklogView = () => {
 
     const [currentList, setCurrentList] = useState('');
     const [isAddFormVisible, setIsAddFormVisible] = useState(false);
+    const [isAddFormVisibleForSprint, setIsAddFormVisibleForSprint] = useState(false);
     const [isEditVisible, setIsEditVisible] = useState(false);
     const [isDeleteVisible, setIsDeleteVisible] = useState(false);
     const [btnText, setBtnText] = useState('Add new userstory');
+    const [btnTextForSprint, setBtnTextForSprint] = useState('Add new userstory');
     const [storyToEdit, setStoryToEdit] = useState('');
     const [storyToDelete, setStoryToDelete] = useState('');
 
@@ -139,14 +141,26 @@ const BacklogView = () => {
         console.log('this story was edited: ', updatedStory);
     }
 
-    const showUserstoryForm = () => {
-        if (!isAddFormVisible) {
-            setIsAddFormVisible(true);
-            setBtnText('Hide form');
+    const showUserstoryForm = (button) => {
+        if (button === 'backlog') {
+            if (!isAddFormVisible) {
+                setIsAddFormVisible(true);
+                setBtnText('Hide form');
+            }
+            if (isAddFormVisible) {
+                setIsAddFormVisible(false);
+                setBtnText('Add new userstory');
+            }
         }
-        if (isAddFormVisible) {
-            setIsAddFormVisible(false);
-            setBtnText('Add new userstory');
+        if (button === 'sprint') {
+            if (!isAddFormVisibleForSprint) {
+                setIsAddFormVisibleForSprint(true);
+                setBtnTextForSprint('Hide form');
+            }
+            if (isAddFormVisibleForSprint) {
+                setIsAddFormVisibleForSprint(false);
+                setBtnTextForSprint('Add new userstory');
+            }
         }
     }
     const onCloseEditForm = () => {
@@ -204,7 +218,7 @@ const BacklogView = () => {
                             <ReactTooltip id='productBacklog' place='bottom' className='tooltip'>
                                 <ProductBacklogInfo/>
                             </ReactTooltip>
-                            <button className='add-userstory-btn' onClick={showUserstoryForm} data-tip data-for='userstoryBtn'>{btnText}</button>
+                            <button className='add-userstory-btn' onClick={() => showUserstoryForm('backlog')} data-tip data-for='userstoryBtn'>{btnText}</button>
                             <ReactTooltip id='userstoryBtn' type='light' place='top'>
                                 “As a [person], I [want to], [so that].”
                             </ReactTooltip>
@@ -227,9 +241,9 @@ const BacklogView = () => {
                             <ReactTooltip id='sprintBacklog' place='bottom' className='tooltip'>
                                 <SprintBacklogInfo/>
                             </ReactTooltip>
-                            <button className='add-userstory-btn' onClick={showUserstoryForm} data-tip data-for='userstoryBtn'>{btnText}</button>
+                            <button className='add-userstory-btn' onClick={() => showUserstoryForm('sprint')} data-tip data-for='userstoryBtn'>{btnTextForSprint}</button>
                         </div>
-                        {isAddFormVisible ? <AddUserstoryForm onStoryCreate={onStoryCreate} listId={sprintlogId} /> : null}
+                        {isAddFormVisibleForSprint ? <AddUserstoryForm onStoryCreate={onStoryCreate} listId={sprintlogId} /> : null}
                         <BacklogList
                             userstoryList={sprintlogList}
                             title='Sprint Backlog'
