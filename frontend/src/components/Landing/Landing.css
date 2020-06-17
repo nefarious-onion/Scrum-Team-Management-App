@@ -22,7 +22,7 @@
 
 /* buttons on landing page - general and CTA */
 
-.landing-btn {
+.primary-btn {
   background: hsl(60, 60%, 50%);
   color: black;
   font-family: inherit;

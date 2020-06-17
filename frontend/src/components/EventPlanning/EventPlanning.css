@@ -1,0 +1,61 @@
+.event-planning-grid {
+    height: 100%;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: 1fr;
+    grid-gap: 2rem;
+    padding: 2rem;
+}
+
+/* heading */
+.event-planning-grid h2 {
+    text-align: center;
+}
+
+.event-planning-grid p {
+    margin: 1rem 0;
+}
+
+/* img stickly on the right */
+.event-planning-grid img {
+    position: sticky;
+    top: 25vh;
+}
+
+/* form and inputs */
+.event-form input {
+    font: inherit;
+    margin-left: 0.5rem;
+    border: 1px solid #c2c2c2;
+    box-shadow: 1px 1px 4px #ebebeb;
+    -moz-box-shadow: 1px 1px 4px #ebebeb;
+    -webkit-box-shadow: 1px 1px 4px #ebebeb;
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    padding: 7px;
+}
+
+.event-form input:focus {
+    border: 1px solid #0c0;
+  }
+
+.event-form-section {
+}
+
+.event-form h4 {
+    line-height: 3rem;
+}
+
+.event-form-note {
+    font-size: 0.8rem;
+    padding-top: 1rem;
+}
+
+/* form button */
+.event-form-btn {
+    width: 60%;
+    font-size: 1rem;
+    margin: 1rem 0;
+}

@@ -44,7 +44,7 @@ const LandingSignUp = () => {
         <label className="submit-btn-wrap">
           <input
             type="submit"
-            className="submit-btn landing-btn"
+            className="submit-btn primary-btn"
             value="Submit"
           />
         </label>
