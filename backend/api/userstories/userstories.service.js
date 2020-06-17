@@ -46,8 +46,9 @@ const createNewStory = (req, res) => {
           .save()
           .then((result) => {
             console.log('New story saved to DB: ' + result);
-            // push the new story into the ref array of the list (from endpoint params)
-            returnedList.stories.push(newStory);
+            // push the new story into top of the ref array of the list (from endpoint params)
+            returnedList.stories.unshift(newStory);
+            
             // save the new array to the entry in list collection
             returnedList.save();
             res.status(201).json(newStory);
