@@ -6,6 +6,8 @@ nav {
   height: 5rem;
   width: 100%;
   text-transform: uppercase;
+  position: sticky;
+  top: 0px;
 }
 
 nav ul {

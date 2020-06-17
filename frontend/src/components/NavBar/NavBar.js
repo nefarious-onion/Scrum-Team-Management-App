@@ -10,13 +10,8 @@ const NavBar = () => {
       </Link>
       <ul>
         <li className="nav-li">
-          <Link className="nav-link" to="/backlog">
-            Product Backlog
-          </Link>
-        </li>
-        <li className="nav-li">
-          <Link className="nav-link" to="/scrumboard">
-            Scrum Board
+          <Link className="nav-link" to="/about">
+            About Scrum
           </Link>
         </li>
         <li className="nav-li">
@@ -30,6 +25,16 @@ const NavBar = () => {
           </Link>
         </li>
         <li className="nav-li">
+          <Link className="nav-link" to="/backlog">
+            Product Backlog
+          </Link>
+        </li>
+        <li className="nav-li">
+          <Link className="nav-link" to="/scrumboard">
+            Scrum Board
+          </Link>
+        </li>
+        <li className="nav-li">
           <Link className="nav-link" to="/calendar">
             Calendar
           </Link>
@@ -39,11 +44,6 @@ const NavBar = () => {
             Project Overview
           </Link>
         </li> */}
-        <li className="nav-li">
-          <Link className="nav-link" to="/about">
-            About Scrum
-          </Link>
-        </li>
       </ul>
     </nav>
   );

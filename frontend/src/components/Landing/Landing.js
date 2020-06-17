@@ -27,8 +27,8 @@ const Landing = () => {
           <p className="hero-cta-content">
             Begin your path to mastering the Scrum method today!
           </p>
-          <Link className="nav-link" to="/about">
-            <button className="hero-cta-btn landing-btn">Get started!</button>
+          <Link className="hero-cta-btn" to="/about">
+            <button className="landing-btn">Get started!</button>
           </Link>
         </div>
         <div className="hero-right-container">
