@@ -11,13 +11,7 @@ import { getList } from '../../api_services/scrumlist.service';
 import { deleteStory, getStory, updateStory, createStory } from '../../api_services/userstory.service';
 import { sprintlogId, donelogId, reviewlogId, progresslogId } from '../../api_services/config';
 import { DragDropContext } from 'react-beautiful-dnd';
-
-
-
-const sprintBacklogInfo = 'These are the tasks for the current sprint';
-const inProgressInfo = 'these userstories are in progress';
-const inReviewInfo = 'these userstories are completed and waiting for review';
-const doneInfo = 'these userstories are completed and merged into the final product';
+import { CurrentSprintInfo, InProgressInfo, InReviewInfo, DoneInfo } from '../../data_services/data-tooltips';
 
 const ScrumboardView = () => {
     const [sprintlogList, setSprintlogList] = useState([]);
@@ -225,7 +219,9 @@ const ScrumboardView = () => {
                     <div className="scrumboard-list currentSprint-light">
                         <div className="list-header">
                             <FontAwesomeIcon icon={faInfoCircle} className='info-icon' spin data-tip data-for='sprintBacklog' />
-                            <ReactTooltip id='sprintBacklog' place='bottom' effect='solid'>{sprintBacklogInfo}</ReactTooltip>
+                            <ReactTooltip id='sprintBacklog' place='bottom' className='tooltip'>
+                                <CurrentSprintInfo />
+                            </ReactTooltip>
                             <h3>Current Sprint</h3>
                             {/* <button className='add-userstory-btn' onClick={showUserstoryForm} >{btnText}</button> */}
                             {!isAddFormVisible ? <FontAwesomeIcon icon={faPlus} size='lg' onClick={showUserstoryForm} /> : <FontAwesomeIcon icon={faMinus} size='lg' onClick={showUserstoryForm} />}
@@ -243,7 +239,9 @@ const ScrumboardView = () => {
                     <div className="scrumboard-list inProgress-light">
                         <div className="list-header">
                             <FontAwesomeIcon icon={faInfoCircle} className='info-icon' spin data-tip data-for='inProgress' />
-                            <ReactTooltip id='inProgress' place='bottom' effect='solid'>{inProgressInfo}</ReactTooltip>
+                            <ReactTooltip id='inProgress' place='bottom' className='tooltip'>
+                                <InProgressInfo />
+                            </ReactTooltip>
                             <h3>In Progress</h3>
                         </div>
                         <ScrumboardList
@@ -258,7 +256,9 @@ const ScrumboardView = () => {
                     <div className="scrumboard-list inReview-light">
                         <div className="list-header">
                             <FontAwesomeIcon icon={faInfoCircle} className='info-icon' spin data-tip data-for='inReview' />
-                            <ReactTooltip id='inReview' place='bottom' effect='solid'>{inReviewInfo}</ReactTooltip>
+                            <ReactTooltip id='inReview' place='bottom' className='tooltip'>
+                                <InReviewInfo />
+                            </ReactTooltip>
                             <h3>In Review</h3>
                         </div>
                         <ScrumboardList
@@ -273,7 +273,9 @@ const ScrumboardView = () => {
                     <div className="scrumboard-list done-light">
                         <div className="list-header">
                             <FontAwesomeIcon icon={faInfoCircle} className='info-icon' spin data-tip data-for='done' />
-                            <ReactTooltip id='done' place='bottom' effect='solid'>{doneInfo}</ReactTooltip>
+                            <ReactTooltip id='done' place='bottom' className='tooltip'>
+                                <DoneInfo />
+                            </ReactTooltip>
                             <h3>Done</h3>
                         </div>
                         <ScrumboardList

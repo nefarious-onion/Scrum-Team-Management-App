@@ -49,3 +49,7 @@
 .info-icon:hover {
   color: hsla(120, 60%, 25%, 1);
 }
+
+.tooltip {
+  max-width: 700px;
+}
