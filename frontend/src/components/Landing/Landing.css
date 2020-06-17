@@ -41,7 +41,7 @@
   -webkit-box-shadow: 1px 2px 4px #afafaf;
 }
 
-.landing-btn:hover {
+.primary-btn:hover {
   background: hsl(60, 60%, 65%);
   background: linear-gradient(
     0deg,
@@ -50,7 +50,7 @@
   );
 }
 
-.landing-btn:active {
+.primary-btn:active {
   background: hsl(60, 60%, 46%);
   background: linear-gradient(
     0deg,

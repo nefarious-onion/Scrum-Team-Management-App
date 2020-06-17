@@ -1,18 +1,19 @@
 .backlogview-container {
     width: 100%;
+    height: calc(100vh - 5rem);
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
     grid-gap: 1rem;
     padding: 1rem;
   }
   .backloglist-wrapper {
     background-color: darkgoldenrod;
     padding: 1rem;
+    height: 100%;
   }
   .backloglist__header-wrapper {
     display: grid;
-    grid-template-columns: 40px auto auto auto;
+    grid-template-columns: auto 10% auto;
     align-items: center;
     justify-items: center;
     padding-bottom: .5rem;
@@ -29,16 +30,16 @@
   }
 
   .productBacklog {
-    background-color: rgb(167, 232, 189);
+    background-color: hsla(270, 60%, 65%, 1);
   }
   .productBacklog-light {
-    background-color: rgba(167, 232, 189, .5);
+    background-color: hsla(270, 60%, 65%, 0.7);
   }
   .sprintBacklog {
-    background-color: rgb(255, 217, 114);
+    background-color: hsla(55, 60%, 65%, 1);
   }
   .sprintBacklog-light {
-    background-color: rgba(255, 217, 114, .5);
+    background-color: hsla(55, 60%, 65%, 0.7);
   }
 
 .info-icon {
@@ -46,6 +47,5 @@
 }
 
 .info-icon:hover {
-  font-size: 2rem;
-  color: rgb(242, 132, 130);
+  color: hsla(120, 60%, 25%, 1);
 }
