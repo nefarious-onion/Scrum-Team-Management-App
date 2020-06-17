@@ -3,11 +3,30 @@
     
 }
 .calendar-edit-panel {
-    padding: 1rem;
+    max-width: 90%;
+    display: flex;
+    margin: 0 auto;
+    padding: .5rem 0;
 }
 .calendar-content {
     margin: 0 auto;
     max-width: 90%;
     font-size: 14px;
     padding-bottom: 1rem;
+}
+.calendar-btn {
+    /* background-color: #1a252f; */
+    background-color: #2C3E50;;
+    border-color: #151e27;
+    color: #fff;
+    font-family: inherit;
+    padding: .5rem;
+    border-radius: 0.25em;
+    cursor: auto;
+}
+.calendar-btn:hover {
+    background-color: #1a252f;
+}
+.calendar-btn.calendar-btn-active {
+    background-color: #1a252f;
 }

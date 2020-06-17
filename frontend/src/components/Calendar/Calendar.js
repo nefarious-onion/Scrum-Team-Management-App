@@ -8,8 +8,10 @@ const Calendar = () => {
     const [timeZone, setTimezone] = useState('EEST');
     const [events, setEvents] = useState([]);
     const [showWeekends, setShowWeekends] = useState(false);
-    const [showEventEdit, setShowEventEdit] = useState(false);
+    const [showEventEdit, setShowEventEdit] = useState(true);
     const [eventToEdit, setEventToEdit] = useState(undefined);
+
+    const activeButtonClass = showWeekends ? 'calendar-btn-active' : null;
 
     const fetchEvents = async () => {
         const _events = await getEvents();
@@ -67,19 +69,22 @@ const Calendar = () => {
 
     return (
         <>
-            { showEventEdit 
-                ? <EditEventForm 
+            {showEventEdit
+                ? <EditEventForm
                     eventToEdit={eventToEdit}
                     onCloseEventForm={onCloseEventForm}
                     onEventDelete={onEventDelete}
-                /> 
-                : null 
+                />
+                : null
             }
             <div className='calendar-container'>
                 <div className='calendar-edit-panel'>
-                    <button onClick={onToggleWeekend}>Toggle weekend</button>
-
-
+                    <button
+                        className={`calendar-btn ${activeButtonClass}`}
+                        onClick={onToggleWeekend}
+                    >
+                        Toggle weekend
+                    </button>
                 </div>
                 <div className='calendar-content'>
                     <EventCalendar
