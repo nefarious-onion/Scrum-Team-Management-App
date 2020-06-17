@@ -1,5 +1,6 @@
 import React from 'react';
 import AboutScrumView from './AboutScrum/AboutScrumView';
+import Footer from './Footer/Footer'
 import BacklogView from './BacklogView/BacklogView';
 import ScrumboardView from './ScrumboardView/ScrumboardView';
 import Landing from './Landing/Landing';
@@ -25,6 +26,7 @@ const App = () => {
           <Route path="/overview" />
         </Switch>
       </main>
+      <Footer />
     </Router>
   );
 };
