@@ -6,6 +6,14 @@
   text-align: center;
 }
 
-.meet-container ul li {
-  list-style-type: none;
+.meet-container p {
+  margin: 0 1rem 0.5rem;
+}
+
+/* MEETINGS GRID to keep the icons on the left and text aligned */
+
+.meeting-grid {
+  display: grid;
+  grid-template-columns: 35px auto;
+  grid-gap: 0.5rem;
 }

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useFocus } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import './AddUserstoryForm.css';
@@ -46,6 +46,7 @@ const AddUserstoryForm = ({ onStoryCreate, listId }) => {
                         value={storyInput}
                         placeholder='Write a new userstory...'
                         onChange={onInputChange} required
+
                     />
                     <FontAwesomeIcon icon={faPlus} size='lg' onClick={onSubmit} />
                 </div>

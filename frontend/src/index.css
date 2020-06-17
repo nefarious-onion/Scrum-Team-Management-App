@@ -19,3 +19,24 @@ body {
   font-family: 'Poppins', sans-serif;
   background: hsla(150, 60%, 90%, 1);
 }
+
+/*global pointer settings for clickable objects*/
+input[type='button'],
+input[type='submit'],
+input[type='date'],
+input[type='time'],
+button[type='submit'],
+input[type='text'],
+.hero-cta-btn,
+.add-userstory-btn,
+.userstory-container,
+.fa-times,
+.fa-trash-alt,
+.fa-list-ul,
+.fa-ellipsis-h,
+.fa-plus,
+.editform__story-title,
+.editform__story-descr,
+.fc-content {
+  cursor: pointer;
+}

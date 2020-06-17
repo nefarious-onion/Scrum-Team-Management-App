@@ -1,20 +1,98 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import EventCalendar from './EventCalendar';
+import { getEvents, createEvent, deleteEvent } from '../../api_services/event.service'
 import './Calendar.css';
-
-let events = [
-    {title: "This is an event", start: "2020-06-17T10:30:00", end:  "2020-06-18T17:30:00"},
-    { title: 'event 1', start: '2020-07-01', daysOfWeek: [1, 2, 3] },
-    { title: 'event 2', start: '2020-06-24', color: "hotpink", description: "this is a new event"}
-]
+import EditEventForm from './EditEventForm';
 
 const Calendar = () => {
     const [timeZone, setTimezone] = useState('EEST');
+    const [events, setEvents] = useState([]);
+    const [showWeekends, setShowWeekends] = useState(false);
+    const [showEventEdit, setShowEventEdit] = useState(false);
+    const [eventToEdit, setEventToEdit] = useState(undefined);
+
+    const fetchEvents = async () => {
+        const _events = await getEvents();
+        setEvents(_events);
+    }
+
+    const onToggleWeekend = () => {
+        showWeekends ? setShowWeekends(false) : setShowWeekends(true);
+    }
+
+    const onDateClick = async (dateClickInfo) => {
+        console.log(dateClickInfo);
+        //dateClickInfo.dayEl.style.backgroundColor = 'red';
+        if (window.confirm('would you like to add an event to ' + dateClickInfo.dateStr)) {
+            try {
+                const newEvent = {
+                    title: 'new event',
+                    start: dateClickInfo.date,
+                    allDay: true,
+                }
+                await createEvent(newEvent);
+
+            } catch (error) {
+                console.log('Something went wrong', error);
+            }
+            fetchEvents();
+        }
+    }
+    const onEventClick = (eventClickInfo) => {
+        const event = eventClickInfo.event;
+        setEventToEdit(event);
+        setShowEventEdit(true);
+    }
+    const onCloseEventForm = () => {
+        setShowEventEdit(false);
+        setEventToEdit(undefined);
+        fetchEvents();
+    }
+
+    const onEventDelete = async (id) => {
+        await deleteEvent(id);
+        fetchEvents();
+        setShowEventEdit(false);
+        setEventToEdit(undefined);
+    }
+
+    useEffect(() => {
+        getEvents()
+            .then(events => {
+                console.log(events)
+                setEvents(events);
+            })
+            .catch(error => console.log(error));
+    }, []);
 
     return (
-        <div>
-           <EventCalendar events={events} timeZone={timeZone}/>
-        </div>
+        <>
+            { showEventEdit 
+                ? <EditEventForm 
+                    eventToEdit={eventToEdit}
+                    onCloseEventForm={onCloseEventForm}
+                    onEventDelete={onEventDelete}
+                /> 
+                : null 
+            }
+            <div className='calendar-container'>
+                <div className='calendar-edit-panel'>
+                    <button onClick={onToggleWeekend}>Toggle weekend</button>
+
+
+                </div>
+                <div className='calendar-content'>
+                    <EventCalendar
+                        events={events}
+                        timeZone={timeZone}
+                        showWeekends={showWeekends}
+                        onDateClick={onDateClick}
+                        onEventClick={onEventClick}
+                    />
+                </div>
+
+            </div>
+        </>
     );
 }
 
