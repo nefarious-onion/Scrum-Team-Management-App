@@ -1,76 +1,115 @@
 .section-grid-2col {
   display: grid;
   grid-template-columns: 50% 50%;
-  grid-template-rows: 20% 20% 20% 20% 20%;
   width: 100%;
-  height: 60vh;
+  height: 70vh;
   justify-items: center;
-}
-
-.section-grid-2col:nth-of-type(even) {
-  background-color: rgb(221, 221, 221);
-}
-
-.hero-left-container {
-  height: 55vh;
-  display: grid;
-  justify-content: center;
-  grid-column: 1;
-  grid-row: 1;
+  align-items: center;
+  grid-gap: 2rem;
   padding: 2rem;
 }
-.hero-right-container {
-  grid-column: 2;
-  grid-row: 3;
-}
-.hero-left-container,
-.hero-right-container {
-  width: 30rem;
+
+/* bg color for every other section */
+.section-grid-2col:nth-of-type(even) {
+  background-color: hsl(150, 61%, 76%);
 }
 
-.hero-welcome {
-  font-size: 5rem;
-  text-transform: uppercase;
+/* illustrations */
+.section-grid-2col img {
+  height: 80%;
+  width: 100%;
 }
-.hero-cta-content {
-  width: 30rem;
-  font-size: 3rem;
-}
-.hero-cta-btn {
-  height: 6vh;
-  width: 15vw;
-  display: grid;
-  align-content: center;
-  border: none;
-  background: rgb(207, 205, 205);
+
+/* buttons on landing page - general and CTA */
+
+.landing-btn {
+  background: hsl(60, 60%, 50%);
   color: black;
-  box-shadow: 1px 1px 4px #dadada;
-  -moz-box-shadow: 1px 1px 4px #dadada;
-  -webkit-box-shadow: 1px 1px 4px #dadada;
+  font-family: inherit;
+  font-size: 1.2rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  width: 70%;
+  height: 3rem;
+  border: none;
   border-radius: 3px;
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
-  text-transform: uppercase;
-  font-weight: 400;
-  font-size: 1.5rem;
-  letter-spacing: 2px;
+  box-shadow: 1px 2px 4px #afafaf;
+  -moz-box-shadow: 1px 2px 4px #afafaf;
+  -webkit-box-shadow: 1px 2px 4px #afafaf;
 }
-.hero-cta-btn:hover {
-  background: rgb(221, 221, 221);
+
+.landing-btn:hover {
+  background: hsl(60, 60%, 65%);
+  background: linear-gradient(
+    0deg,
+    hsl(60, 60%, 65%) 0%,
+    hsl(60, 60%, 50%) 100%
+  );
+}
+
+.landing-btn:active {
+  background: hsl(60, 60%, 46%);
+  background: linear-gradient(
+    0deg,
+    hsl(60, 60%, 50%) 0%,
+    hsl(60, 60%, 46%) 100%
+  );
+}
+
+.hero-cta-btn {
+  align-self: flex-start;
+}
+
+/* hero banner */
+.hero-left-container {
+  display: grid;
+  height: 100%;
+  width: 80%;
+  align-items: center;
+}
+
+.hero-right-container {
+  height: 100%;
+  width: 100%;
+  display: grid;
+  align-items: center;
+  justify-items: center;
+}
+
+.hero-welcome {
+  font-size: 3rem;
+  line-height: 3rem;
+  letter-spacing: 0.5rem;
+  text-transform: uppercase;
+  align-self: flex-end;
+}
+
+.hero-cta-content {
+  font-size: 2rem;
 }
 
 /*content after hero banner*/
 .marketing-content-left-col,
 .marketing-content-right-col {
   height: 100%;
-  grid-row: 3;
-  width: 30rem;
+  width: 80%;
   font-size: 1.5rem;
+  display: grid;
+  justify-items: center;
+  align-items: center;
+}
+
+.marketing-content-left-col p,
+.marketing-content-right-col p {
+  line-height: 3rem;
 }
 
 .contact {
   display: flex;
   justify-content: center;
   width: 100%;
-  height: 50vh;
+  min-height: 90vh;
 }

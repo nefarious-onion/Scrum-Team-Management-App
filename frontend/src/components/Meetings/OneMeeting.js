@@ -35,7 +35,7 @@ const OneMeeting = () => {
   return (
     <div>
       {/* <Timer /> */}
-      <h3>{currentMeeting.name}</h3>
+      <h2>{currentMeeting.name}</h2>
       <div className="meeting-grid">
         <div className="icon-style">
           <FontAwesomeIcon icon={faCalendarAlt} size={'2x'} />

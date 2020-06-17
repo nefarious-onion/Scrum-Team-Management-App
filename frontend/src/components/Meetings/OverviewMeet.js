@@ -4,7 +4,7 @@ import data from '../../data_services/data-meetings.json';
 const OverviewMeet = () => {
   return (
     <div>
-      <h3>{data.overview.title}</h3>
+      <h2>{data.overview.title}</h2>
       <p>{data.overview.content.par1}</p>
       <p>{data.overview.content.par2}</p>
       <p>
