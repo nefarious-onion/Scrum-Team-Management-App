@@ -22,7 +22,7 @@
     font-family: inherit;
     padding: .5rem;
     border-radius: 0.25em;
-    cursor: auto;
+    cursor: pointer;
 }
 .calendar-btn:hover {
     background-color: #1a252f;

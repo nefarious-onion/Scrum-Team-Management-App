@@ -8,7 +8,7 @@ const Calendar = () => {
     const [timeZone, setTimezone] = useState('EEST');
     const [events, setEvents] = useState([]);
     const [showWeekends, setShowWeekends] = useState(false);
-    const [showEventEdit, setShowEventEdit] = useState(true);
+    const [showEventEdit, setShowEventEdit] = useState(false);
     const [eventToEdit, setEventToEdit] = useState(undefined);
 
     const activeButtonClass = showWeekends ? 'calendar-btn-active' : null;

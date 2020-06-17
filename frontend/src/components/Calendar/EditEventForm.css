@@ -22,12 +22,13 @@
     background-color: #1a252f;
     color: #fff;
     z-index: 99;
+    padding: .5rem;
 }
 .event-form__editpanel {
-    display: flex;
-    justify-content: flex-end;
-    /* grid-template-columns: auto auto auto;
-    grid-gap: .5rem; */
+    display: grid;
+    grid-template-columns: auto auto 20px 30px;
+    grid-gap: .5rem;
+    justify-items: flex-end;
     text-transform: uppercase;
     /* border-bottom: solid 2px rgba(0, 0, 0, 0.308); */
     padding: .5rem;
