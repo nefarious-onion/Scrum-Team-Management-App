@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import team_presentation2 from '../../assets/team_presentation2_green.svg';
 import '../SideNav.css';
 
 const SideNavMeet = ({ meetingsUrl }) => {
@@ -24,6 +25,9 @@ const SideNavMeet = ({ meetingsUrl }) => {
         </li>
         <li>
           <Link to={`${meetingsUrl}/retrospective`}>Retrospective</Link>
+        </li>
+        <li>
+          <img src={team_presentation2} alt="team presentation" />
         </li>
       </ul>
     </div>

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
 @import '~@fullcalendar/core/main.css';
 @import '~@fullcalendar/daygrid/main.css';
 @import '~@fullcalendar/timegrid/main.css';
@@ -8,15 +8,18 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  /* max-height: 100vh; */
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 body {
-  font-family: 'Roboto Mono', monospace;
-  line-height: 1.5rem;
+  font-family: 'Poppins', sans-serif;
+  background: hsla(150, 60%, 90%, 1);
 }
+
 /*global pointer settings for clickable objects*/
 input[type='button'],
 input[type='submit'],
