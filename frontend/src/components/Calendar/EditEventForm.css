@@ -12,20 +12,26 @@
 }
 .event-form__container {
     opacity: 1;
-    width: 700px;
-    height: 500px;
+    width: 400px;
+    height: 300px;
     position: absolute;
     left: 0;
     right: 0;
     margin-left: auto;
     margin-right: auto;
-    background-color: white;
+    background-color: #1a252f;
+    color: #fff;
     z-index: 99;
 }
 .event-form__editpanel {
-    display: grid;
-    grid-template-columns: auto auto auto;
-    grid-gap: .5rem;
-    border-bottom: solid 2px rgba(0, 0, 0, 0.308);
+    display: flex;
+    justify-content: flex-end;
+    /* grid-template-columns: auto auto auto;
+    grid-gap: .5rem; */
+    text-transform: uppercase;
+    /* border-bottom: solid 2px rgba(0, 0, 0, 0.308); */
     padding: .5rem;
+}
+.event-header {
+    justify-self: flex-start;
 }
