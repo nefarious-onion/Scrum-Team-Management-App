@@ -3,6 +3,7 @@ import './EditUserstoryForm.css';
 import ReactTooltip from 'react-tooltip';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes, faListUl, faTrashAlt, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
+import { UserstoryInfo } from '../../data_services/data-tooltips';
 
 const listStyles = {
     "current sprint": "currentSprint",
@@ -12,8 +13,6 @@ const listStyles = {
     "product backlog": "productBacklog",
     "sprint backlog": "sprintBacklog"
 }
-
-const userstoryInfo = 'This is a userstory'
 
 const EditUserstoryForm = ({ onFormDeleteStory, onStoryUpdate, storyToEdit, onCloseEditForm, listName }) => {
     const [titleToEdit, setTitleToEdit] = useState('');
@@ -95,7 +94,9 @@ const EditUserstoryForm = ({ onFormDeleteStory, onStoryUpdate, storyToEdit, onCl
                 <div className='edit-panel' >
                     <h2>Edit userstory</h2>
                     <FontAwesomeIcon icon={faInfoCircle} className='info-icon' spin data-tip data-for='userstory' />
-                    <ReactTooltip id='userstory' place='top' effect='solid'>{userstoryInfo}</ReactTooltip>
+                    <ReactTooltip id='userstory' place='bottom' className='tooltip'>
+                        <UserstoryInfo />
+                    </ReactTooltip>
                     <p>{currentList}</p>
                     <FontAwesomeIcon className='editform__move-btn' icon={faListUl} size='2x' />
                     <FontAwesomeIcon className='editform__delete-btn' icon={faTrashAlt} size='2x' onClick={onClickDelete} />

@@ -49,3 +49,7 @@
   font-size: 2rem;
   color: rgb(242, 132, 130);
 }
+
+.tooltip {
+  max-width: 700px;
+}
