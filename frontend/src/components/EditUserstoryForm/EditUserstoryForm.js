@@ -20,6 +20,7 @@ const EditUserstoryForm = ({ onFormDeleteStory, onStoryUpdate, storyToEdit, onCl
     const [descrToEdit, setDescrToEdit] = useState('');
     const [isTitleInputVisible, setIsTitleInputVisible] = useState(false);
     const [isTextareaVisible, setIsTextareaVisible] = useState(false);
+    const [isSaveVisible, setIsSaveVisible] = useState(false);
     const storyId = storyToEdit._id;
     const currentList = listName;
     const currentListStyle = listStyles[currentList];
@@ -33,6 +34,11 @@ const EditUserstoryForm = ({ onFormDeleteStory, onStoryUpdate, storyToEdit, onCl
             setDescrToEdit(storyToEdit.descr)
         }
     }, []);
+
+    const showSaveMessage = () => {
+        setIsSaveVisible(true);
+        const saveTimer = setTimeout(() => setIsSaveVisible(false), 2000);
+    }
 
     //shows the title input field when text is clicked
     const onTitleClick = () => {
@@ -63,6 +69,7 @@ const EditUserstoryForm = ({ onFormDeleteStory, onStoryUpdate, storyToEdit, onCl
         const story = { title: titleToEdit, descr: descrToEdit };
         onStoryUpdate(storyId, story);
         console.log('edit form edited story:', story);
+        showSaveMessage();
     }
     //pressing enter removes focus from the input field
     const onEnterPress = event => {
@@ -81,6 +88,7 @@ const EditUserstoryForm = ({ onFormDeleteStory, onStoryUpdate, storyToEdit, onCl
         const story = { title: titleToEdit, descr: descrToEdit };
         onStoryUpdate(storyId, story);
         console.log('edit form edited story:', storyId, story);
+        showSaveMessage();
     }
 
     //deletes the userstory when trashcan is clicked => no confirmation, the form just closes. Needs a fix.
@@ -93,7 +101,7 @@ const EditUserstoryForm = ({ onFormDeleteStory, onStoryUpdate, storyToEdit, onCl
             <div className='form-overlay' onClick={onCloseEditForm} ></div>
             <div className={`editform-container ${currentListStyle}`}>
                 <div className='edit-panel' >
-                    <h2>Edit userstory</h2>
+                    <h2>Edit user story</h2>
                     <FontAwesomeIcon icon={faInfoCircle} className='info-icon' spin data-tip data-for='userstory' />
                     <ReactTooltip id='userstory' place='top' effect='solid'>{userstoryInfo}</ReactTooltip>
                     <p>{currentList}</p>
@@ -102,6 +110,7 @@ const EditUserstoryForm = ({ onFormDeleteStory, onStoryUpdate, storyToEdit, onCl
                     <FontAwesomeIcon className='editform__close-btn' icon={faTimes} size='2x' onClick={onClickClose} />
                 </div>
                 <div className='edit-content'>
+                   { isSaveVisible ? <span className='save-message' >User story saved</span> : null}
                     <form onSubmit={onFormSubmit}>
                         <h4 className='editform__header'>Title:</h4>
                         <div className='editform__story-title' onClick={onTitleClick}>
