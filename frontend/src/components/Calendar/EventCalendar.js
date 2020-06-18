@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import interactionPlugin from '@fullcalendar/interaction'
@@ -6,6 +6,7 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';
 
 const EventCalendar = ({ events, timeZone, showWeekends, onDateClick, onEventClick }) => {
+    console.log(events)
 
     return (
        
@@ -24,7 +25,7 @@ const EventCalendar = ({ events, timeZone, showWeekends, onDateClick, onEventCli
                     addEventButton: {
                         text: 'Add event',
                         click: function() {
-                            alert('Clicked a custom button!!!!')
+                            alert('Some day you can add events from here!!')
                         }
                     }
                 }}

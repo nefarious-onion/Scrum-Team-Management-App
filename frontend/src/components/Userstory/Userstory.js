@@ -1,7 +1,7 @@
 import React from 'react';
 import './Userstory.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTimes, faEllipsisV } from '@fortawesome/free-solid-svg-icons';
+import { faTimes, faEdit } from '@fortawesome/free-solid-svg-icons';
 import { Draggable } from 'react-beautiful-dnd';
 
 const Userstory = ({ title, id, desc, getStoryForEdit, getStoryForDelete, index }) => {
@@ -28,10 +28,10 @@ const Userstory = ({ title, id, desc, getStoryForEdit, getStoryForDelete, index 
                     {...provided.dragHandleProps}
                     ref={provided.innerRef}
                 >   <div onClick={onClickEdit}>
-                        <FontAwesomeIcon icon={faEllipsisV} />
+                        <FontAwesomeIcon icon={faEdit} />
                     </div>
                     <p className='userstory-title'>{title}</p>
-                    <div onClick={onClickDelete} >
+                    <div className="delete-story-btn" onClick={onClickDelete} >
                         <FontAwesomeIcon icon={faTimes} />
                     </div>
                 </div>

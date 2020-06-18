@@ -222,7 +222,7 @@ const ScrumboardView = () => {
                             <ReactTooltip id='sprintBacklog' place='bottom' className='tooltip'>
                                 <CurrentSprintInfo />
                             </ReactTooltip>
-                            <h3>current sprint</h3>
+                            <h3>Current Sprint</h3>
                             {/* <button className='add-userstory-btn' onClick={showUserstoryForm} >{btnText}</button> */}
                             {!isAddFormVisible ? <FontAwesomeIcon icon={faPlus} size='lg' onClick={showUserstoryForm} /> : <FontAwesomeIcon icon={faMinus} size='lg' onClick={showUserstoryForm} />}
                         </div>
@@ -242,7 +242,7 @@ const ScrumboardView = () => {
                             <ReactTooltip id='inProgress' place='bottom' className='tooltip'>
                                 <InProgressInfo />
                             </ReactTooltip>
-                            <h3>in progress</h3>
+                            <h3>In Progress</h3>
                         </div>
                         <ScrumboardList
                             scrumBoard={inprogressList}
@@ -259,7 +259,7 @@ const ScrumboardView = () => {
                             <ReactTooltip id='inReview' place='bottom' className='tooltip'>
                                 <InReviewInfo />
                             </ReactTooltip>
-                            <h3>in review</h3>
+                            <h3>In Review</h3>
                         </div>
                         <ScrumboardList
                             scrumBoard={inreviewList}
@@ -276,7 +276,7 @@ const ScrumboardView = () => {
                             <ReactTooltip id='done' place='bottom' className='tooltip'>
                                 <DoneInfo />
                             </ReactTooltip>
-                            <h3>done</h3>
+                            <h3>Done</h3>
                         </div>
                         <ScrumboardList
                             scrumBoard={indoneList}

@@ -2,6 +2,7 @@ import React from 'react';
 import AboutScrumView from './AboutScrum/AboutScrumView';
 import BacklogView from './BacklogView/BacklogView';
 import ScrumboardView from './ScrumboardView/ScrumboardView';
+import Footer from './Footer/Footer'
 import Landing from './Landing/Landing';
 import Meetings from './Meetings/Meetings';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
@@ -25,6 +26,7 @@ const App = () => {
           <Route path="/overview" />
         </Switch>
       </main>
+
     </Router>
   );
 };
