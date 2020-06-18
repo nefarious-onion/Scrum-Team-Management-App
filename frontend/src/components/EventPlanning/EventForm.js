@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { createEvent } from '../../api_services/event.service';
+import './EventPlanning.css';
 
 const EventForm = () => {
   const [saveMessage, setSaveMessage] = useState();
@@ -143,13 +144,11 @@ const EventForm = () => {
 
   return (
     <>
-      <form>
-        <br></br>
-        <hr></hr>
-        <br></br>
+      <form className="event-form">
         {/* EVENT TITLE */}
-        <div className="form-section">
-          <label htmlFor="title1">Name of event*:</label>
+        <div className="event-form-section">
+          <label htmlFor="title1">
+            <h4>Name of event*:</h4>
           <input
             id="title"
             name="title"
@@ -157,13 +156,12 @@ const EventForm = () => {
             value={newEvent.title}
             onChange={handleInputChange}
           />
+          </label>
         </div>
-        <br></br>
-        <hr></hr>
-        <br></br>
         {/* EVENT START DATE */}
-        <div className="form-section">
-          <label htmlFor="startDate">Start date of event*:</label>
+        <div className="event-form-section">
+          <label htmlFor="startDate">
+            <h4>Start date of event*:</h4>
           <input
             id="startDate"
             name="startDate"
@@ -171,10 +169,12 @@ const EventForm = () => {
             value={startStrings.startDate}
             onChange={inputStartDateTime}
           />
+          </label>
         </div>
         {/* EVENT START TIME */}
-        <div className="form-section">
-          <label htmlFor="startTime">Start time of event:</label>
+        <div className="event-form-section">
+          <label htmlFor="startTime">
+            <h4>Start time of event:</h4>
           <input
             id="startTime"
             name="startTime"
@@ -182,13 +182,12 @@ const EventForm = () => {
             value={startStrings.startTime}
             onChange={inputStartDateTime}
           />
+          </label>
         </div>
-        <br></br>
-        <hr></hr>
-        <br></br>
         {/* EVENT END DATE */}
-        <div className="form-section">
-          <label htmlFor="endDate">End date of event:</label>
+        <div className="event-form-section">
+          <label htmlFor="endDate">
+            <h4>End date of event:</h4>
           <input
             id="endDate"
             name="endDate"
@@ -196,11 +195,13 @@ const EventForm = () => {
             value={endStrings.endDate}
             onChange={inputEndDateTime}
           />
-          <p>(If no end date provided, the event is marked as all day long)</p>
+          </label>
+          
         </div>
         {/* EVENT END TIME */}
-        <div className="form-section">
-          <label htmlFor="endTime">End time of event:</label>
+        <div className="event-form-section">
+          <label htmlFor="endTime">
+            <h4>End time of event:</h4>
           <input
             id="endTime"
             name="endTime"
@@ -208,12 +209,11 @@ const EventForm = () => {
             value={endStrings.endTime}
             onChange={inputEndDateTime}
           />
+          <div className="event-form-note">(If no end date provided, the event is marked as all day long)</div>
+          </label>
         </div>
-        <br></br>
-        <hr></hr>
-        <br></br>
         {/* RECURRENCE OF EVENT */}
-        <div className="form-section">
+        <div className="event-form-section">
           <h4>How often do you want this meeting to happen?</h4>
           <input
             type="radio"
@@ -223,7 +223,7 @@ const EventForm = () => {
             checked={checkedRecurOption === 'one-time'}
             onChange={recurrenceRadioBtns}
           />
-          <label htmlFor="one-time">Just once</label>
+          <label htmlFor="one-time"> Just once</label>
           <br></br>
           <input
             type="radio"
@@ -233,7 +233,7 @@ const EventForm = () => {
             checked={checkedRecurOption === 'daily-mon-fri'}
             onChange={recurrenceRadioBtns}
           />
-          <label htmlFor="daily-mon-fri">Every day Monday to Friday</label>
+          <label htmlFor="daily-mon-fri"> Every day Monday to Friday</label>
           <br></br>
           <input
             type="radio"
@@ -243,7 +243,7 @@ const EventForm = () => {
             checked={checkedRecurOption === 'weekly-fri'}
             onChange={recurrenceRadioBtns}
           />
-          <label htmlFor="weekly-fri">Every week on Friday</label>
+          <label htmlFor="weekly-fri"> Every week on Friday</label>
           <br></br>
           <input
             type="radio"
@@ -253,13 +253,13 @@ const EventForm = () => {
             checked={checkedRecurOption === 'weekly-mon'}
             onChange={recurrenceRadioBtns}
           />
-          <label htmlFor="weekly-mon">Every week on Monday</label>
+          <label htmlFor="weekly-mon"> Every week on Monday</label>
+          <br></br>
         </div>
         {/* EVENT RECURRENCE START DATE */}
-        <div className="form-section">
+        <div className="event-form-section">
           <label htmlFor="startRecurDate">
-            Start of the recurrence period:
-          </label>
+            <h4>Start of the recurrence period:</h4>
           <input
             id="startRecurDate"
             name="startRecurDate"
@@ -267,10 +267,12 @@ const EventForm = () => {
             value={startRecurDate}
             onChange={inputStartRecurDate}
           />
+          </label>
         </div>
         {/* EVENT RECURRENCE END DATE */}
-        <div className="form-section">
-          <label htmlFor="endRecurDate">End date of event:</label>
+        <div className="event-form-section">
+          <label htmlFor="endRecurDate">
+            <h4>End date of event:</h4>
           <input
             id="endRecurDate"
             name="endRecurDate"
@@ -278,17 +280,13 @@ const EventForm = () => {
             value={endRecurDate}
             onChange={inputEndRecurDate}
           />
+          </label>
         </div>
-        <br></br>
-        <hr></hr>
-        <br></br>
-        <div>
-          <p>Fields marked with * are required.</p>
+        <div className="event-form-note">
+          Fields marked with * are required.
         </div>
-        <br></br>
         {showSaveMessage && saveMessage}
-        <br></br>
-        <button type="submit" onClick={addEvent}>
+        <button className="event-form-btn primary-btn" type="submit" onClick={addEvent}>
           Save event to calendar
         </button>
       </form>
