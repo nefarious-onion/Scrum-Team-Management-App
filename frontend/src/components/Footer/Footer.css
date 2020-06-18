@@ -3,4 +3,37 @@ footer {
   width: 100%;
   height: 5rem;
   background-color: hsla(150, 60%, 65%, 1);
+  bottom: 0;
+  position: sticky;
+  display: grid;
+}
+
+.footer_container {
+  display: grid;
+  grid-template-columns: 33, 3% 33, 3% 33, 3%;
+  justify-items: center;
+  align-items: center;
+}
+
+.first_link {
+  display: grid;
+  grid-column: 1;
+  justify-content: center;
+}
+.second_link {
+  display: grid;
+  grid-column: 2;
+  justify-content: center;
+}
+.third_link {
+  display: grid;
+  grid-column: 3;
+  justify-content: center;
+}
+
+.footer_item {
+  width: 100%;
+  list-style: none;
+  text-decoration: none;
+  color: black;
 }

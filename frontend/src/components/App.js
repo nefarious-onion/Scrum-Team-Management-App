@@ -26,7 +26,7 @@ const App = () => {
           <Route path="/overview" />
         </Switch>
       </main>
-      <Footer />
+
     </Router>
   );
 };
