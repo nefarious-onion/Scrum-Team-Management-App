@@ -31,10 +31,10 @@ const DeleteUserstory = ({ listName, onStoryDelete, storyToDelete, onCloseDelete
         <>
             <div className='form-overlay' onClick={onCloseDeleteStory} ></div>
             <div className={`delete-confirm ${currentListStyle}`}>
-                <h2>Do you really want to delete this userstory: </h2>
+                <h2>Do you really want to delete this userstory?</h2>
                 <p>{storyToDelete.title}</p>
-                <button onClick={onClickConfirmDelete}>Yes</button>
-                <button onClick={onClickCancelDelete}>Cancel</button>
+                <button className="delete-cancel-btn delete" onClick={onClickConfirmDelete}>Yes, delete</button>
+                <button className="delete-cancel-btn cancel" onClick={onClickCancelDelete}>Cancel</button>
             </div>
         </>
     );

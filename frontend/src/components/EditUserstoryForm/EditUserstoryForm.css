@@ -8,6 +8,7 @@
   display: grid;
   justify-items: center;
   align-items: center;
+  z-index: 700;
 }
 
 .editform-container {
@@ -23,6 +24,7 @@
   display: grid;
   grid-template-rows: auto;
   height: auto;
+  z-index: 1000;
 }
 
 .edit-panel {

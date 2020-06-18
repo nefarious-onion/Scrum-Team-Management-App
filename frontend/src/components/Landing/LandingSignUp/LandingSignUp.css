@@ -33,7 +33,6 @@
 .contact-form input.input-field {
   width: 100%;
   font: inherit;
-  box-sizing: border-box;
   border: 1px solid #c2c2c2;
   box-shadow: 1px 1px 4px #ebebeb;
   -moz-box-shadow: 1px 1px 4px #ebebeb;

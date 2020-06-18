@@ -6,3 +6,7 @@
   align-items: center;
   grid-template-columns: 2rem auto 2rem;
 }
+
+.delete-story-btn {
+  justify-self: flex-end;
+}

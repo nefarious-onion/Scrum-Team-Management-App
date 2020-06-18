@@ -212,7 +212,6 @@ const BacklogView = () => {
                 <div className="backlogview-container">
                     <div className='backloglist-wrapper productBacklog-light'>
                         <div className='backloglist__header-wrapper'>
-                            <FontAwesomeIcon icon={faEllipsisH} />
                             <h1 className='backloglist__header'>Product Backlog</h1>
                             <FontAwesomeIcon icon={faInfoCircle} className='info-icon' spin data-tip data-for='productBacklog' />
                             <ReactTooltip id='productBacklog' place='bottom' className='tooltip'>
@@ -235,7 +234,6 @@ const BacklogView = () => {
                     </div>
                     <div className='backloglist-wrapper sprintBacklog-light'>
                         <div className='backloglist__header-wrapper'>
-                            <FontAwesomeIcon icon={faEllipsisH} />
                             <h1 className='backloglist__header'>Sprint Backlog</h1>
                             <FontAwesomeIcon icon={faInfoCircle} className='info-icon' spin data-tip data-for='sprintBacklog' />
                             <ReactTooltip id='sprintBacklog' place='bottom' className='tooltip'>
