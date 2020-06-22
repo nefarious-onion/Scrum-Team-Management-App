@@ -1,13 +1,13 @@
 footer {
-  background-color: blueviolet;
   width: 100%;
-  height: 5rem;
+  height: 2rem;
   background-color: hsla(150, 60%, 65%, 1);
-  bottom: 0;
-  position: sticky;
-  display: grid;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-
+/*
+grid for links once we want to have some 
 .footer_container {
   display: grid;
   grid-template-columns: 33, 3% 33, 3% 33, 3%;
@@ -17,18 +17,18 @@ footer {
 
 .first_link {
   display: grid;
-  grid-column: 1;
-  justify-content: center;
+  grid-column: 3;
+  justify-content: space-between;
 }
 .second_link {
   display: grid;
-  grid-column: 2;
-  justify-content: center;
+  grid-column: 3;
+  justify-content: space-between;
 }
 .third_link {
   display: grid;
   grid-column: 3;
-  justify-content: center;
+  justify-content: space-between;
 }
 
 .footer_item {
@@ -37,3 +37,4 @@ footer {
   text-decoration: none;
   color: black;
 }
+*/
