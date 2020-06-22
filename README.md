@@ -10,7 +10,7 @@ includes
 - a scrum board with draggable user stories
 - fully integrated calendar
 
-Get started [here](https://dashboard.heroku.com/apps/scrum-team-management-app)!
+Get started [here](https://scrum-team-management-app.herokuapp.com)!
 
 ## Technologies and libraries used for this project
 - ReactJS
