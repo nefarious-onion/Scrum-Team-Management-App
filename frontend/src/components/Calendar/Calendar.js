@@ -16,6 +16,7 @@ const Calendar = () => {
     const fetchEvents = async () => {
         const _events = await getEvents();
         setEvents(_events);
+        console.log('fetching events', _events)
     }
 
     const onToggleWeekend = () => {
@@ -24,21 +25,22 @@ const Calendar = () => {
 
     const onDateClick = async (dateClickInfo) => {
         console.log(dateClickInfo);
+        alert('You clicked ' + dateClickInfo.dateStr + '!! One day that will creare an event')
         //dateClickInfo.dayEl.style.backgroundColor = 'red';
-        if (window.confirm('would you like to add an event to ' + dateClickInfo.dateStr)) {
-            try {
-                const newEvent = {
-                    title: 'new event',
-                    start: dateClickInfo.date,
-                    allDay: true,
-                }
-                await createEvent(newEvent);
+        // if (window.confirm('would you like to add an event to ' + dateClickInfo.dateStr)) {
+        //     try {
+        //         const newEvent = {
+        //             title: 'new event',
+        //             start: dateClickInfo.date,
+        //             allDay: true,
+        //         }
+        //         await createEvent(newEvent);
 
-            } catch (error) {
-                console.log('Something went wrong', error);
-            }
-            fetchEvents();
-        }
+        //     } catch (error) {
+        //         console.log('Something went wrong', error);
+        //     }
+        //     fetchEvents();
+        // }
     }
     const onEventClick = (eventClickInfo) => {
         const event = eventClickInfo.event;
@@ -61,8 +63,8 @@ const Calendar = () => {
     useEffect(() => {
         getEvents()
             .then(events => {
-                console.log(events)
                 setEvents(events);
+                console.log(events)
             })
             .catch(error => console.log(error));
     }, []);
