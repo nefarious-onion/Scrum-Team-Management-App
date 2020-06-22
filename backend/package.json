@@ -1,7 +1,7 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "description": "",
+  "description": "scrum based team management tool for beginners",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -9,8 +9,8 @@
     "start": "cross-env NODE_ENV=production node ./app.js"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "Anne Kokkonen, Beata Kuśnierz, Jonne Paljakka",
+  "license": "MIT",
   "dependencies": {
     "cross-env": "^7.0.2",
     "dotenv": "^8.2.0",
