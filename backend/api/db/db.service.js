@@ -1,10 +1,10 @@
 // DB connection
-
+require('dotenv').config()
 const mongoose = require('mongoose');
 
 const DBconnection = () => {
   mongoose.connect(
-    'mongodb+srv://lira-api:liradev@cluster0-hgg6n.mongodb.net/lira?retryWrites=true&w=majority',
+    process.env.DB,
     {
       useNewUrlParser: true,
       useUnifiedTopology: true,
