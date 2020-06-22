@@ -1,46 +1,46 @@
 .backlogview-container {
-    width: 100%;
-    height: calc(100vh - 5rem);
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-gap: 1rem;
-    padding: 1rem;
-  }
-  .backloglist-wrapper {
-    background-color: darkgoldenrod;
-    padding: 1rem;
-    height: 100%;
-  }
-  .backloglist__header-wrapper {
-    display: grid;
-    grid-template-columns: auto 10% auto;
-    align-items: center;
-    justify-items: center;
-    padding-bottom: .5rem;
-  }
-   
-  .add-userstory-btn {
-    font-family: inherit;
-    font-size: 1.05rem;
-    font-weight: 500;
-    padding: .3rem .5rem;
-    border-radius: 2px;
-    border: 2px black solid;
-    background-color: inherit;
-  }
+  width: 100%;
+  height: calc(100vh - 7rem);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 1rem;
+  padding: 1rem;
+}
+.backloglist-wrapper {
+  background-color: darkgoldenrod;
+  padding: 1rem;
+  height: 100%;
+}
+.backloglist__header-wrapper {
+  display: grid;
+  grid-template-columns: auto 10% auto;
+  align-items: center;
+  justify-items: center;
+  padding-bottom: 0.5rem;
+}
 
-  .productBacklog {
-    background-color: hsla(270, 60%, 65%, 1);
-  }
-  .productBacklog-light {
-    background-color: hsla(270, 60%, 65%, 0.7);
-  }
-  .sprintBacklog {
-    background-color: hsla(55, 60%, 65%, 1);
-  }
-  .sprintBacklog-light {
-    background-color: hsla(55, 60%, 65%, 0.7);
-  }
+.add-userstory-btn {
+  font-family: inherit;
+  font-size: 1.05rem;
+  font-weight: 500;
+  padding: 0.3rem 0.5rem;
+  border-radius: 2px;
+  border: 2px black solid;
+  background-color: inherit;
+}
+
+.productBacklog {
+  background-color: hsla(270, 60%, 65%, 1);
+}
+.productBacklog-light {
+  background-color: hsla(270, 60%, 65%, 0.7);
+}
+.sprintBacklog {
+  background-color: hsla(55, 60%, 65%, 1);
+}
+.sprintBacklog-light {
+  background-color: hsla(55, 60%, 65%, 0.7);
+}
 
 .info-icon {
   font-size: 1.5rem;

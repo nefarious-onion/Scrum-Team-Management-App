@@ -1,7 +1,7 @@
 //initialize contentful
 const client = require('contentful').createClient({
-    space: 'n041sndlsw1t',
-    accessToken: 'Bu4RwmRWubJ2JzRGJxE-uf1ikkfpCa7XoUgVMx12pnE'
+    space: process.env.REACT_APP_CONTENTFUL_SPACE,
+    accessToken: process.env.REACT_APP_CONTENTFUL_ACCESSTOKEN
 })
 //passes getAllEntries
 export const getAllEntries = () =>

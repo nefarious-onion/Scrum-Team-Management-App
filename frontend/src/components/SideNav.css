@@ -6,7 +6,7 @@
 
 .side-navbar {
   background-color: hsl(60, 60%, 65%);
-  height: calc(100vh - 5rem);
+  height: calc(100vh);
   position: sticky;
   left: 0px;
   top: 5rem;
