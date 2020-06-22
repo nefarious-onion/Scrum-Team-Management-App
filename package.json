@@ -12,7 +12,7 @@
     "start": "cd backend && node app.js"
   },
   "keywords": [],
-  "author": "Anne Kokkonen, Jonne Paljakka and Bea Kuśnierz",
+  "author": "Anne Kokkonen",
   "license": "ISC",
   "dependencies": {
     "dotenv": "^8.2.0"
