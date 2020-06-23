@@ -9,9 +9,9 @@ const OverviewMeet = () => {
       <p>{data.overview.content.par2}</p>
       <p>
         {data.overview.content.par3.part1}
-        <a target="_blank" href="https://www.scrum.org/">scrum.org</a>
+        <a target="_blank" rel="noopener noreferrer" href="https://www.scrum.org/">scrum.org</a>
         {data.overview.content.par3.part2}
-        <a target="_blank" href="https://www.atlassian.com/agile/scrum">altassian.com</a>
+        <a target="_blank" rel="noopener noreferrer" href="https://www.atlassian.com/agile/scrum">altassian.com</a>
         {data.overview.content.par3.part3}
       </p>
     </div>
